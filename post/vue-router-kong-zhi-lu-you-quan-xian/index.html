@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+     <meta charset="utf-8" />
+  <title>vue-router 控制路由权限 | zss - Blog</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <link rel="stylesheet" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/styles/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+   <script src="https://cdn.staticfile.org/highlight.js/9.15.9/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+ </head>
+ <body>
+     <div class="sidebar animated fadeInDown">
+   <div class="logo-title">
+    <div class="title">
+     <img src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/images/avatar.png?v=1625715840623" style="width:127px;" />
+
+     <div class="description">
+      <p>温故而知新</p>
+     </div>
+    </div>
+   </div>
+   <ul class="social-links">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+   </ul>
+   <div class="footer">
+    <div class="by_farbox">
+   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    
+
+    </div>
+   </div>
+  </div>
+  <div class="main">
+     <div class="page-top animated fadeInDown">
+    <div class="nav">
+    
+     <li><a  href="/">首页</a></li>
+
+     <li><a  href="/archives">归档</a></li>
+
+     <li><a  href="/tags">标签</a></li>
+
+     <li><a  href="/post/about">关于</a></li>
+
+     <li><a  href="/tag/ay0H2xLOg/">Vue</a></li>
+
+     <li><a  href="/post/weekly/">前端周报</a></li>
+
+     <li><a  href="/post/da-shen-bo-ke/">大神博客</a></li>
+
+    </div>
+    <div class="information">
+     <div class="back_btn">
+      <li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li>
+     </div>
+    </div>
+   </div>
+   <div class="autopagerize_page_element">
+    <div class="content">
+     <div class="post-page">
+      <div class="post animated fadeInDown">
+       <div class="post-title">
+        <h3><a>vue-router 控制路由权限</a></h3>
+       </div>
+       <div class="post-content">
+        <pre><code class="language-js">// src/utils/index.js
+const { pathToRegexp } = require('path-to-regexp');
+
+export function getAuthRouters(authMenu) {
+    let authRouters = [];
+    (authMenu || []).forEach((item) =&gt; {
+        const { resourceUrl, childMenu } = item;
+        resourceUrl &amp;&amp; authRouters.push(resourceUrl);
+        if (childMenu &amp;&amp; childMenu.length &gt; 0) {
+            // 合并子级菜单
+            authRouters = [...authRouters, ...getAuthRouters(childMenu)];
+        }
+    });
+    return authRouters;
+}
+/**
+ *
+ * @param { Array } authRouters
+ */
+export function createAuthRouters(authRouters) {
+    const isAuthUrl = (url) =&gt; {
+        return (authRouters || []).some((cUrl) =&gt; {
+            return pathToRegexp(url).toString() === pathToRegexp(cUrl).toString();
+        });
+    };
+    return function createRouters(routers, upperPath) {
+        let nRouters = [];
+        (routers || []).forEach((item) =&gt; {
+            const { children, path, name } = item;
+            let isMatched = false,
+                nItem = { ...item },
+                fullPath = `${upperPath || ''}/${path}`.replace(/\/{2,}/, '/'),
+                nChildren = null;
+            children &amp;&amp; (nChildren = createRouters(children, fullPath));
+            // 1.当前路由匹配
+            if (isAuthUrl(fullPath)) {
+                isMatched = true;
+            }
+            // 2.存在子路由匹配
+            if (nChildren &amp;&amp; nChildren.length &gt; 0) {
+                nItem.children = nChildren;
+                isMatched = true;
+            }
+            // 特殊处理
+            if(name === &quot;home&quot;){
+                isMatched = true;
+            }
+            // nItem
+            isMatched &amp;&amp; nRouters.push(nItem);
+        });
+        return nRouters;
+    };
+}
+
+// src/router.js
+
+import Vue from 'vue';
+import Store from '@/store';
+import Router from 'vue-router';
+import Cookie from 'js-cookie';
+
+const openRouters = [];
+const authRouters = [{
+    path : &quot;order/list&quot;,
+    // ...
+    meta : {
+        // 是否身份验证(至于默认定义false还是true由开发者自定义)
+        isAuth : true
+    }
+}];
+
+/* 动态注册路由 */
+async function AddRoutes() {
+    // 获取用户路由权限
+    let res = await POST(API.AUTH_RESOURCE_LISTSIDEMENU);
+    try {
+        const { code, data } = res || {};
+        if (code === '000') {
+            let newAuthRoutes = createAuthRouters(getAuthRouters(data))(authRouters, routes.options.base);
+            // 注册路由
+            routes.addRoutes([].concat(newAuthRoutes, openRouters));
+            // 设置已注册
+            Store.commit('UPDATE_IS_ADD_ROUTERS', true);
+            // 保存菜单信息
+            Store.commit('UPDATE_MENU_INFO', data);
+        }
+    } catch (error) {
+        console.error('&gt;&gt;&gt; AddRoutes() - error:', error);
+    }
+}
+
+
+/* 路由前置 */
+let { origin } = window.location || {};
+routes.beforeEach((to, from, next) =&gt; {
+    const { meta, matched, path } = to;
+    let isMatched = matched &amp;&amp; matched.length &gt; 0; // 是否匹配
+    let isAuth = (meta || {}).isAuth; // 是否授权访问
+    let { isAddRoutes } = Store.state; // 注册路由
+    let isLogin = Cookie.get('token') || null; // 是否登录
+    if ((isMatched &amp;&amp; !isAuth) || (isMatched &amp;&amp; isAuth &amp;&amp; isLogin)) {
+        // next()
+        // 1.匹配路由 &amp;&amp; 未登录访问
+        // 2.匹配路由 &amp;&amp; 登录访问 &amp;&amp; 登录
+        next();
+    } else if ((isMatched &amp;&amp; isAuth &amp;&amp; !isLogin) || (!isMatched &amp;&amp; !isLogin)) {
+        // 登录
+        // 1.匹配路由 &amp;&amp; 登录访问 &amp;&amp; 未登录
+        // 2.未匹配路由 &amp;&amp; 未登录
+        next(`/login?r=${origin}/e-lottery${path}`);
+    } else if (!isMatched &amp;&amp; isLogin &amp;&amp; isAddRoutes) {
+        // 404
+        // 1.未匹配路由 &amp;&amp; 登录 &amp;&amp; 动态注册路由
+        next('/404');
+    } else if (!isMatched &amp;&amp; isLogin &amp;&amp; !isAddRoutes) {
+        // 注册路由
+        // 1.未匹配路由 &amp;&amp; 登录 &amp;&amp; 未动态注册路由
+        AddRoutes();
+        next();
+    }
+});
+
+</code></pre>
+
+       </div>
+       <div class="post-footer">
+        <div class="meta">
+         <div class="info">
+          <i class="fa fa-sun-o"></i>
+          <span class="date">2020-09-24</span>
+          <i class="fa fa-tag"></i>
+          
+          <a class="tag" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/tag/ED6QfO3Ny/" title="递归">递归 </a>
+          
+          <a class="tag" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/tag/kSJZVvO9m/" title="vue-router">vue-router </a>
+          
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="share">
+       <div class="evernote">
+        <a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a>
+       </div>
+       <div class="weibo">
+        <a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a>
+       </div>
+       <div class="twitter">
+        <a class="fa fa-twitter" href="http://twitter.com/home?status=,https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/vue-router-kong-zhi-lu-you-quan-xian/,;"></a>
+       </div>
+      </div>
+      <div class="pagination">
+       <ul class="clearfix">
+
+        <li class="pre pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/yi-mu-liao-ran-de-zhu-shi/" title="一目了然的注释">上一篇</a></li>
+         
+        
+        <li class="next pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/treedata-2-flatdata/" title=" treeData 2 flatData">下一篇</a></li>
+        
+       </ul>
+      </div>
+        
+     </div>
+    </div>
+   </div>
+  </div>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.appear.js"></script>
+
+
+ </body>
+</html>

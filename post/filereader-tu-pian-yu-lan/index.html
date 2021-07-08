@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+     <meta charset="utf-8" />
+  <title>fileReader 图片预览 | zss - Blog</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <link rel="stylesheet" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/styles/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+   <script src="https://cdn.staticfile.org/highlight.js/9.15.9/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+ </head>
+ <body>
+     <div class="sidebar animated fadeInDown">
+   <div class="logo-title">
+    <div class="title">
+     <img src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/images/avatar.png?v=1625715840623" style="width:127px;" />
+
+     <div class="description">
+      <p>温故而知新</p>
+     </div>
+    </div>
+   </div>
+   <ul class="social-links">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+   </ul>
+   <div class="footer">
+    <div class="by_farbox">
+   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    
+
+    </div>
+   </div>
+  </div>
+  <div class="main">
+     <div class="page-top animated fadeInDown">
+    <div class="nav">
+    
+     <li><a  href="/">首页</a></li>
+
+     <li><a  href="/archives">归档</a></li>
+
+     <li><a  href="/tags">标签</a></li>
+
+     <li><a  href="/post/about">关于</a></li>
+
+     <li><a  href="/tag/ay0H2xLOg/">Vue</a></li>
+
+     <li><a  href="/post/weekly/">前端周报</a></li>
+
+     <li><a  href="/post/da-shen-bo-ke/">大神博客</a></li>
+
+    </div>
+    <div class="information">
+     <div class="back_btn">
+      <li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li>
+     </div>
+    </div>
+   </div>
+   <div class="autopagerize_page_element">
+    <div class="content">
+     <div class="post-page">
+      <div class="post animated fadeInDown">
+       <div class="post-title">
+        <h3><a>fileReader 图片预览</a></h3>
+       </div>
+       <div class="post-content">
+        <p>File API使得我们在浏览器端可以访问文件的数据,比如预览文件,获取文件信息(比如文件名,文件内容,文件大小等), 并且可以在前端实现文件下载(可以借助canvas和 window.URL.revokeObjectURL的一些能力).当然我们还可以实现拖拽上传文件这样高用户体验的操作.接下来我们来看看几个实际例子.</p>
+<pre><code class="language-js">function previewFiles(files, previewBox) {
+    for (var i = 0; i &lt; files.length; i++) {
+      var file = files[i];
+      var imageType = /^image\//;
+      
+      if (!imageType.test(file.type)) {
+        continue;
+      }
+      
+      var img = document.createElement(&quot;img&quot;);
+      previewBox.appendChild(img); // 假设&quot;preview&quot;就是用来显示内容的div
+      
+      var reader = new FileReader();
+      reader.onload = (function(imgEl) { 
+        return function(e) { imgEl.src = e.target.result; }; 
+      })(img);
+      reader.readAsDataURL(file);
+    }
+  }
+
+</code></pre>
+
+       </div>
+       <div class="post-footer">
+        <div class="meta">
+         <div class="info">
+          <i class="fa fa-sun-o"></i>
+          <span class="date">2020-04-20</span>
+          <i class="fa fa-tag"></i>
+          
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="share">
+       <div class="evernote">
+        <a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a>
+       </div>
+       <div class="weibo">
+        <a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a>
+       </div>
+       <div class="twitter">
+        <a class="fa fa-twitter" href="http://twitter.com/home?status=,https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/filereader-tu-pian-yu-lan/,;"></a>
+       </div>
+      </div>
+      <div class="pagination">
+       <ul class="clearfix">
+
+        <li class="pre pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/treenest/" title="treeNest">上一篇</a></li>
+         
+        
+        <li class="next pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/axios-jie-kou-xiang-ying-lan-jie-chu-li/" title=" Axios 接口响应拦截处理">下一篇</a></li>
+        
+       </ul>
+      </div>
+        
+     </div>
+    </div>
+   </div>
+  </div>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.appear.js"></script>
+
+
+ </body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+     <meta charset="utf-8" />
+  <title>Axios 接口响应拦截处理 | zss - Blog</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <link rel="stylesheet" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/styles/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+   <script src="https://cdn.staticfile.org/highlight.js/9.15.9/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+ </head>
+ <body>
+     <div class="sidebar animated fadeInDown">
+   <div class="logo-title">
+    <div class="title">
+     <img src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/images/avatar.png?v=1625715840623" style="width:127px;" />
+
+     <div class="description">
+      <p>温故而知新</p>
+     </div>
+    </div>
+   </div>
+   <ul class="social-links">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+   </ul>
+   <div class="footer">
+    <div class="by_farbox">
+   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    
+
+    </div>
+   </div>
+  </div>
+  <div class="main">
+     <div class="page-top animated fadeInDown">
+    <div class="nav">
+    
+     <li><a  href="/">首页</a></li>
+
+     <li><a  href="/archives">归档</a></li>
+
+     <li><a  href="/tags">标签</a></li>
+
+     <li><a  href="/post/about">关于</a></li>
+
+     <li><a  href="/tag/ay0H2xLOg/">Vue</a></li>
+
+     <li><a  href="/post/weekly/">前端周报</a></li>
+
+     <li><a  href="/post/da-shen-bo-ke/">大神博客</a></li>
+
+    </div>
+    <div class="information">
+     <div class="back_btn">
+      <li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li>
+     </div>
+    </div>
+   </div>
+   <div class="autopagerize_page_element">
+    <div class="content">
+     <div class="post-page">
+      <div class="post animated fadeInDown">
+       <div class="post-title">
+        <h3><a>Axios 接口响应拦截处理</a></h3>
+       </div>
+       <div class="post-content">
+        <p>接口响应的拦截主要是对接口返回的数据进行提取、封装使用，以及对请求异常进行统一配置处理。</p>
+<pre><code class="language-js">request.interceptors.response.use(
+  response =&gt; {
+    const data = response.data || {};
+    return data;
+  },
+  error =&gt; {
+    const code = error.response.status;
+    if (code) {
+      let msg = '';
+      switch (code) {
+        case 400:
+          msg = '请求错误';
+          break;
+        case 401:
+          msg = '未授权，请登录';
+          break;
+        case 403:
+          msg = '拒绝访问';
+          break;
+        case 404:
+          msg = `请求${error.response.config.url}出现404错误`;
+          break;
+        case 408:
+          msg = '请求超时';
+          break;
+        case 500:
+          msg = '服务器内部错误';
+          break;
+        case 501:
+          msg = '服务未实现';
+          break;
+        case 502:
+          msg = '网关错误';
+          break;
+        case 503:
+          msg = '服务不可用';
+          break;
+        case 504:
+          msg = '网关超时';
+          break;
+        case 505:
+          msg = 'HTTP版本不受支持';
+          break;
+      }
+      Message.error(msg);
+    }
+    return Promise.reject(error);
+  }
+)
+
+</code></pre>
+<h4 id="api方法封装">API方法封装</h4>
+<p>单独封装接口请求方法， GET方法的参数为params，POST方法的参数为data。</p>
+<pre><code class="language-js">// api.js
+import request from '@/utils/request';
+
+export function APIPostMethod(data) { // 自定义接口方法
+  return request({
+    url: '/url1',
+    method: 'post',
+    data
+  });
+}
+export function APIGetMethod(params) { // 自定义接口方法
+  return request({
+    url: '/url2',
+    method: 'get',
+    params
+  });
+}
+
+</code></pre>
+<p>在业务中调用API方法</p>
+<pre><code class="language-js">import { APIGetMethod, APIPostMethod } from '@/utils/request';
+const params = {}
+APIGetMethod(params).then(res =&gt; {
+//...
+//对数据处理
+})
+
+</code></pre>
+
+       </div>
+       <div class="post-footer">
+        <div class="meta">
+         <div class="info">
+          <i class="fa fa-sun-o"></i>
+          <span class="date">2020-04-13</span>
+          <i class="fa fa-tag"></i>
+          
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="share">
+       <div class="evernote">
+        <a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a>
+       </div>
+       <div class="weibo">
+        <a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a>
+       </div>
+       <div class="twitter">
+        <a class="fa fa-twitter" href="http://twitter.com/home?status=,https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/axios-jie-kou-xiang-ying-lan-jie-chu-li/,;"></a>
+       </div>
+      </div>
+      <div class="pagination">
+       <ul class="clearfix">
+
+        <li class="pre pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/filereader-tu-pian-yu-lan/" title="fileReader 图片预览">上一篇</a></li>
+         
+        
+        <li class="next pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/prerender-spa-plugin/" title=" prerender-spa-plugin">下一篇</a></li>
+        
+       </ul>
+      </div>
+        
+     </div>
+    </div>
+   </div>
+  </div>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.appear.js"></script>
+
+
+ </body>
+</html>

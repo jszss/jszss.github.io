@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+     <meta charset="utf-8" />
+  <title>表格合并 | zss - Blog</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <link rel="stylesheet" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/styles/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+   <script src="https://cdn.staticfile.org/highlight.js/9.15.9/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+ </head>
+ <body>
+     <div class="sidebar animated fadeInDown">
+   <div class="logo-title">
+    <div class="title">
+     <img src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/images/avatar.png?v=1625715840623" style="width:127px;" />
+
+     <div class="description">
+      <p>温故而知新</p>
+     </div>
+    </div>
+   </div>
+   <ul class="social-links">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+   </ul>
+   <div class="footer">
+    <div class="by_farbox">
+   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    
+
+    </div>
+   </div>
+  </div>
+  <div class="main">
+     <div class="page-top animated fadeInDown">
+    <div class="nav">
+    
+     <li><a  href="/">首页</a></li>
+
+     <li><a  href="/archives">归档</a></li>
+
+     <li><a  href="/tags">标签</a></li>
+
+     <li><a  href="/post/about">关于</a></li>
+
+     <li><a  href="/tag/ay0H2xLOg/">Vue</a></li>
+
+     <li><a  href="/post/weekly/">前端周报</a></li>
+
+     <li><a  href="/post/da-shen-bo-ke/">大神博客</a></li>
+
+    </div>
+    <div class="information">
+     <div class="back_btn">
+      <li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li>
+     </div>
+    </div>
+   </div>
+   <div class="autopagerize_page_element">
+    <div class="content">
+     <div class="post-page">
+      <div class="post animated fadeInDown">
+       <div class="post-title">
+        <h3><a>表格合并</a></h3>
+       </div>
+       <div class="post-content">
+        <pre><code class="language-js">&lt;template&gt;
+  &lt;div class=&quot;tableBox&quot;&gt;
+    &lt;div class=&quot;buttons&quot;&gt;
+      &lt;a-button @click=&quot;onFilter&quot;&gt;取消过滤&lt;/a-button&gt;
+      &lt;a-button
+        v-for=&quot;item in filterArr&quot;
+        :key=&quot;item.value&quot;
+        @click=&quot;onFilter(item)&quot;
+        &gt;{{ item.value }}&lt;/a-button
+      &gt;
+    &lt;/div&gt;
+    &lt;a-table
+      :rowKey=&quot;(record, idx) =&gt; idx&quot;
+      :columns=&quot;columns&quot;
+      :data-source=&quot;tableData&quot;
+      :pagination=&quot;false&quot;
+      bordered
+    &gt;
+    &lt;/a-table&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  data() {
+    return {
+      columns: [
+        {
+          title: '',
+          dataIndex: 'title',
+          width: 120,
+          customRender: (text, row) =&gt; {
+            return {
+              children: `${text}`,
+              attrs: {
+                rowSpan: row.titleRowSpan
+              }
+            };
+          }
+        },
+        {
+          title: '部门',
+          dataIndex: 'department',
+          width: 120,
+          customRender: (text, row, index) =&gt; {
+            return {
+              children: `${text}`,
+              attrs: {
+                rowSpan: row.departmentRowSpan
+              }
+            };
+          }
+        },
+        {
+          title: '代码类型',
+          dataIndex: 'codeType',
+          width: 120
+        },
+        {
+          title: '总数',
+          dataIndex: 'totalCount',
+          width: 120
+        },
+        {
+          title: '修复',
+          dataIndex: 'fixCount',
+          width: 120
+        },
+        {
+          title: '未修复',
+          dataIndex: 'notFixedCount',
+          width: 120
+        },
+        {
+          title: '今日新增',
+          dataIndex: 'todayAdd',
+          width: 120
+        },
+        {
+          title: 'Bug类型',
+          dataIndex: 'bugType',
+          width: 120,
+          customRender: (text, row, index) =&gt; {
+            return {
+              children: `${text}`,
+              attrs: {
+                rowSpan: row.bugTypeRowSpan
+              }
+            };
+          }
+        }
+      ],
+      tableData: [
+        {
+          fixCount: 0,
+          id: 0,
+          codeType: '新代码',
+          bugType: 'ui展示问题',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发一部'
+        },
+        {
+          fixCount: 0,
+          id: 1,
+          codeType: '老代码',
+          bugType: 'ui展示问题',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发一部'
+        },
+
+        {
+          fixCount: 0,
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          bugType: 'ui展示问题',
+          codeType: 'ui展示问题总计',
+          title: 'bug总览',
+          department: '开发一部'
+        },
+
+        {
+          fixCount: 0,
+          id: 0,
+          codeType: '新代码',
+          bugType: '功能性bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发一部'
+        },
+        {
+          fixCount: 0,
+          id: 1,
+          codeType: '老代码',
+          bugType: '功能性bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发一部'
+        },
+
+        {
+          fixCount: 0,
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          bugType: '功能性bug',
+          codeType: '功能性bug总计',
+          title: 'bug总览',
+          department: '开发一部'
+        },
+
+        {
+          fixCount: 0,
+          id: 0,
+          codeType: '新代码',
+          bugType: '前端bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发一部'
+        },
+        {
+          fixCount: 0,
+          id: 1,
+          codeType: '老代码',
+          bugType: '前端bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发一部'
+        },
+
+        {
+          fixCount: 0,
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 3,
+          bugType: '前端bug',
+          codeType: '前端bug总计',
+          title: 'bug总览',
+          department: '开发一部'
+        },
+
+        {
+          fixCount: 0,
+          id: 0,
+          codeType: '新代码',
+          bugType: '后端bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发一部'
+        },
+        {
+          fixCount: 0,
+          id: 1,
+          codeType: '老代码',
+          bugType: '后端bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 2,
+          title: 'bug总览',
+          department: '开发一部'
+        },
+
+        {
+          fixCount: 0,
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 5,
+          bugType: '后端bug',
+          codeType: '后端bug总计',
+          title: 'bug总览',
+          department: '开发一部'
+        },
+
+        {
+          fixCount: 0,
+          id: 0,
+          codeType: '新代码',
+          bugType: '非bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发一部'
+        },
+        {
+          fixCount: 0,
+          id: 1,
+          codeType: '老代码',
+          bugType: '非bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发一部'
+        },
+
+        {
+          fixCount: 1,
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 5,
+          bugType: '非bug',
+          codeType: '非bug总计',
+          title: 'bug总览',
+          department: '开发一部'
+        },
+        {
+          fixCount: 0,
+          id: 0,
+          codeType: '新代码',
+          bugType: 'ui展示问题',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发二部'
+        },
+        {
+          fixCount: 0,
+          id: 1,
+          codeType: '老代码',
+          bugType: 'ui展示问题',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发二部'
+        },
+
+        {
+          fixCount: 0,
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          bugType: 'ui展示问题',
+          codeType: 'ui展示问题总计',
+          title: 'bug总览',
+          department: '开发二部'
+        },
+
+        {
+          fixCount: 0,
+          id: 0,
+          codeType: '新代码',
+          bugType: '功能性bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发二部'
+        },
+        {
+          fixCount: 0,
+          id: 1,
+          codeType: '老代码',
+          bugType: '功能性bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发二部'
+        },
+
+        {
+          fixCount: 0,
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          bugType: '功能性bug',
+          codeType: '功能性bug总计',
+          title: 'bug总览',
+          department: '开发二部'
+        },
+
+        {
+          fixCount: 0,
+          id: 0,
+          codeType: '新代码',
+          bugType: '前端bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发二部'
+        },
+        {
+          fixCount: 0,
+          id: 1,
+          codeType: '老代码',
+          bugType: '前端bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发二部'
+        },
+
+        {
+          fixCount: 0,
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 3,
+          bugType: '前端bug',
+          codeType: '前端bug总计',
+          title: 'bug总览',
+          department: '开发二部'
+        },
+
+        {
+          fixCount: 0,
+          id: 0,
+          codeType: '新代码',
+          bugType: '后端bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发二部'
+        },
+        {
+          fixCount: 0,
+          id: 1,
+          codeType: '老代码',
+          bugType: '后端bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 2,
+          title: 'bug总览',
+          department: '开发二部'
+        },
+
+        {
+          fixCount: 0,
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 5,
+          bugType: '后端bug',
+          codeType: '后端bug总计',
+          title: 'bug总览',
+          department: '开发二部'
+        },
+
+        {
+          fixCount: 0,
+          id: 0,
+          codeType: '新代码',
+          bugType: '非bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发二部'
+        },
+        {
+          fixCount: 0,
+          id: 1,
+          codeType: '老代码',
+          bugType: '非bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发二部'
+        },
+
+        {
+          fixCount: 1,
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 5,
+          bugType: '非bug',
+          codeType: '非bug总计',
+          title: 'bug总览',
+          department: '开发二部'
+        }
+      ]
+    };
+  },
+  methods: {
+    //  合并单元格
+    combineRow(key) {
+      const tableData = this.tableData;
+      for (var i = 0; i &lt; tableData.length; i++) {
+        const item = tableData[i];
+        let count = 1;
+        for (let j = i + 1; j &lt; tableData.length; j++) {
+          // 如果是同一个值，往后递增
+          if (item[key] === tableData[j][key]) {
+            count++;
+            // 往后相同的值都设为空单元格
+            tableData[j][`${key}RowSpan`] = 0;
+            // 只有同值第一个才设置合并的单元格数
+            item[`${key}RowSpan`] = count;
+            // 所有都是为同一个值的情况
+            // 如果到了尾部，
+            if (j === tableData.length - 1) {
+              return;
+            }
+          } else {
+            // 指针跳转到下一个，从下一排开始
+            i = j - 1;
+            count = 1;
+            tableData[j][`${key}RowSpan`] = 0;
+            break;
+          }
+        }
+        console.log(i);
+      }
+      this.tableData = tableData;
+    },
+    // 过滤组
+    filterGroup(targets) {
+      const res = this.tableData.reduce((obj, cur) =&gt; {
+        for (let i of targets) {
+          const item = { key: i, value: cur[i] };
+          if (!obj[item.value]) {
+            obj[item.value] = item;
+          }
+        }
+        return obj;
+      }, {});
+      return Object.values(res);
+    },
+    onFilter(params) {
+      this.tableData = JSON.parse(JSON.stringify(this.originTableData));
+      if (!params) {
+        return;
+      }
+      const { key, value } = params;
+      this.tableData = this.tableData.filter((item) =&gt; item[key] === value);
+      this.initCombineRow();
+    },
+    initCombineRow() {
+      this.combineRow('title');
+      this.combineRow('department');
+      this.combineRow('bugType');
+    }
+  },
+  created() {
+    this.initCombineRow();
+    this.originTableData = JSON.parse(JSON.stringify(this.tableData));
+    this.filterArr = this.filterGroup(['department', 'bugType']);
+  }
+};
+&lt;/script&gt;
+
+&lt;style lang=&quot;less&quot; scoped&gt;
+.tableBox {
+  width: 80vw;
+  margin: 0 auto;
+  .buttons {
+    margin: 10px 0;
+  }
+}
+/deep/.ant-table-bordered .ant-table-thead &gt; tr &gt; th,
+/deep/.ant-table-bordered .ant-table-tbody &gt; tr &gt; td {
+  padding: 2px;
+  text-align: center;
+}
+&lt;/style&gt;
+</code></pre>
+
+       </div>
+       <div class="post-footer">
+        <div class="meta">
+         <div class="info">
+          <i class="fa fa-sun-o"></i>
+          <span class="date">2021-06-16</span>
+          <i class="fa fa-tag"></i>
+          
+          <a class="tag" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/tag/X0WqTo9k-/" title="表格合并">表格合并 </a>
+          
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="share">
+       <div class="evernote">
+        <a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a>
+       </div>
+       <div class="weibo">
+        <a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a>
+       </div>
+       <div class="twitter">
+        <a class="fa fa-twitter" href="http://twitter.com/home?status=,https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/biao-ge-he-bing/,;"></a>
+       </div>
+      </div>
+      <div class="pagination">
+       <ul class="clearfix">
+
+        <li class="pre pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/dollaroptionsdata-chong-zhi-data/" title="$options.data 重置data">上一篇</a></li>
+         
+        
+        <li class="next pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/shu-xing-shu-ju-cha-zhao-zhi-ding-jie-dian-de-fu-jie-dian/" title=" 树形数据 查找指定节点的父节点">下一篇</a></li>
+        
+       </ul>
+      </div>
+        
+     </div>
+    </div>
+   </div>
+  </div>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.appear.js"></script>
+
+
+ </body>
+</html>

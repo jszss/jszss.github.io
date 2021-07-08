@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+     <meta charset="utf-8" />
+  <title>✈JS 获取当前位置的地理坐标（经纬度） | zss - Blog</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <link rel="stylesheet" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/styles/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+   <script src="https://cdn.staticfile.org/highlight.js/9.15.9/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+ </head>
+ <body>
+     <div class="sidebar animated fadeInDown">
+   <div class="logo-title">
+    <div class="title">
+     <img src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/images/avatar.png?v=1625715840623" style="width:127px;" />
+
+     <div class="description">
+      <p>温故而知新</p>
+     </div>
+    </div>
+   </div>
+   <ul class="social-links">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+   </ul>
+   <div class="footer">
+    <div class="by_farbox">
+   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    
+
+    </div>
+   </div>
+  </div>
+  <div class="main">
+     <div class="page-top animated fadeInDown">
+    <div class="nav">
+    
+     <li><a  href="/">首页</a></li>
+
+     <li><a  href="/archives">归档</a></li>
+
+     <li><a  href="/tags">标签</a></li>
+
+     <li><a  href="/post/about">关于</a></li>
+
+     <li><a  href="/tag/ay0H2xLOg/">Vue</a></li>
+
+     <li><a  href="/post/weekly/">前端周报</a></li>
+
+     <li><a  href="/post/da-shen-bo-ke/">大神博客</a></li>
+
+    </div>
+    <div class="information">
+     <div class="back_btn">
+      <li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li>
+     </div>
+    </div>
+   </div>
+   <div class="autopagerize_page_element">
+    <div class="content">
+     <div class="post-page">
+      <div class="post animated fadeInDown">
+       <div class="post-title">
+        <h3><a>✈JS 获取当前位置的地理坐标（经纬度）</a></h3>
+       </div>
+       <div class="post-content">
+        <p>使用getCurrentPosition方法实时获取当前Geolocation信息</p>
+<!-- more -->
+<pre><code class="language-javascript">navigator.geolocation.getCurrentPosition(
+        function (position) {
+            //获取地理位置成功时所做的处理
+    },
+        function (error) {
+            //获取地理位置信息失败时所做的处理
+    }, //以下是可选属性
+        {
+            enableHighAccuracy: true,//是否要求高精度的地理位置信息
+            timeout: 1000,//对地理位置信息的获取操作做超时限制，如果再该事件内未获取到地理位置信息，将返回错误
+            maximumAge:60*1000//设置缓存有效时间，在该时间段内，获取的地理位置信息还是设置此时间段之前的那次获得的信息，超过这段时间缓存的位置信息会被废弃
+        })
+</code></pre>
+<p><a href="https://www.cnblogs.com/qikeyishu/p/7708116.html">https://www.cnblogs.com/qikeyishu/p/7708116.html</a></p>
+<pre><code class="language-html">&lt;!Doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;keywords&quot; content=&quot;关键词&quot;/&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;描述&quot;/&gt;
+    &lt;meta name=&quot;author&quot; content=&quot;奇客艺术&quot;/&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p id=&quot;GeoDisplay&quot;&gt;&lt;/p&gt;
+&lt;script&gt;
+    Geolocation();//执行Geolocation()函数
+    setInterval(Geolocation,100);//设置定时器，100ms执行一次Geolocation();实现实时获取
+    function getElem(id) {
+        return typeof id === 'string' ? document.getElementById(id):id;//typeof表示变量id的类型为字符串类型
+    }
+    var GetID = getElem(&quot;GeoDisplay&quot;);
+    function showMap(lat,lon) {//自定义了一个在浏览器上显示地理信息的函数
+    var str = &quot;您当前位置的维度：&quot;+lat+&quot;，经度：&quot;+lon;
+        GetID.innerHTML = str;
+    }
+    function Geolocation() {
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(
+                function (position) {//传入了对象position
+                    showMap(position.coords.latitude,position.coords.longitude);
+                },
+                function (err) {//传入了error对象
+                    GetID.innerHTML = err.code + '\n'+err.message;//Firefox3.6以上不支持error对象的message属性
+                    //error对象的code属性有如下属性值:
+                    //PERMISSION_DENIED(1):(permission_denied):用户单机信息条上的“不共享”按钮或直接拒绝被获取位置信息
+                    //POSITION_UNAVAILABLE(2):(position_unavailable):(position_unavailable)网络不可用或者无法连接到获取位置信息的卫星
+                    //TIMEOUT(3):(timeout)网络可用但在计算机用户的位置上花费过长时间
+                    //UNKNOWN_ERROR(0):(unknown_error)发生其他未知错误
+                })
+            }else {
+                GetID.innerHTML = &quot;您当前使用的浏览器不支持地理定位服务&quot;;
+        }
+    }
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+       </div>
+       <div class="post-footer">
+        <div class="meta">
+         <div class="info">
+          <i class="fa fa-sun-o"></i>
+          <span class="date">2019-09-10</span>
+          <i class="fa fa-tag"></i>
+          
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="share">
+       <div class="evernote">
+        <a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a>
+       </div>
+       <div class="weibo">
+        <a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a>
+       </div>
+       <div class="twitter">
+        <a class="fa fa-twitter" href="http://twitter.com/home?status=,https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/js-huo-qu-dang-qian-wei-zhi-de-di-li-zuo-biao-jing-wei-du/,;"></a>
+       </div>
+      </div>
+      <div class="pagination">
+       <ul class="clearfix">
+
+        <li class="pre pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/dan-xing-ju-zhong-liang-xing-ju-zuo-duo-xing-sheng-lue/" title="🈶单行居中两行居左多行省略">上一篇</a></li>
+         
+        
+        <li class="next pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/eventcurrenttarget-yu-eventtarget-de-qu-bie/" title=" event.currentTarget与event.target的区别">下一篇</a></li>
+        
+       </ul>
+      </div>
+        
+     </div>
+    </div>
+   </div>
+  </div>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.appear.js"></script>
+
+
+ </body>
+</html>

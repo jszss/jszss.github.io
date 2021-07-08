@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+     <meta charset="utf-8" />
+  <title>实现一个可以拖拽的DIV | zss - Blog</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <link rel="stylesheet" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/styles/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+   <script src="https://cdn.staticfile.org/highlight.js/9.15.9/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+ </head>
+ <body>
+     <div class="sidebar animated fadeInDown">
+   <div class="logo-title">
+    <div class="title">
+     <img src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/images/avatar.png?v=1625715840623" style="width:127px;" />
+
+     <div class="description">
+      <p>温故而知新</p>
+     </div>
+    </div>
+   </div>
+   <ul class="social-links">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+   </ul>
+   <div class="footer">
+    <div class="by_farbox">
+   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    
+
+    </div>
+   </div>
+  </div>
+  <div class="main">
+     <div class="page-top animated fadeInDown">
+    <div class="nav">
+    
+     <li><a  href="/">首页</a></li>
+
+     <li><a  href="/archives">归档</a></li>
+
+     <li><a  href="/tags">标签</a></li>
+
+     <li><a  href="/post/about">关于</a></li>
+
+     <li><a  href="/tag/ay0H2xLOg/">Vue</a></li>
+
+     <li><a  href="/post/weekly/">前端周报</a></li>
+
+     <li><a  href="/post/da-shen-bo-ke/">大神博客</a></li>
+
+    </div>
+    <div class="information">
+     <div class="back_btn">
+      <li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li>
+     </div>
+    </div>
+   </div>
+   <div class="autopagerize_page_element">
+    <div class="content">
+     <div class="post-page">
+      <div class="post animated fadeInDown">
+       <div class="post-title">
+        <h3><a>实现一个可以拖拽的DIV</a></h3>
+       </div>
+       <div class="post-content">
+        <pre><code class="language-js">微信公众号：世界上有意思的事
+
+var DragDrop = function(){
+  var dragging = null; 
+  function handleEvent(event){
+    
+    //获取事件和目标
+    event = EventUtil.getEvent(event);
+    var target = EventUtil.getTarget(event);
+    
+    //确定事件类型 
+    switch(event.type){
+      case &quot;mousedown&quot;:
+        if (target.className.indexOf(&quot;draggable&quot;) &gt; -1){
+          dragging = target; 
+        }
+        break;
+      case &quot;mousemove&quot;:
+        if (dragging !== null){ 
+          //指定位置
+          dragging.style.left = event.clientX + &quot;px&quot;;
+          dragging.style.top = event.clientY + &quot;px&quot;;
+        }
+        break;
+      case &quot;mouseup&quot;: 
+        dragging = null;
+        break; 
+    }
+  };
+  //公共接口 
+  return {
+    enable: function(){
+      EventUtil.addHandler(document, &quot;mousedown&quot;, handleEvent);
+      EventUtil.addHandler(document, &quot;mousemove&quot;, handleEvent);
+      EventUtil.addHandler(document, &quot;mouseup&quot;, handleEvent);
+    },
+    disable: function(){
+      EventUtil.removeHandler(document, &quot;mousedown&quot;, handleEvent);
+      EventUtil.removeHandler(document, &quot;mousemove&quot;, handleEvent);
+      EventUtil.removeHandler(document, &quot;mouseup&quot;, handleEvent);
+    }
+  }
+}();
+
+</code></pre>
+<p>1.DragDrop 对象封装了拖放的所有基本功能。这是一个单例对象，并使用了模块模式来隐藏某些实 现细节。dragging 变量起初是 null，将会存放被拖动的元素，所以当该变量不为 null 时，就知道正 在拖动某个东西。handleEvent()函数处理拖放功能中的所有的三个鼠标事件。它首先获取 event 对 象和事件目标的引用。之后，用一个 switch 语句确定要触发哪个事件样式。当 mousedown 事件发生 时，会检查 target 的 class 是否包含&quot;draggable&quot;类，如果是，那么将 target 存放到 dragging 中。这个技巧可以很方便地通过标记语言而非 JavaScript 脚本来确定可拖动的元素。</p>
+<p>2.handleEvent()的 mousemove 情况和前面的代码一样，不过要检查 dragging 是否为 null。当 它不是 null，就知道 dragging 就是要拖动的元素，这样就会把它放到恰当的位置上。mouseup 情况 就仅仅是将 dragging 重置为 null，让 mousemove 事件中的判断失效。</p>
+<p>3.DragDrop 还有两个公共方法:enable()和 disable()，它们只是相应添加和删除所有的事件处 理程序。这两个函数提供了额外的对拖放功能的控制手段。</p>
+<p>4.要使用 DragDrop 对象，只要在页面上包含这些代码并调用 enable()。拖放会自动针对所有包含 &quot;draggable&quot;类的元素启用，如下例所示:<br>
+<code>&lt;div class=&quot;draggable&quot; style=&quot;position:absolute; background:red&quot;&gt; &lt;/div&gt;</code><br>
+复制代码注意为了元素能被拖放，它必须是绝对定位的。</p>
+<p>作者：何时夕<br>
+链接：https://juejin.im/post/6844904121380667399<br>
+来源：掘金<br>
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<pre><code class="language-html">&lt;div id=&quot;xxx&quot;&gt;&lt;/div&gt;
+</code></pre>
+<pre><code class="language-js">var dragging = false
+var position = null
+
+xxx.addEventListener('mousedown',function(e){
+  dragging = true
+  position = [e.clientX, e.clientY]
+})
+
+
+document.addEventListener('mousemove', function(e){
+  if(dragging === false) return null
+  console.log('hi')
+  const x = e.clientX
+  const y = e.clientY
+  const deltaX = x - position[0]
+  const deltaY = y - position[1]
+  const left = parseInt(xxx.style.left || 0)
+  const top = parseInt(xxx.style.top || 0)
+  xxx.style.left = left + deltaX + 'px'
+  xxx.style.top = top + deltaY + 'px'
+  position = [x, y]
+})
+document.addEventListener('mouseup', function(e){
+  dragging = false
+})
+
+</code></pre>
+
+       </div>
+       <div class="post-footer">
+        <div class="meta">
+         <div class="info">
+          <i class="fa fa-sun-o"></i>
+          <span class="date">2020-10-15</span>
+          <i class="fa fa-tag"></i>
+          
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="share">
+       <div class="evernote">
+        <a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a>
+       </div>
+       <div class="weibo">
+        <a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a>
+       </div>
+       <div class="twitter">
+        <a class="fa fa-twitter" href="http://twitter.com/home?status=,https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/shi-xian-yi-ge-ke-yi-tuo-zhuai-de-div/,;"></a>
+       </div>
+      </div>
+      <div class="pagination">
+       <ul class="clearfix">
+
+        <li class="pre pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/bind-call-kuai-pai-shu-zu-de-bian-ping-hua/" title="bind call 快排 数组的扁平化">上一篇</a></li>
+         
+        
+        <li class="next pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/js-huo-qu-dang-qian-yue-fen-de-tian-shu/" title=" js获取当前月份的天数">下一篇</a></li>
+        
+       </ul>
+      </div>
+        
+     </div>
+    </div>
+   </div>
+  </div>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.appear.js"></script>
+
+
+ </body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+     <meta charset="utf-8" />
+  <title>实现前后端键名不一致的数据交换 | zss - Blog</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <link rel="stylesheet" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/styles/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+   <script src="https://cdn.staticfile.org/highlight.js/9.15.9/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+ </head>
+ <body>
+     <div class="sidebar animated fadeInDown">
+   <div class="logo-title">
+    <div class="title">
+     <img src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/images/avatar.png?v=1625715840623" style="width:127px;" />
+
+     <div class="description">
+      <p>温故而知新</p>
+     </div>
+    </div>
+   </div>
+   <ul class="social-links">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+   </ul>
+   <div class="footer">
+    <div class="by_farbox">
+   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    
+
+    </div>
+   </div>
+  </div>
+  <div class="main">
+     <div class="page-top animated fadeInDown">
+    <div class="nav">
+    
+     <li><a  href="/">首页</a></li>
+
+     <li><a  href="/archives">归档</a></li>
+
+     <li><a  href="/tags">标签</a></li>
+
+     <li><a  href="/post/about">关于</a></li>
+
+     <li><a  href="/tag/ay0H2xLOg/">Vue</a></li>
+
+     <li><a  href="/post/weekly/">前端周报</a></li>
+
+     <li><a  href="/post/da-shen-bo-ke/">大神博客</a></li>
+
+    </div>
+    <div class="information">
+     <div class="back_btn">
+      <li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li>
+     </div>
+    </div>
+   </div>
+   <div class="autopagerize_page_element">
+    <div class="content">
+     <div class="post-page">
+      <div class="post animated fadeInDown">
+       <div class="post-title">
+        <h3><a>实现前后端键名不一致的数据交换</a></h3>
+       </div>
+       <div class="post-content">
+        <pre><code class="language-js">//后台数据的模拟：
+    let dataList = [
+        {id: '1', name: '小狗', age: 5},
+        {id: '2', name: '小羊', age: 8},
+        {id: '3', name: '小猪', age: 10},
+        {id: '4', name: '小牛', age: 12}
+    ];
+    //前台数据的模拟：
+    let myList = [
+        {myId: '1001', age: 18, myName: '张三'},
+        {myId: '1001', age: 18, myName: '李四'}
+    ];
+    //数据中，数据的属性名称不同。
+
+    //1.声明两个数组： 要求两个数组中的属性，一一对应；
+    let myArr = ['myId', 'age', 'myName'];
+    let dataArr = ['id', 'age', 'name'];
+    // 2.调用适配函数，进行数据的转换；
+    // console.log('没有转换的前台的数据:',myList);
+    let data = myDataAdaptor(myList, dataList, myArr, dataArr);
+    // console.log('转换后的前台的数据:',data);
+    // 3. 自己页面逻辑中，如渲染一个table。
+
+//封装的适配函数：
+    function myDataAdaptor(myList, dataList, myArr, dataArr) {
+        let newList = [];  //存储函数转换后的数据
+//每循环一次，把后台数组中，一个对象中的指定的属性的值，赋值给前台模拟数据中对象指定的属性。
+        for (let i = 0; i &lt; dataList.length; i++) {
+            let tempObj = dataList[i]; //后台返回的某一条数据，{id: '1', name: '肖明亚', age: 28}；
+            let newObj = {};//一定是一个新的空对象。
+            let j = 0;
+            //for--in循环完成后，就把后台的一个对象的数据，变成前台的对象数据
+            for (let key in tempObj) {
+                // myArr[j] 去换 myArr数组中的值； j是0时， 'myId'
+                // dataArr[j] 去换 dataArr数组中的值；j是0时， 'id'
+                // 这儿实现对象数据的转换；
+                newObj[   myArr[j]  ] = tempObj[  dataArr[j]  ]
+                // newObj[  'myId' ] = tempObj[  'id'  ]
+                // newObj.myId = 1;
+/*
+                 拿对象中的属性名：
+                let q = myArr[j];  //'myId', 'age', 'myName'
+                let h = dataArr[j];// 'id', 'age', 'name'
+                newObj[q] = tempObj[h]
+                j=0  newObj['myId'] = tempObj['id']
+                j=1  newObj['age'] = tempObj['age']
+                j=2  newObj['myName'] = tempObj['name']
+*/
+                j++;
+            }
+            newList.push(newObj)
+        }
+        return newList;
+    }
+————————————————
+版权声明：本文为CSDN博主「李@@」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/weixin_44571638/java/article/details/107007629
+</code></pre>
+
+       </div>
+       <div class="post-footer">
+        <div class="meta">
+         <div class="info">
+          <i class="fa fa-sun-o"></i>
+          <span class="date">2020-07-16</span>
+          <i class="fa fa-tag"></i>
+          
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="share">
+       <div class="evernote">
+        <a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a>
+       </div>
+       <div class="weibo">
+        <a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a>
+       </div>
+       <div class="twitter">
+        <a class="fa fa-twitter" href="http://twitter.com/home?status=,https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/shi-xian-qian-hou-duan-jian-ming-bu-yi-zhi-de-shu-ju-jiao-huan/,;"></a>
+       </div>
+      </div>
+      <div class="pagination">
+       <ul class="clearfix">
+
+        <li class="pre pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/http-chang-jian-qing-qiu-zhuang-tai-ma-ji-jie-shi/" title="HTTP常见请求状态码及解释">上一篇</a></li>
+         
+        
+        <li class="next pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/zi-ding-yi-zhi-ling-directive-biao-dan-an-niu-chong-fu-ti-jiao/" title=" 自定义指令directive 表单按钮重复提交">下一篇</a></li>
+        
+       </ul>
+      </div>
+        
+     </div>
+    </div>
+   </div>
+  </div>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.appear.js"></script>
+
+
+ </body>
+</html>

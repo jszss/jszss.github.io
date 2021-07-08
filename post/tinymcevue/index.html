@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+     <meta charset="utf-8" />
+  <title>tinymce.vue | zss - Blog</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <link rel="stylesheet" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/styles/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+   <script src="https://cdn.staticfile.org/highlight.js/9.15.9/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+ </head>
+ <body>
+     <div class="sidebar animated fadeInDown">
+   <div class="logo-title">
+    <div class="title">
+     <img src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/images/avatar.png?v=1625715840623" style="width:127px;" />
+
+     <div class="description">
+      <p>温故而知新</p>
+     </div>
+    </div>
+   </div>
+   <ul class="social-links">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+   </ul>
+   <div class="footer">
+    <div class="by_farbox">
+   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    
+
+    </div>
+   </div>
+  </div>
+  <div class="main">
+     <div class="page-top animated fadeInDown">
+    <div class="nav">
+    
+     <li><a  href="/">首页</a></li>
+
+     <li><a  href="/archives">归档</a></li>
+
+     <li><a  href="/tags">标签</a></li>
+
+     <li><a  href="/post/about">关于</a></li>
+
+     <li><a  href="/tag/ay0H2xLOg/">Vue</a></li>
+
+     <li><a  href="/post/weekly/">前端周报</a></li>
+
+     <li><a  href="/post/da-shen-bo-ke/">大神博客</a></li>
+
+    </div>
+    <div class="information">
+     <div class="back_btn">
+      <li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li>
+     </div>
+    </div>
+   </div>
+   <div class="autopagerize_page_element">
+    <div class="content">
+     <div class="post-page">
+      <div class="post animated fadeInDown">
+       <div class="post-title">
+        <h3><a>tinymce.vue</a></h3>
+       </div>
+       <div class="post-content">
+        <pre><code class="language-js">&lt;template&gt;
+  &lt;div class=&quot;tinymce-editor&quot;&gt;
+    &lt;Editor
+      v-model=&quot;myValue&quot;
+      :init=&quot;init&quot;
+      :disabled=&quot;disabled&quot;
+      @onClick=&quot;onClick&quot;&gt;
+    &lt;/Editor&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import tinymce from 'tinymce/tinymce'
+import Editor from '@tinymce/tinymce-vue'
+import 'tinymce/themes/silver'
+// 更多插件参考：https://www.tiny.cloud/docs/plugins/
+import 'tinymce/plugins/lists'
+import 'tinymce/plugins/image'
+import 'tinymce/plugins/media'
+import 'tinymce/plugins/table'
+import 'tinymce/plugins/wordcount'
+import 'tinymce/plugins/code'
+import 'tinymce/plugins/paste'
+import 'tinymce/plugins/hr'
+import 'tinymce/plugins/emoticons'
+
+export default {
+  name: 'Tinymce',
+  components: {
+    Editor
+  },
+  props: {
+    // 传入一个value，使组件支持v-model绑定
+    value: {
+      type: String,
+      default: ''
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    // 统一配置cdn前缀，如果不用cdn就把skins包整个复制到public/tinymce下
+    cdnOrigin: {
+      type: String,
+      default: 'https://cdn.jsdelivr.net/npm/tinymce@5.2.0'
+    },
+    plugins: {
+      type: [String, Array],
+      default: 'lists image media table wordcount code paste hr emoticons'
+    },
+    toolbar: {
+      type: [String, Array],
+      default: 'undo redo | forecolor backcolor  | bold italic | alignleft aligncenter alignright alignjustify  | bullist numlist outdent indent hr | lists image media table code emoticons paste| removeformat'
+    }
+  },
+  data () {
+    return {
+      // 初始化配置
+      init: {
+        language_url: 'https://cdn.jsdelivr.net/npm/tinymce-langs/langs/zh_CN.js', // 语言包的路径
+        language: 'zh_CN', // 语言
+        skin_url: `${this.cdnOrigin}/skins/ui/oxide`, // skin路径
+        content_css: `${this.cdnOrigin}/skins/ui/oxide/content.css`,
+        height: 300, // 编辑器高度
+        plugins: this.plugins,
+        toolbar: this.toolbar,
+        branding: false, // 是否禁用“Powered by TinyMCE”
+        menubar: false, // 顶部菜单栏显示
+        emoticons_database_url: `${this.cdnOrigin}/plugins/emoticons/js/emojis.js`,
+        // 此处为图片上传处理函数，这个直接用了base64的图片形式上传图片，
+        // 如需ajax上传可参考https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_handler
+        images_upload_handler: (blobInfo, success, failure) =&gt; {
+          const img = 'data:image/jpeg;base64,' + blobInfo.base64()
+          success(img)
+        }
+      },
+      myValue: this.value
+    }
+  },
+  mounted () {
+    tinymce.init({})
+  },
+  methods: {
+    // 添加相关的事件，可用的事件参照文档=&gt; https://github.com/tinymce/tinymce-vue =&gt; All available events
+    // 需要什么事件可以自己增加
+    onClick (e) {
+      this.$emit('onClick', e, tinymce)
+    },
+    // 可以添加一些自己的自定义事件，如清空内容
+    clear () {
+      this.myValue = ''
+    }
+  },
+  watch: {
+    value (newValue) {
+      this.myValue = newValue
+    },
+    myValue (newValue) {
+      this.$emit('input', newValue)
+    }
+  }
+}
+
+&lt;/script&gt;
+</code></pre>
+
+       </div>
+       <div class="post-footer">
+        <div class="meta">
+         <div class="info">
+          <i class="fa fa-sun-o"></i>
+          <span class="date">2020-11-09</span>
+          <i class="fa fa-tag"></i>
+          
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="share">
+       <div class="evernote">
+        <a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a>
+       </div>
+       <div class="weibo">
+        <a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a>
+       </div>
+       <div class="twitter">
+        <a class="fa fa-twitter" href="http://twitter.com/home?status=,https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/tinymcevue/,;"></a>
+       </div>
+      </div>
+      <div class="pagination">
+       <ul class="clearfix">
+
+        <li class="pre pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/vue-zu-jian-propsdata-chu-shi-hua-de-zhi-xing-shun-xu/" title="vue组件 props、data 初始化的执行顺序">上一篇</a></li>
+         
+        
+        <li class="next pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/tinymceeditorvue/" title=" tinymceEditor.vue">下一篇</a></li>
+        
+       </ul>
+      </div>
+        
+     </div>
+    </div>
+   </div>
+  </div>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.appear.js"></script>
+
+
+ </body>
+</html>

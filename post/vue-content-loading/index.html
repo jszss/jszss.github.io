@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+     <meta charset="utf-8" />
+  <title>vue-content-loading | zss - Blog</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <link rel="stylesheet" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/styles/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+   <script src="https://cdn.staticfile.org/highlight.js/9.15.9/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+ </head>
+ <body>
+     <div class="sidebar animated fadeInDown">
+   <div class="logo-title">
+    <div class="title">
+     <img src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/images/avatar.png?v=1625715840623" style="width:127px;" />
+
+     <div class="description">
+      <p>温故而知新</p>
+     </div>
+    </div>
+   </div>
+   <ul class="social-links">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+   </ul>
+   <div class="footer">
+    <div class="by_farbox">
+   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    
+
+    </div>
+   </div>
+  </div>
+  <div class="main">
+     <div class="page-top animated fadeInDown">
+    <div class="nav">
+    
+     <li><a  href="/">首页</a></li>
+
+     <li><a  href="/archives">归档</a></li>
+
+     <li><a  href="/tags">标签</a></li>
+
+     <li><a  href="/post/about">关于</a></li>
+
+     <li><a  href="/tag/ay0H2xLOg/">Vue</a></li>
+
+     <li><a  href="/post/weekly/">前端周报</a></li>
+
+     <li><a  href="/post/da-shen-bo-ke/">大神博客</a></li>
+
+    </div>
+    <div class="information">
+     <div class="back_btn">
+      <li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li>
+     </div>
+    </div>
+   </div>
+   <div class="autopagerize_page_element">
+    <div class="content">
+     <div class="post-page">
+      <div class="post animated fadeInDown">
+       <div class="post-title">
+        <h3><a>vue-content-loading</a></h3>
+       </div>
+       <div class="post-content">
+        <p><a href="https://lucasleandro1204.github.io/vue-content-loading">vue-content-loading</a></p>
+<h2 id="例子">例子</h2>
+<pre><code class="language-html">&lt;script&gt;
+  import VueContentLoading from 'vue-content-loading';
+
+  export default {
+    components: {
+      VueContentLoading,
+    },
+  };
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;vue-content-loading :width=&quot;300&quot; :height=&quot;100&quot;&gt;
+    &lt;circle cx=&quot;30&quot; cy=&quot;30&quot; r=&quot;30&quot; /&gt;
+    &lt;rect x=&quot;75&quot; y=&quot;13&quot; rx=&quot;4&quot; ry=&quot;4&quot; width=&quot;100&quot; height=&quot;15&quot; /&gt;
+    &lt;rect x=&quot;75&quot; y=&quot;37&quot; rx=&quot;4&quot; ry=&quot;4&quot; width=&quot;50&quot; height=&quot;10&quot; /&gt;
+  &lt;/vue-content-loading&gt;
+&lt;/template&gt;
+</code></pre>
+<h2 id="核心代码">核心代码</h2>
+<pre><code class="language-html">&lt;template&gt;
+  &lt;svg :viewBox=&quot;viewbox&quot; :style=&quot;svg&quot; preserveAspectRatio=&quot;xMidYMid meet&quot;&gt;
+    &lt;rect
+      :style=&quot;rect.style&quot;
+      :clip-path=&quot;rect.clipPath&quot;
+      x=&quot;0&quot;
+      y=&quot;0&quot;
+      :width=&quot;width&quot;
+      :height=&quot;height&quot;
+    /&gt;
+
+    &lt;defs&gt;
+      &lt;clipPath :id=&quot;clipPathId&quot;&gt;
+        &lt;slot&gt;
+          &lt;rect x=&quot;0&quot; y=&quot;0&quot; rx=&quot;5&quot; ry=&quot;5&quot; width=&quot;70&quot; height=&quot;70&quot; /&gt;
+          &lt;rect x=&quot;80&quot; y=&quot;17&quot; rx=&quot;4&quot; ry=&quot;4&quot; width=&quot;300&quot; height=&quot;13&quot; /&gt;
+          &lt;rect x=&quot;80&quot; y=&quot;40&quot; rx=&quot;3&quot; ry=&quot;3&quot; width=&quot;250&quot; height=&quot;10&quot; /&gt;
+          &lt;rect x=&quot;0&quot; y=&quot;80&quot; rx=&quot;3&quot; ry=&quot;3&quot; width=&quot;350&quot; height=&quot;10&quot; /&gt;
+          &lt;rect x=&quot;0&quot; y=&quot;100&quot; rx=&quot;3&quot; ry=&quot;3&quot; width=&quot;400&quot; height=&quot;10&quot; /&gt;
+          &lt;rect x=&quot;0&quot; y=&quot;120&quot; rx=&quot;3&quot; ry=&quot;3&quot; width=&quot;360&quot; height=&quot;10&quot; /&gt;
+        &lt;/slot&gt;
+      &lt;/clipPath&gt;
+
+      &lt;linearGradient :id=&quot;gradientId&quot;&gt;
+        &lt;stop offset=&quot;0%&quot; :stop-color=&quot;primary&quot;&gt;
+          &lt;animate
+            attributeName=&quot;offset&quot;
+            values=&quot;-2; 1&quot;
+            :dur=&quot;formatedSpeed&quot;
+            repeatCount=&quot;indefinite&quot;
+          /&gt;
+        &lt;/stop&gt;
+
+        &lt;stop offset=&quot;50%&quot; :stop-color=&quot;secondary&quot;&gt;
+          &lt;animate
+            attributeName=&quot;offset&quot;
+            values=&quot;-1.5; 1.5&quot;
+            :dur=&quot;formatedSpeed&quot;
+            repeatCount=&quot;indefinite&quot;
+          /&gt;
+        &lt;/stop&gt;
+
+        &lt;stop offset=&quot;100%&quot; :stop-color=&quot;primary&quot;&gt;
+          &lt;animate
+            attributeName=&quot;offset&quot;
+            values=&quot;-1; 2&quot;
+            :dur=&quot;formatedSpeed&quot;
+            repeatCount=&quot;indefinite&quot;
+          /&gt;
+        &lt;/stop&gt;
+      &lt;/linearGradient&gt;
+    &lt;/defs&gt;
+  &lt;/svg&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  const validateColor = color =&gt;
+    /^#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/.test(color);
+  export default {
+    name: 'VueContentLoading',
+    props: {
+      rtl: {
+        default: false,
+        type: Boolean,
+      },
+      speed: {
+        default: 2,
+        type: Number,
+      },
+      width: {
+        default: 400,
+        type: Number,
+      },
+      height: {
+        default: 130,
+        type: Number,
+      },
+      primary: {
+        type: String,
+        default: '#f0f0f0',
+        validator: validateColor,
+      },
+      secondary: {
+        type: String,
+        default: '#e0e0e0',
+        validator: validateColor,
+      },
+    },
+    computed: {
+      viewbox() {
+        return `0 0 ${this.width} ${this.height}`;
+      },
+      formatedSpeed() {
+        return `${this.speed}s`;
+      },
+      gradientId() {
+        return `gradient-${this.uid}`;
+      },
+      clipPathId() {
+        return `clipPath-${this.uid}`;
+      },
+      svg() {
+        if (this.rtl) {
+          return {
+            transform: 'rotateY(180deg)',
+          };
+        }
+      },
+      rect() {
+        return {
+          style: {
+            fill: 'url(#' + this.gradientId + ')',
+          },
+          clipPath: 'url(#' + this.clipPathId + ')',
+        };
+      },
+    },
+    data: () =&gt; ({
+      uid: null,
+    }),
+    created() {
+      this.uid = this._uid;
+    },
+  };
+&lt;/script&gt;
+</code></pre>
+<h2 id="svg-动画存在卡顿">SVG 动画存在卡顿</h2>
+<pre><code class="language-html">&lt;template&gt;
+  &lt;div :style=&quot;style&quot;&gt;
+    &lt;svg :viewBox=&quot;viewbox&quot; preserveAspectRatio=&quot;xMidYMid meet&quot;&gt;
+      &lt;defs :key=&quot;uid&quot;&gt;
+        &lt;clipPath :id=&quot;clipPathId&quot; :key=&quot;clipPathId&quot;&gt;
+          &lt;slot&gt;
+            &lt;rect x=&quot;0&quot; y=&quot;0&quot; rx=&quot;5&quot; ry=&quot;5&quot; width=&quot;70&quot; height=&quot;70&quot; /&gt;
+            &lt;rect x=&quot;80&quot; y=&quot;17&quot; rx=&quot;4&quot; ry=&quot;4&quot; width=&quot;300&quot; height=&quot;13&quot; /&gt;
+            &lt;rect x=&quot;80&quot; y=&quot;40&quot; rx=&quot;3&quot; ry=&quot;3&quot; width=&quot;250&quot; height=&quot;10&quot; /&gt;
+            &lt;rect x=&quot;0&quot; y=&quot;80&quot; rx=&quot;3&quot; ry=&quot;3&quot; width=&quot;350&quot; height=&quot;10&quot; /&gt;
+            &lt;rect x=&quot;0&quot; y=&quot;100&quot; rx=&quot;3&quot; ry=&quot;3&quot; width=&quot;400&quot; height=&quot;10&quot; /&gt;
+            &lt;rect x=&quot;0&quot; y=&quot;120&quot; rx=&quot;3&quot; ry=&quot;3&quot; width=&quot;360&quot; height=&quot;10&quot; /&gt;
+          &lt;/slot&gt;
+        &lt;/clipPath&gt;
+      &lt;/defs&gt;
+    &lt;/svg&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  const validateColor = color =&gt;
+    /^#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/.test(color);
+
+  export default {
+    name: 'VueContentLoading',
+    props: {
+      rtl: {
+        default: false,
+        type: Boolean,
+      },
+      speed: {
+        default: 2,
+        type: Number,
+      },
+      width: {
+        default: 400,
+        type: Number,
+      },
+      height: {
+        default: 130,
+        type: Number,
+      },
+      primary: {
+        type: String,
+        default: '#F0F0F0',
+        validator: validateColor,
+      },
+      secondary: {
+        type: String,
+        default: '#E0E0E0',
+        validator: validateColor,
+      },
+      uid: {
+        type: String,
+        required: true,
+      },
+    },
+    computed: {
+      viewbox() {
+        return `0 0 ${this.width} ${this.height}`;
+      },
+      formatedSpeed() {
+        return `${this.speed}s`;
+      },
+      clipPathId() {
+        return `clipPath-${this.uid || this._uid}`;
+      },
+      style() {
+        return {
+          width: `${this.width}px`,
+          height: `${this.height}px`,
+          backgroundSize: '200%',
+          backgroundImage: `linear-gradient(-90deg, ${this.primary} 0, ${this.secondary} 20%, ${this.primary} 50%,  ${this.secondary} 75%,  ${this.primary})`,
+          clipPath: 'url(#' + this.clipPathId + ')',
+          animation: `backgroundAnimation ${this.formatedSpeed} infinite linear`,
+          transform: this.rtl ? 'rotateY(180deg)' : 'none',
+        };
+      },
+    },
+  };
+&lt;/script&gt;
+
+&lt;style lang=&quot;scss&quot;&gt;
+  @keyframes backgroundAnimation {
+    0% {
+      background-position-x: 100%;
+    }
+
+    50% {
+      background-position-x: 0;
+    }
+
+    100% {
+      background-position-x: -100%;
+    }
+  }
+&lt;/style&gt;
+
+</code></pre>
+
+       </div>
+       <div class="post-footer">
+        <div class="meta">
+         <div class="info">
+          <i class="fa fa-sun-o"></i>
+          <span class="date">2019-09-23</span>
+          <i class="fa fa-tag"></i>
+          
+          <a class="tag" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/tag/_xPV4Q0tt/" title="骨架屏">骨架屏 </a>
+          
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="share">
+       <div class="evernote">
+        <a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a>
+       </div>
+       <div class="weibo">
+        <a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a>
+       </div>
+       <div class="twitter">
+        <a class="fa fa-twitter" href="http://twitter.com/home?status=,https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/vue-content-loading/,;"></a>
+       </div>
+      </div>
+      <div class="pagination">
+       <ul class="clearfix">
+
+        <li class="pre pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/3-fen-zhong-dai-ni-zou-wan-jian-li-nei-tui-mian-shi-san-jie-duan/" title="3分钟带你走完“简历+内推+面试”三阶段">上一篇</a></li>
+         
+        
+        <li class="next pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/xie-gei-qian-duan-de-docker-shi-zhan-jiao-cheng/" title=" 写给前端的Docker实战教程">下一篇</a></li>
+        
+       </ul>
+      </div>
+        
+     </div>
+    </div>
+   </div>
+  </div>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.appear.js"></script>
+
+
+ </body>
+</html>

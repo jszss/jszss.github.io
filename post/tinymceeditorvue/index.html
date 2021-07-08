@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+     <meta charset="utf-8" />
+  <title>tinymceEditor.vue | zss - Blog</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <link rel="stylesheet" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/styles/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+   <script src="https://cdn.staticfile.org/highlight.js/9.15.9/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+ </head>
+ <body>
+     <div class="sidebar animated fadeInDown">
+   <div class="logo-title">
+    <div class="title">
+     <img src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/images/avatar.png?v=1625715840623" style="width:127px;" />
+
+     <div class="description">
+      <p>温故而知新</p>
+     </div>
+    </div>
+   </div>
+   <ul class="social-links">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+   </ul>
+   <div class="footer">
+    <div class="by_farbox">
+   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    
+
+    </div>
+   </div>
+  </div>
+  <div class="main">
+     <div class="page-top animated fadeInDown">
+    <div class="nav">
+    
+     <li><a  href="/">首页</a></li>
+
+     <li><a  href="/archives">归档</a></li>
+
+     <li><a  href="/tags">标签</a></li>
+
+     <li><a  href="/post/about">关于</a></li>
+
+     <li><a  href="/tag/ay0H2xLOg/">Vue</a></li>
+
+     <li><a  href="/post/weekly/">前端周报</a></li>
+
+     <li><a  href="/post/da-shen-bo-ke/">大神博客</a></li>
+
+    </div>
+    <div class="information">
+     <div class="back_btn">
+      <li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li>
+     </div>
+    </div>
+   </div>
+   <div class="autopagerize_page_element">
+    <div class="content">
+     <div class="post-page">
+      <div class="post animated fadeInDown">
+       <div class="post-title">
+        <h3><a>tinymceEditor.vue</a></h3>
+       </div>
+       <div class="post-content">
+        <pre><code class="language-js">&lt;template&gt;
+  &lt;div style=&quot;width:100%&quot;&gt;
+    &lt;editor v-model=&quot;myValue&quot; :init=&quot;init&quot; :disabled=&quot;disabled&quot; @onClick=&quot;onClick&quot;&gt;&lt;/editor&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+import tinymce from &quot;tinymce/tinymce&quot;;
+import Editor from &quot;@tinymce/tinymce-vue&quot;;
+import &quot;tinymce/themes/silver&quot;;
+// 编辑器插件plugins
+// 更多插件参考：https://www.tiny.cloud/docs/plugins/
+//--------------------插入引入--------------------
+import &quot;tinymce/plugins/image&quot;; // 插入上传图片插件
+import &quot;tinymce/plugins/media&quot;; // 插入视频插件
+import &quot;tinymce/plugins/table&quot;; // 插入表格插件
+import &quot;tinymce/plugins/link&quot;; //超链接插件
+import &quot;tinymce/plugins/code&quot;; //代码块插件
+import &quot;tinymce/plugins/lists&quot;; // 列表插件
+import &quot;tinymce/plugins/contextmenu&quot;; //右键菜单插件
+import &quot;tinymce/plugins/wordcount&quot;; // 字数统计插件
+import &quot;tinymce/plugins/colorpicker&quot;; //选择颜色插件
+import &quot;tinymce/plugins/textcolor&quot;; //文本颜色插件
+import &quot;tinymce/plugins/fullscreen&quot;; //全屏
+import &quot;tinymce/plugins/help&quot;;
+import &quot;tinymce/plugins/charmap&quot;;
+import &quot;tinymce/plugins/paste&quot;;
+import &quot;tinymce/plugins/print&quot;;
+import &quot;tinymce/plugins/preview&quot;;
+import &quot;tinymce/plugins/hr&quot;;
+import &quot;tinymce/plugins/anchor&quot;;
+import &quot;tinymce/plugins/pagebreak&quot;;
+import &quot;tinymce/plugins/spellchecker&quot;;
+import &quot;tinymce/plugins/searchreplace&quot;;
+import &quot;tinymce/plugins/visualblocks&quot;;
+import &quot;tinymce/plugins/visualchars&quot;;
+import &quot;tinymce/plugins/insertdatetime&quot;;
+import &quot;tinymce/plugins/nonbreaking&quot;;
+import &quot;tinymce/plugins/autosave&quot;;
+import &quot;tinymce/plugins/fullpage&quot;;
+import &quot;tinymce/plugins/toc&quot;;
+//必须引用
+import &quot;tinymce/icons/default/icons.min.js&quot;;
+import &quot;@/assets/langs/zh_CN.js&quot;;
+import &quot;tinymce/skins/ui/oxide/skin.css&quot;;
+export default {
+  components: {
+    Editor,
+  },
+  props: {
+    value: {
+      type: String,
+      default: &quot;&quot;,
+    },
+    // 基本路径，默认为空根目录，如果你的项目发布后的地址为目录形式，
+    // 即abc.com/tinymce，baseUrl需要配置成tinymce，不然发布后资源会找不到
+    baseUrl: {
+      type: String,
+      default: &quot;&quot;,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {
+      myValue: this.value,
+      web:'http://api.euiadmin.com',//网站链接，与返回文件地址拼接形成完整地址
+      url: &quot;/upload/image&quot;,//上传api
+      init: {
+        selector: &quot;Editor&quot;, //选择HTML元素
+        language_url: &quot;@/assets/langs/zh_CN.js&quot;, //导入语言文件
+        language: &quot;zh_CN&quot;, //语言设置
+        //disabled:true, //禁用
+        skin_url: &quot;/tinymce/skins/ui/oxide&quot;, //主题样式
+        height: 300, //高度
+        menubar: false, // 隐藏最上方menu菜单
+        // toolbar: true,//false禁用工具栏（隐藏工具栏）
+        browser_spellcheck: true, // 拼写检查
+        branding: false, // 去水印
+        statusbar: false, // 隐藏编辑器底部的状态栏
+        elementpath: false, //禁用下角的当前标签路径
+        paste_data_images: true, // 允许粘贴图像
+        plugins:
+          &quot;lists image media table wordcount code fullscreen help  toc fullpage autosave nonbreaking insertdatetime visualchars visualblocks searchreplace spellchecker pagebreak link charmap paste print preview hr anchor&quot;,
+
+        toolbar: [
+          &quot;newdocument undo redo | formatselect visualaid|cut copy paste selectall| bold italic underline strikethrough |codeformat blockformats| superscript subscript  | forecolor backcolor | alignleft aligncenter alignright alignjustify | outdent indent |  removeformat &quot;,
+          &quot;code  bullist numlist | lists image media table link |fullscreen help toc fullpage restoredraft nonbreaking insertdatetime visualchars visualblocks searchreplace spellchecker pagebreak anchor charmap  pastetext print preview hr&quot;,
+        ],
+        // 此处为图片上传处理函数，这个直接用了base64的图片形式上传图片，
+        // 如需ajax上传可参考https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_handler
+        images_upload_handler: (blobInfo, success, failure) =&gt; {
+          console.log(blobInfo + success + failure);
+            let formData = new FormData();
+            // 服务端接收文件的参数名，文件数据，文件名
+            formData.append(&quot;file&quot;, blobInfo.blob(), blobInfo.filename());
+            this.$axios({
+              method: &quot;POST&quot;,
+              url: this.url,// 这里是你的上传地址
+              data: formData
+            })
+              .then(res =&gt; {
+                // 这里返回的是你图片的地址
+                // console.log(this.web+res.data)
+                success(this.web+res.data);
+              })
+              .catch(() =&gt; {
+                failure(&quot;上传失败&quot;);
+              });
+        },
+      },
+    };
+  },
+  mounted() {
+    tinymce.init({});
+  },
+  methods: {
+    // 添加相关的事件，可用的事件参照文档=&gt; https://github.com/tinymce/tinymce-vue =&gt; All available events
+    // 需要什么事件可以自己增加
+    onClick(e) {
+      this.$emit(&quot;onClick&quot;, e, tinymce);
+    },
+    // 可以添加一些自己的自定义事件，如清空内容
+    clear() {
+      this.myValue = &quot;&quot;;
+    },
+  },
+  watch: {
+    value(newValue) {
+      this.myValue = newValue;
+    },
+    myValue(newValue) {
+      this.$emit(&quot;input&quot;, newValue);
+    },
+  },
+};
+&lt;/script&gt;
+</code></pre>
+
+       </div>
+       <div class="post-footer">
+        <div class="meta">
+         <div class="info">
+          <i class="fa fa-sun-o"></i>
+          <span class="date">2020-11-08</span>
+          <i class="fa fa-tag"></i>
+          
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="share">
+       <div class="evernote">
+        <a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a>
+       </div>
+       <div class="weibo">
+        <a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a>
+       </div>
+       <div class="twitter">
+        <a class="fa fa-twitter" href="http://twitter.com/home?status=,https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/tinymceeditorvue/,;"></a>
+       </div>
+      </div>
+      <div class="pagination">
+       <ul class="clearfix">
+
+        <li class="pre pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/tinymcevue/" title="tinymce.vue">上一篇</a></li>
+         
+        
+        <li class="next pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/wei-lei-nth-child/" title=" 伪类 :nth-child">下一篇</a></li>
+        
+       </ul>
+      </div>
+        
+     </div>
+    </div>
+   </div>
+  </div>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.appear.js"></script>
+
+
+ </body>
+</html>

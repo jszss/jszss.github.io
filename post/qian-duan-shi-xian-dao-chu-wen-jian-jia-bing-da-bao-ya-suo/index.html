@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+     <meta charset="utf-8" />
+  <title>前端实现导出文件夹并打包压缩 | zss - Blog</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <link rel="stylesheet" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/styles/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+   <script src="https://cdn.staticfile.org/highlight.js/9.15.9/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+ </head>
+ <body>
+     <div class="sidebar animated fadeInDown">
+   <div class="logo-title">
+    <div class="title">
+     <img src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/images/avatar.png?v=1625715840623" style="width:127px;" />
+
+     <div class="description">
+      <p>温故而知新</p>
+     </div>
+    </div>
+   </div>
+   <ul class="social-links">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+   </ul>
+   <div class="footer">
+    <div class="by_farbox">
+   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    
+
+    </div>
+   </div>
+  </div>
+  <div class="main">
+     <div class="page-top animated fadeInDown">
+    <div class="nav">
+    
+     <li><a  href="/">首页</a></li>
+
+     <li><a  href="/archives">归档</a></li>
+
+     <li><a  href="/tags">标签</a></li>
+
+     <li><a  href="/post/about">关于</a></li>
+
+     <li><a  href="/tag/ay0H2xLOg/">Vue</a></li>
+
+     <li><a  href="/post/weekly/">前端周报</a></li>
+
+     <li><a  href="/post/da-shen-bo-ke/">大神博客</a></li>
+
+    </div>
+    <div class="information">
+     <div class="back_btn">
+      <li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li>
+     </div>
+    </div>
+   </div>
+   <div class="autopagerize_page_element">
+    <div class="content">
+     <div class="post-page">
+      <div class="post animated fadeInDown">
+       <div class="post-title">
+        <h3><a>前端实现导出文件夹并打包压缩</a></h3>
+       </div>
+       <div class="post-content">
+        <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;Works on firefox, chrome , opera &amp;gt;= 15 and IE &amp;gt;= 10 (but NOT in compatibility view).&lt;/p&gt;
+    &lt;button id=&quot;zip&quot; class=&quot;btn btn-primary&quot;&gt;click to zip&lt;/button&gt;
+    &lt;button id=&quot;unzip&quot; class=&quot;btn btn-primary&quot;&gt;click to unzip&lt;/button&gt;
+    &lt;div id=&quot;result_block&quot; class=&quot;hidden&quot;&gt;
+      &lt;h3&gt;Content :&lt;/h3&gt;
+      &lt;div id=&quot;result&quot;&gt;&lt;/div&gt;
+      &lt;div id=&quot;fileContent&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+  &lt;script src=&quot;./node_modules/jquery/dist/jquery.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;./node_modules/jszip/dist/jszip.js&quot; &gt;&lt;/script&gt;
+  &lt;script src=&quot;./node_modules/file-saver/dist/FileSaver.js&quot; &gt;&lt;/script&gt;
+  
+  &lt;!-- 导入这个插件，可以不用使用下面的 download 函数 --&gt;
+  &lt;script type=&quot;text/javascript&quot;&gt;
+
+    // 创建一个zip 对象，将文件名和内容读到文件中
+    var zip = new JSZip();
+    zip.file(&quot;readme.md&quot;, &quot;#### hello\nMichael 测试文件&quot;); // 直接把一个文件放在根目录下面
+    zip.folder(&quot;media&quot;).file(&quot;image1.jpg&quot;, &quot;#### hello\nMichael 测试文件&quot;).file(&quot;image2.png&quot;, &quot;#### hello\nMichael 测试文件&quot;); // 在根目录下放一个文件夹 media，内部包含两个模拟图片文件
+    zip.folder(&quot;template&quot;).file(&quot;index.html&quot;, &quot;&lt;html&gt;&lt;h3&gt;Hello&lt;/h3&gt;&lt;/html&gt;&quot;); // 在根目录下放一个文件夹 template 内部是一个HTML文件。
+    window.result = '';
+
+    // 将文本压缩zip 并下载
+    $(&quot;#zip&quot;).on(&quot;click&quot;, function () {
+        // type: &quot;string&quot;
+        zip.generateAsync({type:&quot;blob&quot;}).then(function (blob) {
+        // 1) generate the zip file
+            // console.log(blob);
+            window.result = blob; // 绑定到全局组件上，使用另一个按钮下载
+            // // 2) trigger the download
+            saveAs(blob, &quot;hello.zip&quot;);
+            
+        }, function (err) {
+            $(&quot;#blob&quot;).text(err);
+        });
+    });
+
+
+    // 将 zip 文件解压缩成内容读取。
+    $(&quot;#unzip&quot;).on(&quot;click&quot;, function () {
+      JSZip.loadAsync(window.result)
+      // 1) read the Blob
+        .then(function(zip) {
+            console.log(zip);
+            zip.forEach(function (relativePath, zipEntry) {
+            // 2) print entries
+                $(&quot;#fileContent&quot;).append($(&quot;&lt;li&gt;&quot;, {
+                    text : zipEntry.name
+                }));
+            });
+        }, function (e) {
+            $('#result').append($(&quot;&lt;div&gt;&quot;, {
+                &quot;class&quot; : &quot;alert alert-danger&quot;,
+                text : &quot;Error reading &quot; + window.result.name + &quot;: &quot; + e.message
+            }));
+        });
+    });
+
+    // 模拟点击，下载文件
+    // fake_click(save_link);
+    function fake_click(obj) {
+      var ev = document.createEvent(&quot;MouseEvents&quot;);
+      ev.initMouseEvent(&quot;click&quot;, true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+      obj.dispatchEvent(ev);
+    }
+
+    // 下载文件
+    // download(&quot;save.txt&quot;,&quot;hello world&quot;);
+    function download(name, data) {
+      var urlObject = window.URL || window.webkitURL || window;
+      var downloadData = new Blob([data]);
+      var save_link = document.createElementNS(&quot;http://www.w3.org/1999/xhtml&quot;, &quot;a&quot;)
+      save_link.href = urlObject.createObjectURL(downloadData);
+      save_link.download = name;
+      fake_click(save_link);
+    }
+  &lt;/script&gt;
+&lt;/html&gt;
+
+</code></pre>
+
+       </div>
+       <div class="post-footer">
+        <div class="meta">
+         <div class="info">
+          <i class="fa fa-sun-o"></i>
+          <span class="date">2020-10-15</span>
+          <i class="fa fa-tag"></i>
+          
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="share">
+       <div class="evernote">
+        <a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a>
+       </div>
+       <div class="weibo">
+        <a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a>
+       </div>
+       <div class="twitter">
+        <a class="fa fa-twitter" href="http://twitter.com/home?status=,https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/qian-duan-shi-xian-dao-chu-wen-jian-jia-bing-da-bao-ya-suo/,;"></a>
+       </div>
+      </div>
+      <div class="pagination">
+       <ul class="clearfix">
+
+        <li class="pre pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/js-huo-qu-dang-qian-yue-fen-de-tian-shu/" title="js获取当前月份的天数">上一篇</a></li>
+         
+        
+        <li class="next pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/qian-duan-shi-xian-pi-liang-dao-chu-tu-pian-bing-da-bao-ya-suo-gong-neng/" title=" 前端实现批量导出图片并打包压缩功能">下一篇</a></li>
+        
+       </ul>
+      </div>
+        
+     </div>
+    </div>
+   </div>
+  </div>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.appear.js"></script>
+
+
+ </body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+     <meta charset="utf-8" />
+  <title>treeNest | zss - Blog</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <link rel="stylesheet" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/styles/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+   <script src="https://cdn.staticfile.org/highlight.js/9.15.9/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+ </head>
+ <body>
+     <div class="sidebar animated fadeInDown">
+   <div class="logo-title">
+    <div class="title">
+     <img src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/images/avatar.png?v=1625715840623" style="width:127px;" />
+
+     <div class="description">
+      <p>温故而知新</p>
+     </div>
+    </div>
+   </div>
+   <ul class="social-links">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+   </ul>
+   <div class="footer">
+    <div class="by_farbox">
+   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    
+
+    </div>
+   </div>
+  </div>
+  <div class="main">
+     <div class="page-top animated fadeInDown">
+    <div class="nav">
+    
+     <li><a  href="/">首页</a></li>
+
+     <li><a  href="/archives">归档</a></li>
+
+     <li><a  href="/tags">标签</a></li>
+
+     <li><a  href="/post/about">关于</a></li>
+
+     <li><a  href="/tag/ay0H2xLOg/">Vue</a></li>
+
+     <li><a  href="/post/weekly/">前端周报</a></li>
+
+     <li><a  href="/post/da-shen-bo-ke/">大神博客</a></li>
+
+    </div>
+    <div class="information">
+     <div class="back_btn">
+      <li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li>
+     </div>
+    </div>
+   </div>
+   <div class="autopagerize_page_element">
+    <div class="content">
+     <div class="post-page">
+      <div class="post animated fadeInDown">
+       <div class="post-title">
+        <h3><a>treeNest</a></h3>
+       </div>
+       <div class="post-content">
+        <h2 id="方法1">方法1</h2>
+<p>https://blog.csdn.net/Mr_JavaScript/article/details/82817177</p>
+<pre><code class="language-js">     let source = [
+          {id:1,parentId:0,name:&quot;一级菜单A&quot;,rank:1},
+          {id:2,parentId:0,name:&quot;一级菜单B&quot;,rank:1},
+          {id:3,parentId:0,name:&quot;一级菜单C&quot;,rank:1},
+          {id:4,parentId:1,name:&quot;二级菜单A-A&quot;,rank:2},
+          {id:5,parentId:1,name:&quot;二级菜单A-B&quot;,rank:2},
+          {id:6,parentId:2,name:&quot;二级菜单B-A&quot;,rank:2},
+          {id:7,parentId:4,name:&quot;三级菜单A-A-A&quot;,rank:3},
+          {id:8,parentId:7,name:&quot;四级菜单A-A-A-A&quot;,rank:4},
+          {id:9,parentId:8,name:&quot;五级菜单A-A-A-A-A&quot;,rank:5},
+          {id:10,parentId:9,name:&quot;六级菜单A-A-A-A-A-A&quot;,rank:6},
+          {id:11,parentId:10,name:&quot;七级菜单A-A-A-A-A-A-A&quot;,rank:7},
+          {id:12,parentId:11,name:&quot;八级菜单A-A-A-A-A-A-A-A&quot;,rank:8},
+          {id:13,parentId:12,name:&quot;九级菜单A-A-A-A-A-A-A-A-A&quot;,rank:9},
+          {id:14,parentId:13,name:&quot;十级菜单A-A-A-A-A-A-A-A-A-A&quot;,rank:10},
+      ];
+
+function setTreeData(source) {
+    let cloneData = JSON.parse(JSON.stringify(source))
+    // 对源数据深度克隆
+    return cloneData.filter(father=&gt;{
+        // 循环所有项，并添加children属性
+        let branchArr = cloneData.filter(child=&gt;father.id == child.parentId);
+        // 返回每一项的子级数组
+        branchArr.length &gt; 0 ? father.children = branchArr : ''
+        //给父级添加一个children属性，并赋值
+        return father.parentId == 0;
+        //返回第一层
+    }
+    );
+}
+console.log(setTreeData(source), 1111111)
+// 树形数据
+
+/* 封装函数 */
+/* 字段名以字符串的形式传入 */
+function treeData(source, id, parentId, children) {
+    let cloneData = JSON.parse(JSON.stringify(source))
+    return cloneData.filter(father=&gt;{
+        let branchArr = cloneData.filter(child=&gt;father[id] == child[parentId]);
+        branchArr.length &gt; 0 ? father[children] = branchArr : ''
+        return father[parentId] == 0
+    }
+    )
+}
+// 调用2
+console.table(treeData(source, 'id', 'parentId', 'children'), 22222222222)
+
+let nest = (items,id=null,link='parent_id')=&gt;items.filter(item=&gt;item[link] === id).map(item=&gt;({
+    ...item,
+    children: nest(items, item.id)
+}));
+
+// 调用 3
+console.log(nest(source, 0, 'parentId'), 33333)
+
+</code></pre>
+<h2 id="方法2">方法2</h2>
+<pre><code class="language-js">var models = [
+ {id: 1, title: 'hello-0', parent: 0},
+ {id: 3, title: 'hello-1', parent: 1},
+ {id: 4, title: 'hello-3', parent: 3},
+ {id: 5, title: 'hello-4', parent: 4},
+ {id: 2, title: 'hello-0', parent: 0},
+ {id: 6, title: 'hello-4', parent: 4},
+ {id: 7, title: 'hello-2', parent: 2},
+ {id: 8, title: 'hello-10', parent: 10}
+];
+var nestedStructure = getNestedChildren(models, 0);
+console.log(nestedStructure);
+
+function getNestedChildren(arr, parent) {
+    var out = []
+    for (let i = 0; i &lt; arr.length; i++) {
+        if (arr[i].parent == parent) {
+            var children = getNestedChildren(arr, arr[i].id)
+            if (children.length) {
+                arr[i].children = children
+            }
+            out.push(arr[i])
+        }
+    }
+    return out
+}
+
+</code></pre>
+
+       </div>
+       <div class="post-footer">
+        <div class="meta">
+         <div class="info">
+          <i class="fa fa-sun-o"></i>
+          <span class="date">2020-05-07</span>
+          <i class="fa fa-tag"></i>
+          
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="share">
+       <div class="evernote">
+        <a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a>
+       </div>
+       <div class="weibo">
+        <a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a>
+       </div>
+       <div class="twitter">
+        <a class="fa fa-twitter" href="http://twitter.com/home?status=,https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/treenest/,;"></a>
+       </div>
+      </div>
+      <div class="pagination">
+       <ul class="clearfix">
+
+        <li class="pre pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/zi-ding-yi-zhi-ling-directive/" title="自定义指令directive">上一篇</a></li>
+         
+        
+        <li class="next pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/filereader-tu-pian-yu-lan/" title=" fileReader 图片预览">下一篇</a></li>
+        
+       </ul>
+      </div>
+        
+     </div>
+    </div>
+   </div>
+  </div>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.appear.js"></script>
+
+
+ </body>
+</html>

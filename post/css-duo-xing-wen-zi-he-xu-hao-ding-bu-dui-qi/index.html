@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+     <meta charset="utf-8" />
+  <title>css 多行文字和序号顶部对齐 | zss - Blog</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <link rel="stylesheet" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/styles/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+   <script src="https://cdn.staticfile.org/highlight.js/9.15.9/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+ </head>
+ <body>
+     <div class="sidebar animated fadeInDown">
+   <div class="logo-title">
+    <div class="title">
+     <img src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/images/avatar.png?v=1625715840623" style="width:127px;" />
+
+     <div class="description">
+      <p>温故而知新</p>
+     </div>
+    </div>
+   </div>
+   <ul class="social-links">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+   </ul>
+   <div class="footer">
+    <div class="by_farbox">
+   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    
+
+    </div>
+   </div>
+  </div>
+  <div class="main">
+     <div class="page-top animated fadeInDown">
+    <div class="nav">
+    
+     <li><a  href="/">首页</a></li>
+
+     <li><a  href="/archives">归档</a></li>
+
+     <li><a  href="/tags">标签</a></li>
+
+     <li><a  href="/post/about">关于</a></li>
+
+     <li><a  href="/tag/ay0H2xLOg/">Vue</a></li>
+
+     <li><a  href="/post/weekly/">前端周报</a></li>
+
+     <li><a  href="/post/da-shen-bo-ke/">大神博客</a></li>
+
+    </div>
+    <div class="information">
+     <div class="back_btn">
+      <li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li>
+     </div>
+    </div>
+   </div>
+   <div class="autopagerize_page_element">
+    <div class="content">
+     <div class="post-page">
+      <div class="post animated fadeInDown">
+       <div class="post-title">
+        <h3><a>css 多行文字和序号顶部对齐</a></h3>
+       </div>
+       <div class="post-content">
+        <pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;css 多行文字和序号顶部对齐&lt;/title&gt;
+  &lt;style&gt;
+    .ul {
+      list-style-type: none;
+      overflow: hidden;
+    }
+
+    /* 加一个padding的目的是因为负的text-indent会把序号挤到标签外，如果父级设置了overflow:hidden;序号就会被隐藏掉，为了防止出现这种情况，所以加上，也为了以后不给自己留坑 */
+    .ul li {
+      text-indent: -1em;
+      padding-left: 1em;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  方式1
+  &lt;hr&gt;
+  &lt;ol&gt;
+    &lt;li&gt;单行文本&lt;/li&gt;
+    &lt;li&gt;多行文本多行文本多行文本多行文本多行文本多行文本&lt;/li&gt;
+  &lt;/ol&gt;
+  方式2
+  &lt;hr&gt;
+  &lt;ul style=&quot;list-style-type: none;&quot;&gt;
+    &lt;li style=&quot;text-indent:-1.5em; padding-left:1.5em;&quot;&gt;1、单行文本&lt;/li&gt;
+    &lt;li style=&quot;text-indent:-1.5em; padding-left:1.5em;&quot;&gt;2、多行文本多行文本多行文本多行文本多行文本多行文本&lt;/li&gt;
+  &lt;/ul&gt;
+  方式3
+  &lt;hr&gt;
+  &lt;ul class=&quot;ul&quot;&gt;
+    &lt;li&gt;
+      1.大萨达撒多撒多无群的无群二无群大萨达撒多撒多无群的无群二无群大萨达撒多撒多无群的无群二无群大萨达撒多撒多无群的无群二无群大萨达撒多撒多无群的无群二无群大萨达撒多撒多无群的无群二无群大萨达撒多撒多无群的无群二无群大萨达撒多
+    &lt;/li&gt;
+    &lt;li&gt;
+      2.大萨达撒多撒多无群的无群二无群大萨达撒多撒多无群的无群二无群大萨达撒多撒多无群的无群二无群大萨达撒多撒多无群的无群二无群大萨达撒多撒多无群的无群二无群大萨达撒多撒多无群的无群二无群大萨达撒多撒多无群的无群二无群大萨达撒多
+    &lt;/li&gt;
+    &lt;li&gt;
+      3.大萨达撒多撒多无群的无群二无群大萨达撒多撒多无群的无群二无群大萨达撒多撒多无群的无群二无群大萨达撒多撒多无群的无群二无群大萨达撒多撒多无群的无群二无群大萨达撒多撒多无群的无群二无群大萨达撒多撒多无群的无群二无群大萨达撒多
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre>
+
+       </div>
+       <div class="post-footer">
+        <div class="meta">
+         <div class="info">
+          <i class="fa fa-sun-o"></i>
+          <span class="date">2021-03-12</span>
+          <i class="fa fa-tag"></i>
+          
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="share">
+       <div class="evernote">
+        <a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a>
+       </div>
+       <div class="weibo">
+        <a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a>
+       </div>
+       <div class="twitter">
+        <a class="fa fa-twitter" href="http://twitter.com/home?status=,https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/css-duo-xing-wen-zi-he-xu-hao-ding-bu-dui-qi/,;"></a>
+       </div>
+      </div>
+      <div class="pagination">
+       <ul class="clearfix">
+
+        <li class="pre pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/yarn-npm-clean-cache/" title="npm 常用命令行">上一篇</a></li>
+         
+        
+        <li class="next pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/window-he-mac-xia-she-zhi-node_env-bian-liang/" title=" window和mac下设置NODE_ENV变量">下一篇</a></li>
+        
+       </ul>
+      </div>
+        
+     </div>
+    </div>
+   </div>
+  </div>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.appear.js"></script>
+
+
+ </body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+     <meta charset="utf-8" />
+  <title>下拉刷新组件 | zss - Blog</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <link rel="stylesheet" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/styles/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+   <script src="https://cdn.staticfile.org/highlight.js/9.15.9/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+ </head>
+ <body>
+     <div class="sidebar animated fadeInDown">
+   <div class="logo-title">
+    <div class="title">
+     <img src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/images/avatar.png?v=1625715840623" style="width:127px;" />
+
+     <div class="description">
+      <p>温故而知新</p>
+     </div>
+    </div>
+   </div>
+   <ul class="social-links">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+   </ul>
+   <div class="footer">
+    <div class="by_farbox">
+   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    
+
+    </div>
+   </div>
+  </div>
+  <div class="main">
+     <div class="page-top animated fadeInDown">
+    <div class="nav">
+    
+     <li><a  href="/">首页</a></li>
+
+     <li><a  href="/archives">归档</a></li>
+
+     <li><a  href="/tags">标签</a></li>
+
+     <li><a  href="/post/about">关于</a></li>
+
+     <li><a  href="/tag/ay0H2xLOg/">Vue</a></li>
+
+     <li><a  href="/post/weekly/">前端周报</a></li>
+
+     <li><a  href="/post/da-shen-bo-ke/">大神博客</a></li>
+
+    </div>
+    <div class="information">
+     <div class="back_btn">
+      <li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li>
+     </div>
+    </div>
+   </div>
+   <div class="autopagerize_page_element">
+    <div class="content">
+     <div class="post-page">
+      <div class="post animated fadeInDown">
+       <div class="post-title">
+        <h3><a>下拉刷新组件</a></h3>
+       </div>
+       <div class="post-content">
+        <pre><code class="language-js">// 这里我做的不是用 window 的滚动事件，而是用最外层的绑定触摸下拉事件去实现
+// 好处是我用在Vue这类单页应用的时候，组件销毁时不用去解绑 window 的 scroll 事件
+// 但是滑动到底部事件就必须要用 window 的 scroll 事件，这点需要注意
+
+/**
+ * 下拉刷新组件
+ * @param {object} option 配置
+ * @param {HTMLElement} option.el 下拉元素（必选）
+ * @param {number} option.distance 下拉距离[px]（可选）
+ * @param {number} option.deviation 顶部往下偏移量[px]（可选）
+ * @param {string} option.loadIcon 下拉中的 icon html（可选）
+ */
+function dropDownRefresh(option) {
+    const doc = document;
+    /** 整体节点 */
+    const page = option.el;
+    /** 下拉距离 */
+    const distance = option.distance || 88;
+    /** 顶部往下偏移量 */
+    const deviation = option.deviation || 0;
+    /** 顶层节点 */
+    const topNode = doc.createElement(&quot;div&quot;);
+    /** 下拉时遮罩 */
+    const maskNode = doc.createElement(&quot;div&quot;);
+
+    topNode.innerHTML = `&lt;div refresh-icon style=&quot;transition: .2s all;&quot;&gt;&lt;svg style=&quot;transform: rotate(90deg); display: block;&quot; t=&quot;1570593064555&quot; viewBox=&quot;0 0 1575 1024&quot; version=&quot;1.1&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; p-id=&quot;26089&quot; width=&quot;48&quot; height=&quot;48&quot;&gt;&lt;path d=&quot;M1013.76 0v339.968H484.115692V679.778462h529.644308v339.968l529.644308-485.612308v-48.600616L1013.76 0zM243.396923 679.857231h144.462769V339.968H243.396923V679.778462z m-240.797538 0h144.462769V339.968H2.599385V679.778462z&quot; fill=&quot;#000000&quot; fill-opacity=&quot;.203&quot; p-id=&quot;26090&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/div&gt;&lt;div refresh-loading style=&quot;display: none; animation: refresh-loading 1s linear infinite;&quot;&gt;${option.loadIcon || '&lt;p style=&quot;font-size: 15px; color: #666;&quot;&gt;loading...&lt;/p&gt;'}&lt;/div&gt;`;
+    topNode.style.cssText = `width: 100%; height: ${distance}px; position: fixed; top: ${-distance + deviation}px; left: 0; z-index: 10; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; box-sizing: border-box; margin: 0; padding: 0;`;
+    maskNode.style.cssText = &quot;position: fixed; top: 0; left: 0; width: 100%; height: 100vh; box-sizing: border-box; margin: 0; padding: 0; background-color: rgba(0,0,0,0); z-index: 999;&quot;;
+    page.parentNode.insertBefore(topNode, page);
+
+    /**
+     * 设置动画时间
+     * @param {number} n 秒数 
+     */
+    function setAnimation(n) {
+        page.style.transition = topNode.style.transition = n + &quot;s all&quot;;
+    }
+
+    /**
+     * 设置滑动距离
+     * @param {number} n 滑动的距离（像素）
+     */
+    function setSlide(n) {
+        page.style.transform = topNode.style.transform = `translate3d(0px, ${n}px, 0px)`;
+    }
+    
+    /** 下拉提示 icon */
+    const icon = topNode.querySelector(&quot;[refresh-icon]&quot;);
+    /** 下拉 loading 动画 */
+    const loading = topNode.querySelector(&quot;[refresh-loading]&quot;);
+
+    return {
+        /**
+         * 监听开始刷新
+         * @param {Function} callback 下拉结束回调
+         * @param {(n: number) =&gt; void} rangeCallback 下拉状态回调
+         */
+        onRefresh(callback, rangeCallback = null) {
+            /** 顶部距离 */
+            let scrollTop = 0;
+            /** 开始距离 */
+            let startDistance = 0;
+            /** 结束距离 */
+            let endDistance = 0;
+            /** 最后移动的距离 */
+            let range = 0;
+
+            // 触摸开始
+            page.addEventListener(&quot;touchstart&quot;, function (e) {
+                startDistance = e.touches[0].pageY;
+                scrollTop = 1;
+                setAnimation(0);
+            });
+
+            // 触摸移动
+            page.addEventListener(&quot;touchmove&quot;, function (e) {
+                scrollTop = doc.documentElement.scrollTop === 0 ? doc.body.scrollTop : doc.documentElement.scrollTop;
+                // 没到达顶部就停止
+                if (scrollTop != 0) return;
+                endDistance = e.touches[0].pageY;
+                range = Math.floor(endDistance - startDistance);
+                // 判断如果是下滑才执行
+                if (range &gt; 0) {
+                    // 阻止浏览自带的下拉效果
+                    e.preventDefault();
+                    // 物理回弹公式计算距离
+                    range = range - (range * 0.5);
+                    // 下拉时icon旋转
+                    if (range &gt; distance) {
+                        icon.style.transform = &quot;rotate(180deg)&quot;;
+                    } else {
+                        icon.style.transform = &quot;rotate(0deg)&quot;;
+                    }
+                    setSlide(range);
+                    // 回调距离函数 如果有需要
+                    if (typeof rangeCallback === &quot;function&quot;) rangeCallback(range);
+                }
+            });
+
+            // 触摸结束
+            page.addEventListener(&quot;touchend&quot;, function () {
+                setAnimation(0.3);
+                // console.log(`移动的距离：${range}, 最大距离：${distance}`);
+                if (range &gt; distance &amp;&amp; range &gt; 1 &amp;&amp; scrollTop === 0) {
+                    setSlide(distance);
+                    doc.body.appendChild(maskNode);
+                    // 阻止往上滑动
+                    maskNode.ontouchmove = e =&gt; e.preventDefault();
+                    // 回调成功下拉到最大距离并松开函数
+                    if (typeof callback === &quot;function&quot;) callback();
+                    icon.style.display = &quot;none&quot;;
+                    loading.style.display = &quot;block&quot;;
+                } else {
+                    setSlide(0);
+                }
+            });
+
+        },
+        /** 结束下拉 */
+        end() {
+            maskNode.parentNode.removeChild(maskNode);
+            setAnimation(0.3);
+            setSlide(0);
+            icon.style.display = &quot;block&quot;;
+            loading.style.display = &quot;none&quot;;
+        }
+    }
+}
+
+</code></pre>
+<pre><code class="language-js">(function () {
+    let items = '';
+    for (let i = 0; i &lt; 10; i++) {
+        items += '&lt;div class=&quot;item&quot;&gt;&lt;/div&gt;';
+    }
+    document.querySelector('.page').innerHTML = items;
+
+    /** 旋转的圈圈 */
+    const icon = document.getElementById('loading-icon').innerHTML;
+
+    const drop = dropDownRefresh({
+        el: document.querySelector('.page'),
+        loadIcon: icon,
+        distance: 100
+    });
+
+    drop.onRefresh(() =&gt; {
+        setTimeout(() =&gt; {
+            drop.end();
+        }, 3000);
+    }, n =&gt; {
+        console.log('下拉的距离：', n);
+    });
+
+})();
+
+</code></pre>
+
+       </div>
+       <div class="post-footer">
+        <div class="meta">
+         <div class="info">
+          <i class="fa fa-sun-o"></i>
+          <span class="date">2020-12-28</span>
+          <i class="fa fa-tag"></i>
+          
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="share">
+       <div class="evernote">
+        <a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a>
+       </div>
+       <div class="weibo">
+        <a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a>
+       </div>
+       <div class="twitter">
+        <a class="fa fa-twitter" href="http://twitter.com/home?status=,https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/xia-la-shua-xin-zu-jian/,;"></a>
+       </div>
+      </div>
+      <div class="pagination">
+       <ul class="clearfix">
+
+        <li class="pre pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/javascript-xiao-shu-jing-du-ji-suan/" title="JavaScript小数精度计算">上一篇</a></li>
+         
+        
+        <li class="next pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/tu-pian-lan-jia-zai/" title=" 图片懒加载">下一篇</a></li>
+        
+       </ul>
+      </div>
+        
+     </div>
+    </div>
+   </div>
+  </div>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.appear.js"></script>
+
+
+ </body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+     <meta charset="utf-8" />
+  <title>js将list转化为tree格式的 4 种写法 | zss - Blog</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <link rel="stylesheet" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/styles/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+   <script src="https://cdn.staticfile.org/highlight.js/9.15.9/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+ </head>
+ <body>
+     <div class="sidebar animated fadeInDown">
+   <div class="logo-title">
+    <div class="title">
+     <img src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/images/avatar.png?v=1625715840623" style="width:127px;" />
+
+     <div class="description">
+      <p>温故而知新</p>
+     </div>
+    </div>
+   </div>
+   <ul class="social-links">
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+   </ul>
+   <div class="footer">
+    <div class="by_farbox">
+   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    
+
+    </div>
+   </div>
+  </div>
+  <div class="main">
+     <div class="page-top animated fadeInDown">
+    <div class="nav">
+    
+     <li><a  href="/">首页</a></li>
+
+     <li><a  href="/archives">归档</a></li>
+
+     <li><a  href="/tags">标签</a></li>
+
+     <li><a  href="/post/about">关于</a></li>
+
+     <li><a  href="/tag/ay0H2xLOg/">Vue</a></li>
+
+     <li><a  href="/post/weekly/">前端周报</a></li>
+
+     <li><a  href="/post/da-shen-bo-ke/">大神博客</a></li>
+
+    </div>
+    <div class="information">
+     <div class="back_btn">
+      <li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li>
+     </div>
+    </div>
+   </div>
+   <div class="autopagerize_page_element">
+    <div class="content">
+     <div class="post-page">
+      <div class="post animated fadeInDown">
+       <div class="post-title">
+        <h3><a>js将list转化为tree格式的 4 种写法</a></h3>
+       </div>
+       <div class="post-content">
+        <pre><code class="language-js">const list = [{ &quot;menuId&quot; : &quot;5f50c5fb8f0d74536bbfb7a4&quot;, &quot;menuName&quot; : &quot;菜单管理&quot;, &quot;parentMenuId&quot; : null },
+{ &quot;menuId&quot; : &quot;5f524416ff216c2cbc554907&quot;, &quot;menuName&quot; : &quot;频道管理&quot;, &quot;parentMenuId&quot; : &quot;5f50c5fb8f0d74536bbfb7a4&quot; },
+{ &quot;menuId&quot; : &quot;5f576677d9588f3d78fbdb74&quot;, &quot;menuName&quot; : &quot;分类管理&quot;, &quot;parentMenuId&quot; : &quot;5f524416ff216c2cbc554907&quot; },
+{ &quot;menuId&quot; : &quot;5f588b22499cd2538411b98a&quot;, &quot;menuName&quot; : &quot;发布管理&quot;, &quot;parentMenuId&quot; : &quot;5f50c5fb8f0d74536bbfb7a4&quot; },
+{ &quot;menuId&quot; : &quot;5f588b85499cd2538411b98b&quot;, &quot;menuName&quot; : &quot;权限管理&quot;, &quot;parentMenuId&quot; : &quot;5f50c5fb8f0d74536bbfb7a4&quot; },
+{ &quot;menuId&quot; : &quot;5f588f8358bc0d3e647403a1&quot;, &quot;menuName&quot; : &quot;菜单管理&quot;, &quot;parentMenuId&quot; : &quot;5f588b85499cd2538411b98b&quot; }
+...
+]
+</code></pre>
+<h2 id="list2tree1">list2tree1</h2>
+<p>递归遍历children</p>
+<pre><code class="language-js">const list = [...]
+// 递归 161202 次 5ms左右时间
+const list2tree1 = (list, parentMenuId) =&gt; {
+    return list.filter(item =&gt; {
+        if (item.parentMenuId === parentMenuId) {
+            item.children = list2tree1(list, item.menuId)
+            return true
+        }
+        return false
+    })
+}
+list2tree1(list, null)
+</code></pre>
+<h2 id="list2tree2">list2tree2</h2>
+<p>因为方法1是查询的children，所以每次必须全部遍历。<br>
+我们换个思路，查询每个节点的parent，查到paret之后，内部循环就可以截止了。（使用find方法）</p>
+<pre><code class="language-js">const list = [...]
+// 68976 次 3.6ms左右
+const list2tree2 = (list, parentMenuId) =&gt; {
+    return list.filter(item =&gt; {
+        if (item.parentMenuId !== parentMenuId) {
+            let parent = list.find(parent =&gt; parent.menuId === item.parentMenuId)
+            if (!parent.children) parent.children = []
+            parent.children.push(item)
+            return false
+        }
+        return true
+    })
+}
+list2tree2(list, null)
+</code></pre>
+<h2 id="list2tree3">list2tree3</h2>
+<p>在方法2的基础上，将每次find的parentNode缓存起来，减少相同parent的查询次数</p>
+<pre><code class="language-js">const list = [...]
+// 15337 次 1.8ms左右 cache parent
+const list2tree3 = (list, parentMenuId) =&gt; {
+    let parentObj = {}
+    return list.filter(item =&gt; {
+        if (item.parentMenuId !== parentMenuId) {
+            if (!parentObj[item.parentMenuId]) {
+                parentObj[item.parentMenuId] = list.find(parent =&gt; parent.menuId === item.parentMenuId)
+                parentObj[item.parentMenuId].children = []
+            }
+            parentObj[item.parentMenuId].children.push(item)
+            return false
+        }
+        return true
+    })
+}
+list2tree3(list, null)
+</code></pre>
+<p>##list2tree4<br>
+遍历tree之前，先遍历一遍数组，将数据缓存到object中。</p>
+<p>二次遍历，直接使用object中的缓存</p>
+<pre><code class="language-js">const list = [...]
+// 802 次 0.2ms左右
+const list2tree4 = (list, parentMenuId) =&gt; {
+    let menuObj = {}
+    list.forEach(item =&gt; {
+        item.children = []
+        menuObj[item.menuId] = item
+    })
+    return list.filter(item =&gt; {
+        if (item.parentMenuId !== parentMenuId) {
+            menuObj[item.parentMenuId].children.push(item)
+            return false
+        }
+        return true
+    })
+}
+</code></pre>
+
+       </div>
+       <div class="post-footer">
+        <div class="meta">
+         <div class="info">
+          <i class="fa fa-sun-o"></i>
+          <span class="date">2020-11-27</span>
+          <i class="fa fa-tag"></i>
+          
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="share">
+       <div class="evernote">
+        <a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a>
+       </div>
+       <div class="weibo">
+        <a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a>
+       </div>
+       <div class="twitter">
+        <a class="fa fa-twitter" href="http://twitter.com/home?status=,https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/js-jiang-list-zhuan-hua-wei-tree-ge-shi-de-4-chong-xie-fa/,;"></a>
+       </div>
+      </div>
+      <div class="pagination">
+       <ul class="clearfix">
+
+        <li class="pre pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/vuedirectivedragdialog/" title="Vue.directive.dragDialog">上一篇</a></li>
+         
+        
+        <li class="next pagbuttons"><a class="btn" role="navigation" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/fang-dou-jie-liu/" title=" 防抖-节流">下一篇</a></li>
+        
+       </ul>
+      </div>
+        
+     </div>
+    </div>
+   </div>
+  </div>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/media/scripts/jquery.appear.js"></script>
+
+
+ </body>
+</html>

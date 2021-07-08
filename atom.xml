@@ -1,0 +1,1001 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com</id>
+    <title>zss - Blog</title>
+    <updated>2021-07-08T03:44:07.892Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com"/>
+    <link rel="self" href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/images/avatar.png</logo>
+    <icon>https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/favicon.ico</icon>
+    <rights>All rights reserved 2021, zss - Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[createEnum]]></title>
+        <id>https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/createenum/</id>
+        <link href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/createenum/">
+        </link>
+        <updated>2021-07-02T03:46:15.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-js">/**
+ * 业务常量的使用方式扩展
+ * @param {Array} source 
+    [
+      { value: 1,label: '空间站',name: 'SPACE' },
+      { value: 2, label: '实践任务', name: 'PRACTICE' },
+      { value: 3, label: '其他系统', name: 'OTHERS' }
+    ]
+  @returns {Function} fn
+    fn() ===&gt; source
+    fn(value) ===&gt; label
+    fn(name) ===&gt; value
+ */
+export default function createEnum(source) {
+  const sourceMap = new Map()
+  source.map(item =&gt; {
+    sourceMap.set(item.name, item.value)
+    sourceMap.set(item.value, item.label)
+  })
+
+  return function(key) {
+    if (key) {
+      return sourceMap.get(key)
+    } else {
+      return source
+    }
+  }
+}
+</code></pre>
+<h2 id="使用">使用</h2>
+<pre><code class="language-js">export const fieldType = createEnum([
+  { value: 1, label: '文本', name: 'TEXT' },
+  { value: 2, label: '数字', name: 'NUMBER' },
+  { value: 3, label: '视频', name: 'VIDEO' }
+])
+
+fieldType()  // list
+
+fieldType(1)  // '文本'
+fieldType(1, 2, 3)  // '文本、数组、视频'  代码未实现
+
+fieldType('TEXT')  // 1
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[vuex createLogger]]></title>
+        <id>https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/vuex-createlogger/</id>
+        <link href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/vuex-createlogger/">
+        </link>
+        <updated>2021-06-30T06:02:26.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-js">import Vuex, { createLogger } from 'vuex'
+const debug = process.env.NODE_ENV !== 'production'
+export default new Vuex.Store({
+    // ...
+    plugins: debug ? [createLogger()] : []
+})
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Vue2 高阶组件 HOC]]></title>
+        <id>https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/vue2-gao-jie-zu-jian-hoc/</id>
+        <link href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/vue2-gao-jie-zu-jian-hoc/">
+        </link>
+        <updated>2021-06-30T03:21:47.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-js">// hoc.js
+export default function EnhanceWrapper (WrappedComponent) {
+  return {
+    mounted () {
+      console.log('I have already mounted')
+    },
+    props: WrappedComponent.props,
+    render (h) {
+      const slots = Object.keys(this.$slots)
+        .reduce((arr, key) =&gt; arr.concat(this.$slots[key]), [])
+        .map(vnode =&gt; {
+          vnode.context = this._self
+          return vnode
+        })
+
+      return h(WrappedComponent, {
+        on: this.$listeners,
+        props: this.$props,
+        // 透传 scopedSlots
+        scopedSlots: this.$scopedSlots,
+        attrs: this.$attrs
+      }, slots)
+    }
+  }
+}
+
+// 使用方式
+import hoc from 'hoc.js'
+import ElInput from 'Element-ui'
+const HInput = hoc(ElInput)
+ components: {
+   HInput
+ }
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Vue 开启线上调试 ]]></title>
+        <id>https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/vue-kai-qi-xian-shang-diao-shi/</id>
+        <link href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/vue-kai-qi-xian-shang-diao-shi/">
+        </link>
+        <updated>2021-06-30T03:20:56.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-js">var Vue = $0.__vue__.$root.constructor
+while(Vue.super) {Vue = Vue.super}
+Vue.config.devtools = true
+window.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = Vue
+</code></pre>
+<h2 id="vm">$vm</h2>
+<pre><code>重新开启console
+</code></pre>
+<h2 id="线上线下-查看-vuex数据">线上线下 查看 vuex数据</h2>
+<pre><code class="language-js">$0.__vue__.$store._vm._data
+</code></pre>
+<h2 id="react-r">react $r</h2>
+<pre><code>// $0.__react
+$r.props.store.getState()
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[React .env ]]></title>
+        <id>https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/react-env/</id>
+        <link href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/react-env/">
+        </link>
+        <updated>2021-06-30T01:34:29.000Z</updated>
+        <content type="html"><![CDATA[<p>https://github.com/toddbluhm/env-cmd</p>
+<pre><code class="language-json">&quot;scripts&quot;: {
+    &quot;start&quot;: &quot;react-scripts start&quot;,
+    &quot;start:staging&quot;: &quot;env-cmd -f .env.staging react-scripts start&quot;,
+    &quot;start:prod&quot;: &quot;env-cmd -f .env.production react-scripts start&quot;,
+    &quot;build&quot;: &quot;react-scripts build&quot;,
+    &quot;build:staging&quot;: &quot;env-cmd -f .env.staging react-scripts build&quot;,
+    &quot;build:prod&quot;: &quot;env-cmd -f .env.production react-scripts build&quot;,
+    &quot;test&quot;: &quot;react-scripts test&quot;,
+    &quot;eject&quot;: &quot;react-scripts eject&quot;
+}
+</code></pre>
+<p>https://zhuanlan.zhihu.com/p/362418612</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[HarmonyOS gif]]></title>
+        <id>https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/harmonyos-gif/</id>
+        <link href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/harmonyos-gif/">
+        </link>
+        <updated>2021-06-29T08:53:46.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;title&gt;公众号：前端学不动&lt;/title&gt;
+  &lt;style&gt;
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    html, body { height: 100% }
+    body {
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+    .ul {
+      position: relative;
+      width: 100px;
+      height: 50px;
+      padding: 10px;
+      list-style: none;
+      overflow: hidden
+    }
+    .ul:first-of-type {
+      padding-bottom: 0
+    }
+    .ul:last-of-type {
+      padding-top: 0;
+      /* margin-top: -2px; */
+      /* animation: container-move .1s 1.2s forwards */
+    }
+
+    .harmony {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 70px;
+      height: 70px;
+      border: 15px solid white;
+      border-radius: 50%;
+      transform: translateY(50%);
+      box-shadow: 0 0 6px white, inset 0 0 6px white;
+      animation: move 1.2s forwards
+    }
+    .ul:last-of-type &gt; .harmony {
+      top: auto;
+      bottom: 10px;
+      transform: translateY(-50%);
+      filter: url(#blur)
+    }
+
+    svg {
+      width: 0;
+      height: 0
+    }
+
+    @keyframes move {
+      to { transform: none }
+    }
+
+    /* @keyframes container-move {
+      to { margin-top: 0 }
+    } */
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;ul class=&quot;ul&quot;&gt;
+      &lt;li class=&quot;harmony&quot;&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;ul class=&quot;ul&quot;&gt;
+      &lt;li class=&quot;harmony&quot;&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+
+  &lt;svg&gt;
+    &lt;filter id=&quot;blur&quot;&gt;
+      &lt;feGaussianBlur in=&quot;SourceGraphic&quot; stdDeviation=&quot;0 6&quot;/&gt;
+    &lt;/filter&gt;
+  &lt;/svg&gt;
+
+  &lt;script&gt;
+    const filter = document.querySelector('feGaussianBlur')
+    
+    const clearFilter = () =&gt; {
+      const value = parseFloat(filter.getAttribute('stdDeviation').split(' ')[1]) - 0.06
+      
+      if (value &gt; 0) {
+        filter.setAttribute('stdDeviation', `0 ${value}`)
+        requestAnimationFrame(clearFilter)
+      } else {
+        return
+      }
+    }
+
+    setTimeout(clearFilter, 1200)
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[axios+ts]]></title>
+        <id>https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/axiosts/</id>
+        <link href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/axiosts/">
+        </link>
+        <updated>2021-06-29T07:04:21.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="shims-axiosdts">shims-axios.d.ts</h2>
+<pre><code class="language-js">import { AxiosInstance, AxiosRequestConfig, AxiosPromise } from &quot;axios&quot;
+/**
+ * 自定义扩展axios模块
+ * @author 何小玍。
+ */
+declare module &quot;axios&quot; {
+  export interface AxiosRequestConfig {
+    /**
+     * @description 设置为true，则会在请求过程中显示loading动画，直到请求结束才消失
+     */
+    loading?: boolean
+    isDialog?: boolean
+  }
+  export interface AxiosInstance {
+    &lt;T = any&gt;(config: AxiosRequestConfig): Promise&lt;T&gt;
+    request&lt;T = any&gt;(config: AxiosRequestConfig): Promise&lt;T&gt;
+    get&lt;T = any&gt;(url: string, config?: AxiosRequestConfig): Promise&lt;T&gt;
+    delete&lt;T = any&gt;(url: string, config?: AxiosRequestConfig): Promise&lt;T&gt;
+    head&lt;T = any&gt;(url: string, config?: AxiosRequestConfig): Promise&lt;T&gt;
+    post&lt;T = any&gt;(
+      url: string,
+      data?: any,
+      config?: AxiosRequestConfig
+    ): Promise&lt;T&gt;
+    put&lt;T = any&gt;(
+      url: string,
+      data?: any,
+      config?: AxiosRequestConfig
+    ): Promise&lt;T&gt;
+    patch&lt;T = any&gt;(
+      url: string,
+      data?: any,
+      config?: AxiosRequestConfig
+    ): Promise&lt;T&gt;
+  }
+}
+</code></pre>
+<h2 id="requestts">request.ts</h2>
+<pre><code class="language-js">/**
+ * @description [ axios 请求封装]
+ */
+// import store from &quot;@/store&quot;;
+import axios, { AxiosResponse, AxiosRequestConfig } from &quot;axios&quot;;
+// import { Message, Modal } from 'view-design' // UI组件库
+import { Dialog, Toast } from &quot;vant&quot;;
+import router from &quot;@/router&quot;;
+// 根据环境不同引入不同api地址
+import { config } from &quot;@/config&quot;;
+const service = axios.create({
+  baseURL: config.baseApi + &quot;/api&quot;, // url = base url + request url
+  timeout: 5000,
+  withCredentials: false // send cookies when cross-domain requests
+  // headers: {
+  // 	// clear cors
+  // 	'Cache-Control': 'no-cache',
+  // 	Pragma: 'no-cache'
+  // }
+})
+// Request interceptors
+service.interceptors.request.use(
+  (config: AxiosRequestConfig) =&gt; {
+    // 加载动画
+    if (config.loading) {
+      Toast.loading({
+        message: &quot;加载中...&quot;,
+        forbidClick: true
+      });
+    }
+    // 在此处添加请求头等，如添加 token
+    // if (store.state.token) {
+    // config.headers['Authorization'] = `Bearer ${store.state.token}`
+    // }
+    return config;
+  },
+  (error: any) =&gt; {
+    Promise.reject(error);
+  }
+)
+// Response interceptors
+service.interceptors.response.use(
+  async (response: AxiosResponse) =&gt; {
+    // await new Promise(resovle =&gt; setTimeout(resovle, 3000))
+    Toast.clear();
+    const res = response.data;
+    if (res.code !== 0) {
+      // token 过期
+      if (res.code === 401)
+        // 警告提示窗
+        return;
+      if (res.code == 403) {
+        Dialog.alert({
+          title: &quot;警告&quot;,
+          message: res.msg
+        }).then(() =&gt; {})
+        return
+      }
+      // 若后台返回错误值，此处返回对应错误对象，下面 error 就会接收
+      return Promise.reject(new Error(res.msg || &quot;Error&quot;))
+    }
+    // 注意返回值
+    else return response.data
+  },
+  (error: any) =&gt; {
+    Toast.clear();
+    if (error &amp;&amp; error.response) {
+      switch (error.response.status) {
+        case 400:
+          error.message = &quot;请求错误(400)&quot;
+          break
+        case 401:
+          error.message = &quot;未授权,请登录(401)&quot;
+          break
+        case 403:
+          error.message = &quot;拒绝访问(403)&quot;
+          break
+        case 404:
+          error.message = `请求地址出错: ${error.response.config.url}`
+          break
+        case 405:
+          error.message = &quot;请求方法未允许(405)&quot;
+          break
+        case 408:
+          error.message = &quot;请求超时(408)&quot;
+          break
+        case 500:
+          error.message = &quot;服务器内部错误(500)&quot;
+          break
+        case 501:
+          error.message = &quot;服务未实现(501)&quot;
+          break
+        case 502:
+          error.message = &quot;网络错误(502)&quot;
+          break
+        case 503:
+          error.message = &quot;服务不可用(503)&quot;
+          break
+        case 504:
+          error.message = &quot;网络超时(504)&quot;
+          break
+        case 505:
+          error.message = &quot;HTTP版本不受支持(505)&quot;
+          break
+        default:
+          error.message = `连接错误: ${error.message}`
+      }
+    } else {
+      if (error.message == &quot;Network Error&quot;) error.message == &quot;网络异常，请检查后重试！&quot;
+      error.message = &quot;连接到服务器失败，请联系管理员&quot;
+    }
+    Toast(error.message)
+    // store.auth.clearAuth()
+    // store.dispatch(&quot;clearAuth&quot;)
+    return Promise.reject(error)
+  }
+)
+export default service
+
+</code></pre>
+<h2 id="httpsjuejincnpost6978609399682039839">https://juejin.cn/post/6978609399682039839</h2>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[bff]]></title>
+        <id>https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/bff/</id>
+        <link href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/bff/">
+        </link>
+        <updated>2021-06-23T10:01:17.000Z</updated>
+        <content type="html"><![CDATA[<ol>
+<li>整理更合适的接口就是一个很好的意义，如果你的前端比较重，那前端就必须保持干净，别让不合理的接口污染代码</li>
+<li>多接口调用合一的情况，BFF 与后端服务的通信速度远快于浏览器走网络</li>
+<li>SSR</li>
+<li>公网是很慢的，像是把数组变成一个 length，能很大节省传输量</li>
+</ol>
+<hr>
+<h2 id="1后端服务要求稳定高性能作为核心业务常用语言有-javabff-作为胶水层需要灵活开发速度快能够快速响应业务变化常用语言有-nodephp-2bff-作为聚合接口数据层可以清洗后端服务提供的数据针对性的提供更合理的数据结构给前端减小用户流量消耗加快网络速度-3减轻前端对数据的繁杂处理让前端更纯粹的渲染页面">1.后端服务要求稳定，高性能，作为核心业务，常用语言有 java，bff 作为胶水层，需要灵活，开发速度快，能够快速响应业务变化，常用语言有 node，php 2.bff 作为聚合接口数据层，可以清洗后端服务提供的数据，针对性的提供更合理的数据结构给前端，减小用户流量消耗，加快网络速度 3.减轻前端对数据的繁杂处理，让前端更纯粹的渲染页面</h2>
+<p>https://www.v2ex.com/t/784162#reply21</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[$options.data 重置data]]></title>
+        <id>https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/dollaroptionsdata-chong-zhi-data/</id>
+        <link href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/dollaroptionsdata-chong-zhi-data/">
+        </link>
+        <updated>2021-06-22T01:44:42.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-js">      console.log('🚀  this', this)
+      Object.assign(this.$data, this.$options.data.call(this))
+      console.log('🚀  this', this)
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[表格合并]]></title>
+        <id>https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/biao-ge-he-bing/</id>
+        <link href="https://serverless-page-bucket-b3092udd-1254276257.cos-website.ap-hongkong.myqcloud.com/post/biao-ge-he-bing/">
+        </link>
+        <updated>2021-06-16T09:26:54.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-js">&lt;template&gt;
+  &lt;div class=&quot;tableBox&quot;&gt;
+    &lt;div class=&quot;buttons&quot;&gt;
+      &lt;a-button @click=&quot;onFilter&quot;&gt;取消过滤&lt;/a-button&gt;
+      &lt;a-button
+        v-for=&quot;item in filterArr&quot;
+        :key=&quot;item.value&quot;
+        @click=&quot;onFilter(item)&quot;
+        &gt;{{ item.value }}&lt;/a-button
+      &gt;
+    &lt;/div&gt;
+    &lt;a-table
+      :rowKey=&quot;(record, idx) =&gt; idx&quot;
+      :columns=&quot;columns&quot;
+      :data-source=&quot;tableData&quot;
+      :pagination=&quot;false&quot;
+      bordered
+    &gt;
+    &lt;/a-table&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  data() {
+    return {
+      columns: [
+        {
+          title: '',
+          dataIndex: 'title',
+          width: 120,
+          customRender: (text, row) =&gt; {
+            return {
+              children: `${text}`,
+              attrs: {
+                rowSpan: row.titleRowSpan
+              }
+            };
+          }
+        },
+        {
+          title: '部门',
+          dataIndex: 'department',
+          width: 120,
+          customRender: (text, row, index) =&gt; {
+            return {
+              children: `${text}`,
+              attrs: {
+                rowSpan: row.departmentRowSpan
+              }
+            };
+          }
+        },
+        {
+          title: '代码类型',
+          dataIndex: 'codeType',
+          width: 120
+        },
+        {
+          title: '总数',
+          dataIndex: 'totalCount',
+          width: 120
+        },
+        {
+          title: '修复',
+          dataIndex: 'fixCount',
+          width: 120
+        },
+        {
+          title: '未修复',
+          dataIndex: 'notFixedCount',
+          width: 120
+        },
+        {
+          title: '今日新增',
+          dataIndex: 'todayAdd',
+          width: 120
+        },
+        {
+          title: 'Bug类型',
+          dataIndex: 'bugType',
+          width: 120,
+          customRender: (text, row, index) =&gt; {
+            return {
+              children: `${text}`,
+              attrs: {
+                rowSpan: row.bugTypeRowSpan
+              }
+            };
+          }
+        }
+      ],
+      tableData: [
+        {
+          fixCount: 0,
+          id: 0,
+          codeType: '新代码',
+          bugType: 'ui展示问题',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发一部'
+        },
+        {
+          fixCount: 0,
+          id: 1,
+          codeType: '老代码',
+          bugType: 'ui展示问题',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发一部'
+        },
+
+        {
+          fixCount: 0,
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          bugType: 'ui展示问题',
+          codeType: 'ui展示问题总计',
+          title: 'bug总览',
+          department: '开发一部'
+        },
+
+        {
+          fixCount: 0,
+          id: 0,
+          codeType: '新代码',
+          bugType: '功能性bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发一部'
+        },
+        {
+          fixCount: 0,
+          id: 1,
+          codeType: '老代码',
+          bugType: '功能性bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发一部'
+        },
+
+        {
+          fixCount: 0,
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          bugType: '功能性bug',
+          codeType: '功能性bug总计',
+          title: 'bug总览',
+          department: '开发一部'
+        },
+
+        {
+          fixCount: 0,
+          id: 0,
+          codeType: '新代码',
+          bugType: '前端bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发一部'
+        },
+        {
+          fixCount: 0,
+          id: 1,
+          codeType: '老代码',
+          bugType: '前端bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发一部'
+        },
+
+        {
+          fixCount: 0,
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 3,
+          bugType: '前端bug',
+          codeType: '前端bug总计',
+          title: 'bug总览',
+          department: '开发一部'
+        },
+
+        {
+          fixCount: 0,
+          id: 0,
+          codeType: '新代码',
+          bugType: '后端bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发一部'
+        },
+        {
+          fixCount: 0,
+          id: 1,
+          codeType: '老代码',
+          bugType: '后端bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 2,
+          title: 'bug总览',
+          department: '开发一部'
+        },
+
+        {
+          fixCount: 0,
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 5,
+          bugType: '后端bug',
+          codeType: '后端bug总计',
+          title: 'bug总览',
+          department: '开发一部'
+        },
+
+        {
+          fixCount: 0,
+          id: 0,
+          codeType: '新代码',
+          bugType: '非bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发一部'
+        },
+        {
+          fixCount: 0,
+          id: 1,
+          codeType: '老代码',
+          bugType: '非bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发一部'
+        },
+
+        {
+          fixCount: 1,
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 5,
+          bugType: '非bug',
+          codeType: '非bug总计',
+          title: 'bug总览',
+          department: '开发一部'
+        },
+        {
+          fixCount: 0,
+          id: 0,
+          codeType: '新代码',
+          bugType: 'ui展示问题',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发二部'
+        },
+        {
+          fixCount: 0,
+          id: 1,
+          codeType: '老代码',
+          bugType: 'ui展示问题',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发二部'
+        },
+
+        {
+          fixCount: 0,
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          bugType: 'ui展示问题',
+          codeType: 'ui展示问题总计',
+          title: 'bug总览',
+          department: '开发二部'
+        },
+
+        {
+          fixCount: 0,
+          id: 0,
+          codeType: '新代码',
+          bugType: '功能性bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发二部'
+        },
+        {
+          fixCount: 0,
+          id: 1,
+          codeType: '老代码',
+          bugType: '功能性bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发二部'
+        },
+
+        {
+          fixCount: 0,
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          bugType: '功能性bug',
+          codeType: '功能性bug总计',
+          title: 'bug总览',
+          department: '开发二部'
+        },
+
+        {
+          fixCount: 0,
+          id: 0,
+          codeType: '新代码',
+          bugType: '前端bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发二部'
+        },
+        {
+          fixCount: 0,
+          id: 1,
+          codeType: '老代码',
+          bugType: '前端bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发二部'
+        },
+
+        {
+          fixCount: 0,
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 3,
+          bugType: '前端bug',
+          codeType: '前端bug总计',
+          title: 'bug总览',
+          department: '开发二部'
+        },
+
+        {
+          fixCount: 0,
+          id: 0,
+          codeType: '新代码',
+          bugType: '后端bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发二部'
+        },
+        {
+          fixCount: 0,
+          id: 1,
+          codeType: '老代码',
+          bugType: '后端bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 2,
+          title: 'bug总览',
+          department: '开发二部'
+        },
+
+        {
+          fixCount: 0,
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 5,
+          bugType: '后端bug',
+          codeType: '后端bug总计',
+          title: 'bug总览',
+          department: '开发二部'
+        },
+
+        {
+          fixCount: 0,
+          id: 0,
+          codeType: '新代码',
+          bugType: '非bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发二部'
+        },
+        {
+          fixCount: 0,
+          id: 1,
+          codeType: '老代码',
+          bugType: '非bug',
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 0,
+          title: 'bug总览',
+          department: '开发二部'
+        },
+
+        {
+          fixCount: 1,
+          notFixedCount: 0,
+          todayAdd: 0,
+          totalCount: 5,
+          bugType: '非bug',
+          codeType: '非bug总计',
+          title: 'bug总览',
+          department: '开发二部'
+        }
+      ]
+    };
+  },
+  methods: {
+    //  合并单元格
+    combineRow(key) {
+      const tableData = this.tableData;
+      for (var i = 0; i &lt; tableData.length; i++) {
+        const item = tableData[i];
+        let count = 1;
+        for (let j = i + 1; j &lt; tableData.length; j++) {
+          // 如果是同一个值，往后递增
+          if (item[key] === tableData[j][key]) {
+            count++;
+            // 往后相同的值都设为空单元格
+            tableData[j][`${key}RowSpan`] = 0;
+            // 只有同值第一个才设置合并的单元格数
+            item[`${key}RowSpan`] = count;
+            // 所有都是为同一个值的情况
+            // 如果到了尾部，
+            if (j === tableData.length - 1) {
+              return;
+            }
+          } else {
+            // 指针跳转到下一个，从下一排开始
+            i = j - 1;
+            count = 1;
+            tableData[j][`${key}RowSpan`] = 0;
+            break;
+          }
+        }
+        console.log(i);
+      }
+      this.tableData = tableData;
+    },
+    // 过滤组
+    filterGroup(targets) {
+      const res = this.tableData.reduce((obj, cur) =&gt; {
+        for (let i of targets) {
+          const item = { key: i, value: cur[i] };
+          if (!obj[item.value]) {
+            obj[item.value] = item;
+          }
+        }
+        return obj;
+      }, {});
+      return Object.values(res);
+    },
+    onFilter(params) {
+      this.tableData = JSON.parse(JSON.stringify(this.originTableData));
+      if (!params) {
+        return;
+      }
+      const { key, value } = params;
+      this.tableData = this.tableData.filter((item) =&gt; item[key] === value);
+      this.initCombineRow();
+    },
+    initCombineRow() {
+      this.combineRow('title');
+      this.combineRow('department');
+      this.combineRow('bugType');
+    }
+  },
+  created() {
+    this.initCombineRow();
+    this.originTableData = JSON.parse(JSON.stringify(this.tableData));
+    this.filterArr = this.filterGroup(['department', 'bugType']);
+  }
+};
+&lt;/script&gt;
+
+&lt;style lang=&quot;less&quot; scoped&gt;
+.tableBox {
+  width: 80vw;
+  margin: 0 auto;
+  .buttons {
+    margin: 10px 0;
+  }
+}
+/deep/.ant-table-bordered .ant-table-thead &gt; tr &gt; th,
+/deep/.ant-table-bordered .ant-table-tbody &gt; tr &gt; td {
+  padding: 2px;
+  text-align: center;
+}
+&lt;/style&gt;
+</code></pre>
+]]></content>
+    </entry>
+</feed>
