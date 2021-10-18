@@ -2,7 +2,10 @@
 title: js替换浏览器地址栏
 date: 2021-10-18 11:40:28
 tags: BOM
+author: zss
 ---
+
+<!-- more -->
 
 ```js
 function locationReplace(url) {

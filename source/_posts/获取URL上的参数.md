@@ -5,6 +5,9 @@ tags: util
 ---
 
 ## getUrlParam
+
+<!-- more -->
+
 ```js
 // 获取URL中的某参数值,不区分大小写
 // 获取URL中的某参数值,不区分大小写,
