@@ -472,8 +472,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2021/10/27/Object-seal-%E5%88%9B%E5%BB%BA%E5%8F%97%E6%8E%A7%E5%AF%B9%E8%B1%A1/">
-        Object.seal 创建受控对象
+      <a href="/2021/10/28/%E8%A7%A3%E6%9E%90%E8%BA%AB%E4%BB%BD%E8%AF%81%E5%8F%B7%E7%A0%81%E7%9A%84%E7%94%9F%E6%97%A5%E6%80%A7%E5%88%AB/">
+        解析身份证号码的生日性别
       </a>
     </h2>
   
@@ -481,10 +481,98 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
       
         
-Object.seal() 方法封闭一个对象，阻止添加新属性并将所有现有属性标记为不可配置。当前属性的值只要可写就可以改变，Object.freeze 是啥都不能做，Object.seal() 可以改变属性的值。
 
-12345678const controlledObject = &#123;  name: &quot;前端小智&quot;,&#125;;Object.seal(contr...
+12345678910111213141516171819202122232425262728/** * 根据身份证号自动生成性别、出生日期和年龄 * */   function inputChange(idCardNumber) &#123;      const reg = /^[1-9]\d&#123;5&#125;(18|19|([23]\d))\d&#123;2&#125;((...
       
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time>2021-10-28</time>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2021/10/28/%E8%A7%A3%E6%9E%90%E8%BA%AB%E4%BB%BD%E8%AF%81%E5%8F%B7%E7%A0%81%E7%9A%84%E7%94%9F%E6%97%A5%E6%80%A7%E5%88%AB/'>
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2021/10/28/vue-cli%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E9%A2%84%E6%B8%B2%E6%9F%93/">
+        vue-cli项目配置预渲染
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        vue-cli2.0 版本webpack.prod.conf.js 增加
+router.js 中设置路由模式 mode: &quot;history&quot;
+
+12345678910111213141516171819202122232425// npm install prerender-spa-plugin --saveconst path = require(&quot;path&...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time>2021-10-28</time>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2021/10/28/vue-cli%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E9%A2%84%E6%B8%B2%E6%9F%93/'>
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2021/10/27/Object-seal-%E5%88%9B%E5%BB%BA%E5%8F%97%E6%8E%A7%E5%AF%B9%E8%B1%A1/">
+        Object.seal 创建受控对象
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <blockquote>
+<p><code>Object.seal()</code> 方法封闭一个对象，阻止添加新属性并将所有现有属性标记为不可配置。当前属性的值只要可写就可以改变，<code>Object.freeze</code> 是啥都不能做，<code>Object.seal()</code> 可以改变属性的值。</p>
+</blockquote>
     
   </div>
   
@@ -808,95 +896,6 @@ Qu...
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/10/18/js%E6%9B%BF%E6%8D%A2%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9C%B0%E5%9D%80%E6%A0%8F/">
-        js替换浏览器地址栏
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        
-
-12345678function locationReplace(url) &#123;  if (history.replaceState) &#123;    history.replaceState(null, document.title, url);    history.go(0);  &#125; else &#123;    location.replace(url); ...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-10-18</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/10/18/js%E6%9B%BF%E6%8D%A2%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9C%B0%E5%9D%80%E6%A0%8F/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/10/18/js%E6%89%8B%E6%9C%BA%E5%8F%B7%E5%BD%92%E5%B1%9E%E5%9C%B0/">
-        js手机号归属地
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        
-123456789101112131415161718192021function isMobileNumber(e) &#123;  var i =      &quot;134,135,136,137,138,139,150,151,152,157,158,159,187,188,147,182,183,184,178&quot;,    n = &quot;130,131,132,1...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-10-18</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/10/18/js%E6%89%8B%E6%9C%BA%E5%8F%B7%E5%BD%92%E5%B1%9E%E5%9C%B0/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
@@ -1013,7 +1012,7 @@ Qu...
 
 
     <div class='content'>
-      <a href="/tags/APP/" style="font-size: 14px; color: #999">APP</a> <a href="/tags/BOM/" style="font-size: 14px; color: #999">BOM</a> <a href="/tags/Date/" style="font-size: 14px; color: #999">Date</a> <a href="/tags/Object-seal/" style="font-size: 14px; color: #999">Object.seal</a> <a href="/tags/util/" style="font-size: 24px; color: #555">util</a> <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7/" style="font-size: 14px; color: #999">微信公众号</a>
+      <a href="/tags/APP/" style="font-size: 14px; color: #999">APP</a> <a href="/tags/BOM/" style="font-size: 14px; color: #999">BOM</a> <a href="/tags/Date/" style="font-size: 14px; color: #999">Date</a> <a href="/tags/Object-seal/" style="font-size: 14px; color: #999">Object.seal</a> <a href="/tags/ssr/" style="font-size: 14px; color: #999">ssr</a> <a href="/tags/util/" style="font-size: 24px; color: #555">util</a> <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7/" style="font-size: 14px; color: #999">微信公众号</a> <a href="/tags/%E9%A2%84%E6%B8%B2%E6%9F%93/" style="font-size: 14px; color: #999">预渲染</a>
     </div>
   </section>
 
