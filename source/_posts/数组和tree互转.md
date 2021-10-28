@@ -5,6 +5,18 @@ date: 2021-10-28 21:25:26
 tags: [tree]
 ---
 
+<!-- more -->
+
+```js
+let arr = [
+  { id: 1, name: "1", pid: 0 },
+  { id: 2, name: "2", pid: 1 },
+  { id: 3, name: "3", pid: 1 },
+  { id: 4, name: "4", pid: 3 },
+  { id: 5, name: "5", pid: 3 },
+];
+```
+
 ## tree 扁平化
 
 ### 1. 递归实现
@@ -135,3 +147,5 @@ function arrayToTree(items) {
 ```
 
 一次循环就搞定了，性能也很好。时间复杂度为 O(n)，需要一个 Map 把数据存储起来，空间复杂度 O(n)
+
+https://juejin.cn/post/6987224048564437029
