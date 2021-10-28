@@ -5,10 +5,6 @@
   <!-- SEO相关 -->
   
     
-      
-        <meta name="robots" content="noindex,follow">
-      
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -26,7 +22,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>大白话的Blog</title>
+  <title>websocket心跳检测机制 - 大白话的Blog</title>
+  
+    <meta name="keywords" content="websocket">
   
 
   
@@ -357,7 +355,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  dock' style="display: none;">
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="/images/BingWallpaper.jpg"></div>
           
@@ -435,468 +433,204 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
 
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
-  <section class="post-list">
+
+
+  
+  <div class="article-meta" id="top">
     
     
-      
+    
+      <h1 class="title">
+        websocket心跳检测机制
+      </h1>
+      <div class='new-meta-box'>
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/10/20/sql-updateDate/">
-        sql-updateDate
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="">
+    <p>请设置文章作者</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Oct 28, 2021</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
       
-        12`createDate` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT &#x27;创建时间&#x27;,`updateDate` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT &#x27...
-      
-    
+      <div id="lc-pv" data-title="websocket心跳检测机制" data-path="/2021/10/28/websocket%E5%BF%83%E8%B7%B3%E6%A3%80%E6%B5%8B%E6%9C%BA%E5%88%B6/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-10-20</time>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  
+  <span id="more"></span>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ws;</span><br><span class="line"><span class="keyword">var</span> tt;</span><br><span class="line"><span class="keyword">var</span> lockReconnnet=<span class="literal">false</span>;</span><br><span class="line"><span class="keyword">var</span> wxUrl=<span class="string">&#x27;https://api/v1/1&#x27;</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createWebSocket</span>(<span class="params">url</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">try</span>&#123;</span><br><span class="line">  ws=<span class="keyword">new</span> WebSocket(url);</span><br><span class="line">  init();</span><br><span class="line">  &#125;<span class="keyword">catch</span>()&#123;</span><br><span class="line">  reconnect(url);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  ws.onclose=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;websocket关闭了&quot;</span>);</span><br><span class="line">    reconnect(url);</span><br><span class="line">  &#125;</span><br><span class="line">  ws.onopen=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;websocket打开了&quot;</span>);</span><br><span class="line">    heartCheck(url);</span><br><span class="line">  &#125;</span><br><span class="line">  ws.onerror=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;websocket报错了&quot;</span>);</span><br><span class="line">    reconnect(url);</span><br><span class="line">  &#125;</span><br><span class="line">  ws.onmessage=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//能收到消息说明链接正常</span></span><br><span class="line">    heartCheck(url);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reconnect</span>(<span class="params">url</span>)</span>&#123;</span><br><span class="line"><span class="comment">//如果连接被锁定了，就说明当前的链接是正常的</span></span><br><span class="line">  <span class="keyword">if</span>(lockReconnnet)&#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  lockReconnnet=<span class="literal">true</span>;</span><br><span class="line">  <span class="comment">//清除定时器</span></span><br><span class="line">  tt&amp;&amp;clearTimeOut(tt);</span><br><span class="line">  tt=setTimeOut(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">   createWebSocket(url);</span><br><span class="line">   lockReconnnet=<span class="literal">false</span>;</span><br><span class="line">  &#125;,<span class="number">4000</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> heartCheck=&#123;</span><br><span class="line">   <span class="attr">timeout</span>:<span class="number">3000</span>,</span><br><span class="line">   <span class="attr">timeOutObj</span>:<span class="literal">null</span>,</span><br><span class="line">   <span class="attr">serverTimeOutObj</span>:<span class="literal">null</span>,</span><br><span class="line">   <span class="attr">start</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="keyword">var</span> self=<span class="built_in">this</span>;</span><br><span class="line">     <span class="built_in">this</span>.timeOutObj&amp;&amp;clearTimeOut(<span class="built_in">this</span>.timeOutObj);</span><br><span class="line">     <span class="built_in">this</span>.serverTimeOutObj&amp;&amp;clearTimeOut(<span class="built_in">this</span>.serverTimeOutObj)</span><br><span class="line">     <span class="built_in">this</span>.timeOutObj=setTimeOut(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">        ws.send(<span class="string">&quot;发送数据&quot;</span>);</span><br><span class="line">        self.serverTimeOutObj=setTimeOut(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">          ws.onclose();</span><br><span class="line">        &#125;,self.timeout)</span><br><span class="line">     &#125;,self.timeout)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">createWebSocket(wsUrl);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2021/10/20/sql-updateDate/'>
-            Read More
-          </a>
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://jszss.github.io/2021/10/28/websocket%E5%BF%83%E8%B7%B3%E6%A3%80%E6%B5%8B%E6%9C%BA%E5%88%B6/>https://jszss.github.io/2021/10/28/websocket%E5%BF%83%E8%B7%B3%E6%A3%80%E6%B5%8B%E6%9C%BA%E5%88%B6/</a></p>
+              
+            
+          </blockquote>
         </div>
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-28T21:35:28+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Oct 28, 2021</p>
+  </a>
 </div>
 
-          </div>
         
       
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
+          
   
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/10/18/vue3-ts%E6%94%AF%E6%8C%81this/">
-        vue3-ts支持this.
-      </a>
-    </h2>
-  
-  <div class='md'>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/websocket/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>websocket</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
       
-        12// main.tsapp.config.globalProperties.$axios = axios;
-12345678910111213141516// global.d.tsimport &#123; ComponentCustomProperties &#125; from &#x27;vue&#x27;// axios的实例类型import &#123; AxiosInsta...
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jszss.github.io/2021/10/28/websocket%E5%BF%83%E8%B7%B3%E6%A3%80%E6%B5%8B%E6%9C%BA%E5%88%B6/&title=websocket心跳检测机制 - 大白话的Blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://jszss.github.io/2021/10/28/websocket%E5%BF%83%E8%B7%B3%E6%A3%80%E6%B5%8B%E6%9C%BA%E5%88%B6/&title=websocket心跳检测机制 - 大白话的Blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://jszss.github.io/2021/10/28/websocket%E5%BF%83%E8%B7%B3%E6%A3%80%E6%B5%8B%E6%9C%BA%E5%88%B6/&title=websocket心跳检测机制 - 大白话的Blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
       
     
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-10-18</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/10/18/vue3-ts%E6%94%AF%E6%8C%81this/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
 </div>
 
-          </div>
+
+
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/10/18/%E6%89%8B%E6%9C%BA%E5%8F%B7%E8%BF%90%E8%90%A5%E5%95%86/">
-        手机号运营商
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>移动号段：<br>134 135 136 137 138 139 147 148 150 151 152 157 158 159 172 178 182 183 184 187 188 195 198<br>联通号段：<br>130 131 132 145 146 155 156 166 167 171 175 176 185 186 196<br>电信号段：<br>133 149 153 173 174 177 180 181 189 190 191 193 199<br>虚拟运营商:<br>162 165 167 170 171<br><a target="_blank" rel="noopener" href="https://www.qqzeng.com/tongji.html">来源</a></p>
-    
+    </div>
   </div>
+
+
   
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-10-18</time>
-        
-      </div>
+  
+
+  
+    <div class="prev-next">
       
-        <div>
-          <a class='readmore' href='/2021/10/18/%E6%89%8B%E6%9C%BA%E5%8F%B7%E8%BF%90%E8%90%A5%E5%95%86/'>
-            Read More
-          </a>
-        </div>
+      
+        <a class='next' href='/2021/10/28/%E6%95%B0%E7%BB%84%E5%92%8Ctree%E4%BA%92%E8%BD%AC/'>
+          <p class='title'>数组和tree互转<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>
+
+1234567let arr = [  &#123; id: 1, name: &quot;1&quot;, pid: 0 &#125;,  &#123; id: 2, name: &quo...</p>
+        </a>
       
     </div>
   
+</article>
 
-</div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/10/18/js%E6%97%B6%E9%97%B4%E4%B8%AA%E6%80%A7%E5%8C%96%E8%BE%93%E5%87%BA%E5%8A%9F%E8%83%BD/">
-        js时间个性化输出功能
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>当前时间和发布时间的差值</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-10-18</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/10/18/js%E6%97%B6%E9%97%B4%E4%B8%AA%E6%80%A7%E5%8C%96%E8%BE%93%E5%87%BA%E5%8A%9F%E8%83%BD/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
   
 
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/10/18/js%E6%9B%BF%E6%8D%A2%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9C%B0%E5%9D%80%E6%A0%8F/">
-        js替换浏览器地址栏
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        
-
-12345678function locationReplace(url) &#123;  if (history.replaceState) &#123;    history.replaceState(null, document.title, url);    history.go(0);  &#125; else &#123;    location.replace(url); ...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-10-18</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/10/18/js%E6%9B%BF%E6%8D%A2%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9C%B0%E5%9D%80%E6%A0%8F/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
   
 
-</div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/10/18/js%E6%89%8B%E6%9C%BA%E5%8F%B7%E5%BD%92%E5%B1%9E%E5%9C%B0/">
-        js手机号归属地
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        
-123456789101112131415161718192021function isMobileNumber(e) &#123;  var i =      &quot;134,135,136,137,138,139,150,151,152,157,158,159,187,188,147,182,183,184,178&quot;,    n = &quot;130,131,132,1...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-10-18</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/10/18/js%E6%89%8B%E6%9C%BA%E5%8F%B7%E5%BD%92%E5%B1%9E%E5%9C%B0/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
 
-</div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/10/18/%E8%8E%B7%E5%8F%96URL%E4%B8%8A%E7%9A%84%E5%8F%82%E6%95%B0/">
-        获取URL上的参数
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <h2 id="getUrlParam"><a href="#getUrlParam" class="headerlink" title="getUrlParam"></a>getUrlParam</h2>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-10-18</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/10/18/%E8%8E%B7%E5%8F%96URL%E4%B8%8A%E7%9A%84%E5%8F%82%E6%95%B0/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/10/18/%E7%89%88%E6%9C%AC%E5%AF%B9%E6%AF%94/">
-        版本对比
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <h2 id="版本对比"><a href="#版本对比" class="headerlink" title="版本对比"></a>版本对比</h2>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-10-18</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/10/18/%E7%89%88%E6%9C%AC%E5%AF%B9%E6%AF%94/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/10/14/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%8E%88%E6%9D%83/">
-        微信公众号授权
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <h2 id="微信公众号授权"><a href="#微信公众号授权" class="headerlink" title="微信公众号授权"></a>微信公众号授权</h2><ul>
-<li><p>1.1 读取本地 token</p>
-</li>
-<li><p>1.2 设置 token 重新保存 store</p>
-</li>
-<li><p>1.3 验证 token 并获取账号信息</p>
-</li>
-<li><p>2.1 未读取 token 发起微信公众号网页授权</p>
-</li>
-<li><p>2.2 微信会重定向网页 获取 code</p>
-</li>
-<li><p>2.3 根据 code 接口获取 token 并保存更新 token</p>
-</li>
-<li><p>2.4 主动获取账号信息</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-10-14</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/10/14/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%8E%88%E6%9D%83/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/10/14/flex%E5%B8%83%E5%B1%80-%E6%9C%80%E5%90%8E%E4%B8%80%E8%A1%8C%E5%B7%A6%E5%AF%B9%E9%BD%90/">
-        flex布局 justify-content:space-between 最后一行左对齐
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        在线地址1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-10-14</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/10/14/flex%E5%B8%83%E5%B1%80-%E6%9C%80%E5%90%8E%E4%B8%80%E8%A1%8C%E5%B7%A6%E5%AF%B9%E9%BD%90/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-      <br>
-      <div class="prev-next">
-        
-          <a class="prev" rel="prev" href="/">
-            <section class="post prev white-box shadow" >
-              <i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;Previous&nbsp;
-            </section>
-          </a>
-        
-        <p class="current">
-          2 / 2
-        </p>
-        
-      </div>
-    
-  
 
 
 </div>
@@ -906,98 +640,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/Logo-NavBar@3x.png'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">大白话的Blog</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:me@xxx.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/volantis-x/"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
-
-  
-
-  
-    
-    
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
 
 
-    <div class='content'>
-      <a href="/tags/APP/" style="font-size: 14px; color: #999">APP</a> <a href="/tags/BOM/" style="font-size: 14px; color: #999">BOM</a> <a href="/tags/Date/" style="font-size: 14px; color: #999">Date</a> <a href="/tags/Object-seal/" style="font-size: 14px; color: #999">Object.seal</a> <a href="/tags/ssr/" style="font-size: 14px; color: #999">ssr</a> <a href="/tags/tree/" style="font-size: 14px; color: #999">tree</a> <a href="/tags/util/" style="font-size: 24px; color: #555">util</a> <a href="/tags/websocket/" style="font-size: 14px; color: #999">websocket</a> <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7/" style="font-size: 14px; color: #999">微信公众号</a> <a href="/tags/%E9%A2%84%E6%B8%B2%E6%9F%93/" style="font-size: 14px; color: #999">预渲染</a>
-    </div>
-  </section>
-
-
-  
 
   
 
@@ -1012,8 +656,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="websocket心跳检测机制";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
