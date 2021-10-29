@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -24,7 +22,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>Tag: 预渲染 - 大白话的Blog</title>
+  <title>base64,file,blob互转 - 大白话的Blog</title>
   
 
   
@@ -355,7 +353,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  dock' style="display: none;">
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="/images/BingWallpaper.jpg"></div>
           
@@ -432,76 +430,213 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="body-wrapper" id="pjax-container">
           
 
-
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
+
+
+  
+  <div class="article-meta" id="top">
     
-      
-  <section class="post-list">
     
-      
+    
+      <h1 class="title">
+        base64,file,blob互转
+      </h1>
+      <div class='new-meta-box'>
         
           
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/10/28/vue-cli%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E9%A2%84%E6%B8%B2%E6%9F%93/">
-        vue-cli项目配置预渲染
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        vue-cli2.0 版本webpack.prod.conf.js 增加
-router.js 中设置路由模式 mode: &quot;history&quot;
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="">
+    <p>请设置文章作者</p>
+  </a>
+</div>
 
-12345678910111213141516171819202122232425// npm install prerender-spa-plugin --saveconst path = require(&quot;path&...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+          
         
-        <time>2021-10-28</time>
+          
+            
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Oct 29, 2021</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="base64,file,blob互转" data-path="/2021/10/29/base64-file-blob%E4%BA%92%E8%BD%AC/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  
+  <blockquote>
+<p>base64ToFile<br>base64ToBlob<br>fileToBase64</p>
+</blockquote>
+<!--  -->
+
+<h2 id="base64-转-file"><a href="#base64-转-file" class="headerlink" title="base64 转 file"></a>base64 转 file</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@param <span class="type">&#123; base64 &#125;</span> <span class="variable">base64</span></span></span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@param <span class="type">&#123; string &#125;</span> </span>filename 转换后的文件名</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> base64ToFile = <span class="function">(<span class="params">base64, filename</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> arr = base64.split(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">  <span class="keyword">let</span> mime = arr[<span class="number">0</span>].match(<span class="regexp">/:(.*?);/</span>)[<span class="number">1</span>];</span><br><span class="line">  <span class="keyword">let</span> suffix = mime.split(<span class="string">&quot;/&quot;</span>)[<span class="number">1</span>]; <span class="comment">// 图片后缀</span></span><br><span class="line">  <span class="keyword">let</span> bstr = atob(arr[<span class="number">1</span>]);</span><br><span class="line">  <span class="keyword">let</span> n = bstr.length;</span><br><span class="line">  <span class="keyword">let</span> u8arr = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(n);</span><br><span class="line">  <span class="keyword">while</span> (n--) &#123;</span><br><span class="line">    u8arr[n] = bstr.charCodeAt(n);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> File([u8arr], <span class="string">`<span class="subst">$&#123;filename&#125;</span>.<span class="subst">$&#123;suffix&#125;</span>`</span>, &#123; <span class="attr">type</span>: mime &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="复制代码-base64-转-blob"><a href="#复制代码-base64-转-blob" class="headerlink" title="复制代码 base64 转 blob"></a>复制代码 base64 转 blob</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@param <span class="type">&#123; base64 &#125;</span> <span class="variable">base64</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> base64ToBlob = <span class="function">(<span class="params">base64</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> arr = base64.split(<span class="string">&quot;,&quot;</span>),</span><br><span class="line">    mime = arr[<span class="number">0</span>].match(<span class="regexp">/:(.*?);/</span>)[<span class="number">1</span>],</span><br><span class="line">    bstr = atob(arr[<span class="number">1</span>]),</span><br><span class="line">    n = bstr.length,</span><br><span class="line">    u8arr = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(n);</span><br><span class="line">  <span class="keyword">while</span> (n--) &#123;</span><br><span class="line">    u8arr[n] = bstr.charCodeAt(n);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Blob([u8arr], &#123; <span class="attr">type</span>: mime &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="复制代码-blob-转-file"><a href="#复制代码-blob-转-file" class="headerlink" title="复制代码 blob 转 file"></a>复制代码 blob 转 file</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@param <span class="type">&#123; blob &#125;</span> <span class="variable">blob</span></span></span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@param <span class="type">&#123; string &#125;</span> <span class="variable">fileName</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> blobToFile = <span class="function">(<span class="params">blob, fileName</span>) =&gt;</span> &#123;</span><br><span class="line">  blob.lastModifiedDate = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">  blob.name = fileName;</span><br><span class="line">  <span class="keyword">return</span> blob;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="复制代码-file-转-base64"><a href="#复制代码-file-转-base64" class="headerlink" title="复制代码 file 转 base64"></a>复制代码 file 转 base64</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123; * &#125;</span> </span>file 图片文件</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> fileToBase64 = <span class="function">(<span class="params">file</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> reader = <span class="keyword">new</span> FileReader();</span><br><span class="line">  reader.readAsDataURL(file);</span><br><span class="line">  reader.onload = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> e.target.result;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2021/10/28/vue-cli%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E9%A2%84%E6%B8%B2%E6%9F%93/'>
-            Read More
-          </a>
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://jszss.github.io/2021/10/29/base64-file-blob%E4%BA%92%E8%BD%AC/>https://jszss.github.io/2021/10/29/base64-file-blob%E4%BA%92%E8%BD%AC/</a></p>
+              
+            
+          </blockquote>
         </div>
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-29T21:39:39+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Oct 29, 2021</p>
+  </a>
 </div>
 
-          </div>
         
       
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
-  </section>
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jszss.github.io/2021/10/29/base64-file-blob%E4%BA%92%E8%BD%AC/&title=base64,file,blob互转 - 大白话的Blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://jszss.github.io/2021/10/29/base64-file-blob%E4%BA%92%E8%BD%AC/&title=base64,file,blob互转 - 大白话的Blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://jszss.github.io/2021/10/29/base64-file-blob%E4%BA%92%E8%BD%AC/&title=base64,file,blob互转 - 大白话的Blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
   
-    
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2021/10/29/tree-%E8%BF%BD%E6%BA%AF%E7%88%B6%E8%8A%82%E7%82%B9/'>
+          <p class='title'>tree 追溯父节点<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>
+追溯父节点123456789101112131415161718192021export function traceParentNode(  pid,  data,  rootPid,  p...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
   
 
 
-    
-  
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -509,103 +644,28 @@ router.js 中设置路由模式 mode: &quot;history&quot;
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/Logo-NavBar@3x.png'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">大白话的Blog</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:me@xxx.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/volantis-x/"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <a href="/tags/APP/" style="font-size: 14px; color: #999">APP</a> <a href="/tags/BOM/" style="font-size: 14px; color: #999">BOM</a> <a href="/tags/Date/" style="font-size: 14px; color: #999">Date</a> <a href="/tags/Object-seal/" style="font-size: 14px; color: #999">Object.seal</a> <a href="/tags/ssr/" style="font-size: 14px; color: #999">ssr</a> <a href="/tags/tree/" style="font-size: 19px; color: #777">tree</a> <a href="/tags/util/" style="font-size: 24px; color: #555">util</a> <a href="/tags/websocket/" style="font-size: 14px; color: #999">websocket</a> <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7/" style="font-size: 14px; color: #999">微信公众号</a> <a href="/tags/%E9%A2%84%E6%B8%B2%E6%9F%93/" style="font-size: 14px; color: #999">预渲染</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#base64-%E8%BD%AC-file"><span class="toc-text">base64 转 file</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E4%BB%A3%E7%A0%81-base64-%E8%BD%AC-blob"><span class="toc-text">复制代码 base64 转 blob</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E4%BB%A3%E7%A0%81-blob-%E8%BD%AC-file"><span class="toc-text">复制代码 blob 转 file</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E4%BB%A3%E7%A0%81-file-%E8%BD%AC-base64"><span class="toc-text">复制代码 file 转 base64</span></a></li></ol>
     </div>
   </section>
 
 
   
 
-  
-
 
 </aside>
+
 
 
 		  
@@ -614,8 +674,8 @@ router.js 中设置路由模式 mode: &quot;history&quot;
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="base64,file,blob互转";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
