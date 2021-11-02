@@ -9,7 +9,7 @@ tags:
 > base64ToBlob
 > fileToBase64
 
-<!--  -->
+<!-- more -->
 
 ## base64 转 file
 
