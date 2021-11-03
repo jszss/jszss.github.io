@@ -22,9 +22,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>base64,file,blob互转 - 大白话的Blog</title>
+  <title>base64,file,blob互转 - 朱松松的Blog</title>
   
 
+  
+    <meta name="description" content="
+base64ToFilebase64ToBlobfileToBase64
+">
   
 
   <!-- feed -->
@@ -121,7 +125,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           
           
-            zss Blog
+            ZSS Blog
           
         </a>
       
@@ -364,7 +368,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <p class="title">Blog</p>
     
     
-      <p class="subtitle">我的博客</p>
+      <p class="subtitle">ZSS的博客</p>
     
   </div>
   <div class='bottom'>
@@ -497,7 +501,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <blockquote>
 <p>base64ToFile<br>base64ToBlob<br>fileToBase64</p>
 </blockquote>
-<!--  -->
+<span id="more"></span>
 
 <h2 id="base64-转-file"><a href="#base64-转-file" class="headerlink" title="base64 转 file"></a>base64 转 file</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@param <span class="type">&#123; base64 &#125;</span> <span class="variable">base64</span></span></span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@param <span class="type">&#123; string &#125;</span> </span>filename 转换后的文件名</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> base64ToFile = <span class="function">(<span class="params">base64, filename</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> arr = base64.split(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">  <span class="keyword">let</span> mime = arr[<span class="number">0</span>].match(<span class="regexp">/:(.*?);/</span>)[<span class="number">1</span>];</span><br><span class="line">  <span class="keyword">let</span> suffix = mime.split(<span class="string">&quot;/&quot;</span>)[<span class="number">1</span>]; <span class="comment">// 图片后缀</span></span><br><span class="line">  <span class="keyword">let</span> bstr = atob(arr[<span class="number">1</span>]);</span><br><span class="line">  <span class="keyword">let</span> n = bstr.length;</span><br><span class="line">  <span class="keyword">let</span> u8arr = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(n);</span><br><span class="line">  <span class="keyword">while</span> (n--) &#123;</span><br><span class="line">    u8arr[n] = bstr.charCodeAt(n);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> File([u8arr], <span class="string">`<span class="subst">$&#123;filename&#125;</span>.<span class="subst">$&#123;suffix&#125;</span>`</span>, &#123; <span class="attr">type</span>: mime &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
@@ -540,10 +544,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-29T21:39:39+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-30T16:45:38+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Oct 29, 2021</p>
+    <p>更新于：Oct 30, 2021</p>
   </a>
 </div>
 
@@ -562,7 +566,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jszss.github.io/2021/10/29/base64-file-blob%E4%BA%92%E8%BD%AC/&title=base64,file,blob互转 - 大白话的Blog&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jszss.github.io/2021/10/29/base64-file-blob%E4%BA%92%E8%BD%AC/&title=base64,file,blob互转 - 朱松松的Blog&summary=
+base64ToFilebase64ToBlobfileToBase64
+"
           
           >
           
@@ -574,7 +580,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://jszss.github.io/2021/10/29/base64-file-blob%E4%BA%92%E8%BD%AC/&title=base64,file,blob互转 - 大白话的Blog&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://jszss.github.io/2021/10/29/base64-file-blob%E4%BA%92%E8%BD%AC/&title=base64,file,blob互转 - 朱松松的Blog&summary=
+base64ToFilebase64ToBlobfileToBase64
+"
           
           >
           
@@ -586,7 +594,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://jszss.github.io/2021/10/29/base64-file-blob%E4%BA%92%E8%BD%AC/&title=base64,file,blob互转 - 大白话的Blog&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://jszss.github.io/2021/10/29/base64-file-blob%E4%BA%92%E8%BD%AC/&title=base64,file,blob互转 - 朱松松的Blog&summary=
+base64ToFilebase64ToBlobfileToBase64
+"
           
           >
           
@@ -615,6 +625,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
     <div class="prev-next">
+      
+        <a class='prev' href='/2021/10/30/%E9%87%91%E9%92%B1%E6%A0%BC%E5%BC%8F%E5%8C%96/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>金钱格式化</p>
+          <p class='content'>formatMoney
+
+
+12345/** *  @param &#123; number &#125; num */export const formatMoney = (num) =&gt...</p>
+        </a>
       
       
         <a class='next' href='/2021/10/29/tree-%E8%BF%BD%E6%BA%AF%E7%88%B6%E8%8A%82%E7%82%B9/'>

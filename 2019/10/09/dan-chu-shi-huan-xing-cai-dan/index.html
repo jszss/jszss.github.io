@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>弹出式环形菜单 - 朱松松的Blog</title>
+  
+    <meta name="keywords" content="CSS3,css 特效">
+  
+
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            ZSS Blog
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="/images/BingWallpaper.jpg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">Blog</p>
+    
+    
+      <p class="subtitle">ZSS的博客</p>
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/v4/getting-started/"
+              
+              
+              id="v4getting-started">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f5c3.svg'><p>文档</p>
+            </a>
+          
+            <a href="/faqs/"
+              
+              
+              id="faqs">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f516.svg'><p>帮助</p>
+            </a>
+          
+            <a href="/examples/"
+              
+              
+              id="examples">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f396.svg'><p>示例</p>
+            </a>
+          
+            <a href="/contributors/"
+              
+              
+              id="contributors">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f389.svg'><p>社区</p>
+            </a>
+          
+            <a href="/archives/"
+              
+              
+              id="archives">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f4f0.svg'><p>博客</p>
+            </a>
+          
+            <a target="_blank" rel="noopener" href="https://github.com/volantis-x/hexo-theme-volantis/"
+              
+              
+              id="https:githubcomvolantis-xhexo-theme-volantis">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f9ec.svg'><p>源码</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        弹出式环形菜单
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="">
+    <p>请设置文章作者</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Oct 9, 2019</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="弹出式环形菜单" data-path="/2019/10/09/dan-chu-shi-huan-xing-cai-dan/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <h1 id="弹出式环形菜单-https-codepen-io-HelKyle-pen-qygvJz"><a href="#弹出式环形菜单-https-codepen-io-HelKyle-pen-qygvJz" class="headerlink" title="弹出式环形菜单(https://codepen.io/HelKyle/pen/qygvJz)"></a>弹出式环形菜单(<a target="_blank" rel="noopener" href="https://codepen.io/HelKyle/pen/qygvJz">https://codepen.io/HelKyle/pen/qygvJz</a>)</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;popping-menu&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">id</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="attr">xmlns:xlink</span>=<span class="string">&quot;http://www.w3.org/1999/xlink&quot;</span> <span class="attr">version</span>=<span class="string">&quot;1.1&quot;</span> <span class="attr">id</span>=<span class="string">&quot;Capa_1&quot;</span> <span class="attr">x</span>=<span class="string">&quot;0px&quot;</span> <span class="attr">y</span>=<span class="string">&quot;0px&quot;</span> <span class="attr">viewBox</span>=<span class="string">&quot;0 0 512 512&quot;</span> <span class="attr">style</span>=<span class="string">&quot;enable-background:new 0 0 512 512;&quot;</span> <span class="attr">xml:space</span>=<span class="string">&quot;preserve&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;white&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M384,0H128c-14.138,0-25.6,11.461-25.6,25.6v460.8c0,14.138,11.461,25.6,25.6,25.6h256c14.138,0,25.6-11.461,25.6-25.6     V25.6C409.6,11.461,398.138,0,384,0z M392.533,68.267H196.267c-4.713,0-8.533,3.82-8.533,8.533s3.82,8.533,8.533,8.533h196.267     v332.8h-25.6c-4.713,0-8.533,3.82-8.533,8.533s3.82,8.533,8.533,8.533h25.6v51.2c0,4.713-3.82,8.533-8.533,8.533H128     c-4.713,0-8.533-3.82-8.533-8.533v-51.2h196.267c4.713,0,8.533-3.82,8.533-8.533s-3.82-8.533-8.533-8.533H119.467v-332.8h25.6     c4.713,0,8.533-3.82,8.533-8.533s-3.82-8.533-8.533-8.533h-25.6V25.6c0-4.713,3.82-8.533,8.533-8.533h256     c4.713,0,8.533,3.82,8.533,8.533V68.267z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M264.533,460.8h-17.067c-4.713,0-8.533,3.82-8.533,8.533s3.82,8.533,8.533,8.533h17.067c4.713,0,8.533-3.82,8.533-8.533     S269.246,460.8,264.533,460.8z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="attr">xmlns:xlink</span>=<span class="string">&quot;http://www.w3.org/1999/xlink&quot;</span> <span class="attr">version</span>=<span class="string">&quot;1.1&quot;</span> <span class="attr">id</span>=<span class="string">&quot;Capa_1&quot;</span> <span class="attr">x</span>=<span class="string">&quot;0px&quot;</span> <span class="attr">y</span>=<span class="string">&quot;0px&quot;</span> <span class="attr">viewBox</span>=<span class="string">&quot;0 0 512.001 512.001&quot;</span> <span class="attr">style</span>=<span class="string">&quot;enable-background:new 0 0 512.001 512.001;&quot;</span> <span class="attr">xml:space</span>=<span class="string">&quot;preserve&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;white&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M356,145.993c-5.52,0-10,4.48-10,10c0,5.52,4.48,10,10,10c5.52,0,10-4.48,10-10S361.52,145.993,356,145.993z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M156,345.993c-5.52,0-10,4.48-10,10c0,5.52,4.48,10,10,10s10-4.48,10-10C166,350.473,161.52,345.993,156,345.993z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M508.532,214.332c-0.811-4.815-4.98-8.34-9.862-8.34h-38.684c-5.079-20.77-13.275-40.497-24.447-58.838l29.082-29.081    c3.453-3.454,3.907-8.897,1.073-12.875c-16.262-22.821-36.079-42.638-58.9-58.9c-3.977-2.833-9.419-2.381-12.875,1.073    l-29.081,29.082C346.497,65.282,326.77,57.084,306,52.006V13.323c0-4.882-3.525-9.051-8.34-9.861    c-27.347-4.604-55.973-4.604-83.319,0C209.525,4.272,206,8.441,206,13.323v38.683c-20.778,5.08-40.508,13.278-58.839,24.446    l-29.08-29.081c-3.454-3.454-8.897-3.908-12.875-1.073c-22.821,16.262-42.638,36.079-58.9,58.9    c-2.834,3.978-2.38,9.42,1.073,12.875l29.082,29.081c-11.172,18.341-19.368,38.068-24.447,58.838H13.33    c-4.882,0-9.051,3.525-9.861,8.34C1.167,228.007,0,242.022,0,255.993c0,13.97,1.167,27.986,3.469,41.66    c0.811,4.815,4.979,8.34,9.861,8.34h38.683c5.08,20.778,13.278,40.508,24.446,58.839l-29.081,29.08    c-3.453,3.454-3.907,8.897-1.073,12.875c16.262,22.821,36.079,42.638,58.9,58.9c3.977,2.834,9.42,2.381,12.875-1.073    l29.081-29.082C165.503,446.704,185.23,454.9,206,459.978v38.684c0,4.882,3.525,9.051,8.34,9.861    c13.671,2.302,27.688,3.469,41.66,3.469s27.989-1.167,41.66-3.469c4.814-0.811,8.34-4.979,8.34-9.861V459.98    c20.778-5.08,40.508-13.278,58.839-24.446l29.08,29.081c3.454,3.453,8.896,3.906,12.875,1.073    c22.821-16.262,42.638-36.079,58.9-58.9c2.834-3.978,2.38-9.42-1.073-12.875L435.54,364.83    c11.172-18.341,19.368-38.068,24.447-58.838h38.684c4.882,0,9.051-3.525,9.861-8.34c2.302-13.673,3.469-27.69,3.469-41.66    C512.001,242.022,510.834,228.007,508.532,214.332z M490.054,285.993H451.98c-4.754,0-8.851,3.347-9.799,8.006    c-4.855,23.854-14.18,46.298-27.715,66.708c-2.629,3.965-2.101,9.234,1.263,12.598l28.658,28.658    c-12.254,15.943-26.475,30.163-42.417,42.417l-28.658-28.658c-3.364-3.365-8.634-3.893-12.6-1.261    c-20.395,13.532-42.837,22.856-66.706,27.714c-4.659,0.948-8.006,5.045-8.006,9.799v38.074c-19.816,2.586-40.184,2.586-60,0    v-38.074c0-4.754-3.347-8.851-8.006-9.799c-23.854-4.855-46.298-14.18-66.708-27.715c-3.966-2.63-9.234-2.102-12.598,1.263    l-28.658,28.658c-15.943-12.254-30.163-26.475-42.417-42.417l28.658-28.658c3.365-3.364,3.892-8.634,1.261-12.6    C84,340.311,74.676,317.868,69.818,294c-0.948-4.659-5.045-8.006-9.799-8.006H21.946c-1.293-9.911-1.946-19.967-1.946-30    c0-10.033,0.653-20.089,1.946-30H60.02c4.754,0,8.851-3.347,9.799-8.006c4.855-23.854,14.18-46.298,27.715-66.708    c2.629-3.965,2.101-9.234-1.263-12.598l-28.658-28.658c12.255-15.943,26.475-30.163,42.418-42.417l28.658,28.658    c3.364,3.364,8.634,3.893,12.6,1.261c20.395-13.532,42.837-22.856,66.706-27.714c4.659-0.948,8.006-5.045,8.006-9.799V21.939    c19.821-2.586,40.179-2.586,60,0v38.074c0,4.754,3.347,8.851,8.006,9.799c23.854,4.855,46.298,14.18,66.708,27.715    c3.964,2.629,9.233,2.101,12.598-1.263l28.658-28.658c15.943,12.254,30.163,26.475,42.417,42.417l-28.658,28.658    c-3.364,3.364-3.892,8.633-1.263,12.598c13.535,20.41,22.86,42.853,27.715,66.708c0.948,4.659,5.045,8.006,9.799,8.006h38.074    c1.293,9.911,1.946,19.967,1.946,30C492.001,266.025,491.347,276.082,490.054,285.993z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M327.972,124.405c-21.947-12.047-46.835-18.414-71.972-18.414c-82.71,0-150,67.29-150,150    c0,25.137,6.367,50.024,18.414,71.972c2.665,4.857,8.751,6.604,13.578,3.955c4.842-2.657,6.612-8.736,3.955-13.578    C131.514,299.335,126,277.775,126,255.993c0-71.682,58.318-130,130-130c21.782,0,43.342,5.514,62.349,15.946    c4.84,2.657,10.921,0.888,13.578-3.955C334.585,133.142,332.814,127.064,327.972,124.405z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M387.586,184.022c-2.657-4.843-8.736-6.613-13.578-3.955c-4.842,2.657-6.612,8.736-3.955,13.578    C380.486,212.65,386,234.211,386,255.993c0,71.682-58.318,130-130,130c-21.782,0-43.342-5.514-62.349-15.946    c-4.839-2.656-10.92-0.887-13.578,3.955c-2.658,4.841-0.887,10.92,3.955,13.578c21.947,12.047,46.835,18.414,71.972,18.414    c82.71,0,150-67.29,150-150C406,230.856,399.633,205.97,387.586,184.022z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M256,145.993c-60.654,0-110,49.346-110,110s49.346,110,110,110s110-49.346,110-110S316.654,145.993,256,145.993z     M256,345.993c-49.626,0-90-40.374-90-90c0-49.626,40.374-90,90-90c49.626,0,90,40.374,90,90    C346,305.618,305.626,345.993,256,345.993z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="attr">xmlns:xlink</span>=<span class="string">&quot;http://www.w3.org/1999/xlink&quot;</span> <span class="attr">version</span>=<span class="string">&quot;1.1&quot;</span> <span class="attr">id</span>=<span class="string">&quot;Capa_1&quot;</span> <span class="attr">x</span>=<span class="string">&quot;0px&quot;</span> <span class="attr">y</span>=<span class="string">&quot;0px&quot;</span> <span class="attr">viewBox</span>=<span class="string">&quot;0 0 512 512&quot;</span> <span class="attr">style</span>=<span class="string">&quot;enable-background:new 0 0 512 512;&quot;</span> <span class="attr">xml:space</span>=<span class="string">&quot;preserve&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;white&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M416,426c-5.52,0-10,4.48-10,10c0,5.52,4.48,10,10,10c5.52,0,10-4.48,10-10C426,430.48,421.52,426,416,426z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M446,47.432V30c0-16.542-13.458-30-30-30H96C79.458,0,66,13.458,66,30v17.432C0.773,167.896,0.003,164.319,0,169.989    c0,0.004,0,0.007,0,0.011v20c0,17.333,10.022,33.453,26,42.62V502c0,5.522,4.478,10,10,10h440c5.522,0,10-4.478,10-10V232.62    c15.817-9.159,26-25.469,26-42.62v-20c0-0.004,0-0.007,0-0.011C511.997,164.258,510.591,166.721,446,47.432z M485.088,160h-61.88    L389.875,60h40.213L485.088,160z M346,180h60v10c0,16.542-13.458,30-30,30s-30-13.458-30-30V180z M344.471,160L327.805,60h40.987    l33.333,100H344.471z M86,30c0-5.514,4.486-10,10-10h320c5.514,0,10,4.486,10,10v10c-9.522,0-330.404,0-340,0V30z M326,180v10    c0,16.542-13.458,30-30,30s-30-13.458-30-30v-10H326z M266,160V60h41.529l16.667,100H266z M187.805,160l16.667-100H246v100    H187.805z M246,180v10c0,16.542-13.458,30-30,30s-30-13.458-30-30v-10H246z M109.874,160l33.333-100h40.988l-16.667,100H109.874z     M166,180v10c0,16.542-13.458,30-30,30s-30-13.458-30-30v-10H166z M81.912,60h40.213L88.792,160h-61.88L81.912,60z M20,190v-10h66    v10c0,15.701-15.729,30-33,30c-4.354,0-8.866-0.945-13.066-2.742C28.011,212.187,20,201.232,20,190z M206,492H106v-86h100V492z     M206,386H106v-86h100V386z M466,492H226V290c0-5.522-4.478-10-10-10H96c-5.522,0-10,4.478-10,10v202H46V239.511    c2.318,0.315,4.653,0.489,7,0.489c13.161,0,26.465-5.214,36.498-14.306c2.219-2.01,4.217-4.16,6.01-6.413    C104.602,231.822,119.36,240,136,240c16.339,0,30.87-7.878,40-20.035C185.13,232.122,199.661,240,216,240s30.87-7.878,40-20.035    C265.13,232.122,279.661,240,296,240s30.87-7.878,40-20.035C345.13,232.122,359.661,240,376,240    c16.64,0,31.398-8.178,40.492-20.719c1.793,2.253,3.791,4.402,6.01,6.413C432.535,234.786,445.839,240,459,240    c2.342,0,4.677-0.168,7-0.485V492z M492,190c0,11.548-8.309,22.629-20.674,27.575c-4.044,1.61-8.19,2.425-12.326,2.425    c-17.271,0-33-14.299-33-30v-10h66V190z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M436,386h-10v-96c0-5.522-4.478-10-10-10H296c-5.522,0-10,4.478-10,10v96h-10c-5.522,0-10,4.478-10,10    c0,5.522,4.478,10,10,10h160c5.522,0,10-4.478,10-10C446,390.478,441.522,386,436,386z M406,386H306v-86h100V386z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M376,426h-80c-5.522,0-10,4.478-10,10c0,5.522,4.478,10,10,10h80c5.522,0,10-4.478,10-10C386,430.478,381.522,426,376,426    z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="attr">xmlns:xlink</span>=<span class="string">&quot;http://www.w3.org/1999/xlink&quot;</span> <span class="attr">version</span>=<span class="string">&quot;1.1&quot;</span> <span class="attr">id</span>=<span class="string">&quot;Capa_1&quot;</span> <span class="attr">x</span>=<span class="string">&quot;0px&quot;</span> <span class="attr">y</span>=<span class="string">&quot;0px&quot;</span> <span class="attr">viewBox</span>=<span class="string">&quot;0 0 512 512&quot;</span> <span class="attr">style</span>=<span class="string">&quot;enable-background:new 0 0 512 512;&quot;</span> <span class="attr">xml:space</span>=<span class="string">&quot;preserve&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;white&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M299.359,266.002c-5.52,0-10,4.48-10,10c0,5.52,4.48,10,10,10c5.52,0,10-4.48,10-10    C309.359,270.482,304.878,266.002,299.359,266.002z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M239.359,123.002c-5.52,0-10,4.48-10,10c0,5.52,4.48,10,10,10c5.52,0,10-4.48,10-10    C249.359,127.482,244.878,123.002,239.359,123.002z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M411.646,178.251c-15.378-46.131-46.09-86.391-86.495-113.402c-9.031-29.961-31.399-53.916-59.541-63.301l-3.08-1.03    c-3.843-1.286-8.073-0.126-10.724,2.93c-2.652,3.057-3.201,7.411-1.39,11.03c3.857,7.706,6.463,16.506,7.643,25.681l-5.772,5.772    c-11.008,11.008-25.643,17.071-41.209,17.071h-11.72c-3.609,0-7.111,1.999-8.878,5.409c-0.021,0.04-0.046,0.076-0.066,0.116    l-7.062,14.114c-6.275,12.559-18.896,20.36-32.936,20.36c-4.406,0-8.801,0.511-13.056,1.517    c-8.673,2.046-13.957,5.405-16.584,6.598c-19.381,9.684-31.42,29.159-31.42,50.825c0,15.685,5.791,25.013,12.143,37.695    c6.706,13.215,20.078,21.425,34.897,21.425c6.105,0,11.983-1.392,17.477-4.138c15.345-7.682,34.263-8.317,50.859-0.054    l0.034,0.018c0.076,0.04,0.151,0.08,0.229,0.118c5.408,2.704,11.27,4.506,17.265,5.379c-11.195,7.753-22.887,13.305-34.44,16.195    c-50.817,12.705-83.713,66.415-64.521,123.862l6.57,19.72c1.36,4.084,5.183,6.839,9.487,6.839h10v23h-10    c-16.575,0-30,13.424-30,30c0,6.169,1.874,11.908,5.079,16.681C99.461,467.328,89.356,483.5,89.356,502c0,5.523,4.478,10,10,10    h280c5.522,0,10-4.477,10-10c0-18.401-9.914-34.583-25.049-43.333c3.284-4.893,5.049-10.645,5.049-16.667    c0-16.542-13.458-30-30-30h-10v-23h10.003v0.002c4.304,0,8.126-2.754,9.486-6.837l4.191-12.57    c2.502-7.507,4.764-15.412,6.757-23.592h39.565c4.767,0,8.87-3.364,9.806-8.038l9.341-46.683    C425.844,254.545,423.344,213.346,411.646,178.251z M367.656,492.002H111.073c4.127-11.641,15.249-20,28.286-20h200    C352.648,472.002,363.628,480.587,367.656,492.002z M339.359,432.002c5.513,0,10,4.485,10,10c0,5.521-4.478,10-10,10h-200    c-5.514,0-10-4.486-10-10c0-5.521,4.478-10,10-10H339.359z M169.359,412.002v-23c24.939,0,107.161,0,140,0v23H169.359z     M342.672,330.961c-1.074,1.835-1.542,3.939-1.317,6.09c-4.031,17.633-8.06,28.284-9.203,31.949h-12.793h-47.013    c15.475-10.639,28.137-29.405,33.95-50.424c1.473-5.323-1.649-10.832-6.972-12.304c-5.326-1.472-10.833,1.649-12.304,6.972    c-4.593,16.603-14.744,31.788-26.488,39.625L236.332,369c-13.237,0-78.514,0-89.764,0l-4.295-12.887    c-15.364-45.99,10.526-88.161,50.402-98.13c24.835-6.213,49.858-22.344,70.578-45.465c7.593-5.371,13.807-12.567,17.989-20.931    l7.06-14.11c2.471-4.939,0.471-10.946-4.469-13.417c-4.939-2.471-10.946-0.47-13.418,4.468l-7.061,14.112    c-9.04,18.076-31.053,25.582-49.306,16.532l-0.03-0.016c-0.074-0.04-0.149-0.078-0.224-0.116    c-22.078-11.051-47.68-10.609-68.868-0.002c-2.687,1.343-5.556,2.024-8.528,2.024c-7.246,0-13.784-4.014-17.039-10.429    l-0.182-0.363l23.343-7.781c5.239-1.747,8.071-7.41,6.325-12.649c-1.747-5.24-7.408-8.072-12.649-6.325l-25.432,8.477    c-4.745-16.717,2.718-34.872,18.972-42.994c2.86-1.319,6.306-3.619,12.224-5.015c2.754-0.651,5.6-0.981,8.458-0.981    c21.666,0,41.142-12.04,50.824-31.416l4.295-8.584h5.541c16.834,0,32.853-5.287,46.175-15.062    c-1.383,7.297-3.68,14.274-6.838,20.587c-2.471,4.939-0.471,10.946,4.469,13.417c4.939,2.471,10.946,0.471,13.418-4.468    c9.995-19.978,13.117-44.913,8.174-68.286c15.031,10.463,26.267,26.969,30.81,46.203c1.376,5.845,2.073,11.769,2.073,17.608    c0,1.075,0.173,2.143,0.514,3.163l24.189,72.569c9.864,29.593,15.297,64.137,15.297,97.268    C349.359,286.905,347.2,308.912,342.672,330.961z M398.893,287.359l-7.731,38.642h-27.179c0.45-2.531,0.883-5.068,1.278-7.609    c2.72-17.549,4.099-35.176,4.099-52.391c0-35.224-5.797-72.014-16.323-103.592l-23.01-69.032    c28.84,23.81,50.771,55.578,62.645,91.197C403.303,216.468,405.57,253.933,398.893,287.359z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="attr">xmlns:xlink</span>=<span class="string">&quot;http://www.w3.org/1999/xlink&quot;</span> <span class="attr">version</span>=<span class="string">&quot;1.1&quot;</span> <span class="attr">id</span>=<span class="string">&quot;Capa_1&quot;</span> <span class="attr">x</span>=<span class="string">&quot;0px&quot;</span> <span class="attr">y</span>=<span class="string">&quot;0px&quot;</span> <span class="attr">viewBox</span>=<span class="string">&quot;0 0 512 512&quot;</span> <span class="attr">style</span>=<span class="string">&quot;enable-background:new 0 0 512 512;&quot;</span> <span class="attr">xml:space</span>=<span class="string">&quot;preserve&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;white&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M416,352c-5.52,0-10,4.48-10,10c0,5.52,4.48,10,10,10c5.52,0,10-4.48,10-10C426,356.48,421.52,352,416,352z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M256,352c-5.52,0-10,4.48-10,10c0,5.52,4.48,10,10,10s10-4.48,10-10C266,356.48,261.52,352,256,352z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M76,106c-5.52,0-10,4.48-10,10s4.48,10,10,10s10-4.48,10-10S81.52,106,76,106z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M454.743,301.362c-16.373-27.55-36.631-49.257-58.584-63.149c0.357-0.325,0.708-0.658,1.052-1.001    C402.879,231.543,406,224.01,406,216c0-3.904-0.758-7.633-2.121-11.057C416.61,201.473,426,189.815,426,176    c0-7.457-2.708-14.499-7.655-20.009C423.101,150.68,426,143.673,426,136c0-7.453-2.705-14.491-7.647-20    c4.942-5.509,7.647-12.547,7.647-20c0-16.542-13.458-30-30-30h-22.473l12.224-53.784c0.675-2.966-0.038-6.078-1.936-8.455    C381.918,1.384,379.042,0,376,0h-80c-3.042,0-5.918,1.385-7.815,3.762c-1.898,2.377-2.61,5.489-1.936,8.456l3.567,15.694    l-23.467,11.734c-10.798,5.399-20.602,12.465-29.139,21.003c-13.968,13.966-31.873,22.549-51.21,24.76V76c0-5.523-4.477-10-10-10    H36c-5.523,0-10,4.477-10,10v160c0,5.523,4.477,10,10,10h140c5.523,0,10-4.477,10-10v-10h3.68c16.385,0,32.578,2.627,48.125,7.806    c10.552,3.521,21.323,6.287,32.234,8.29c-19.715,13.911-37.862,34.161-52.781,59.266C197.685,334.296,186,371.918,186,402    c0,33.631,14.455,61.732,41.802,81.267C254.117,502.064,291.531,512,336,512s81.883-9.936,108.197-28.733    C471.545,463.732,486,435.631,486,402C486,371.917,474.315,334.296,454.743,301.362z M166,106h-50c-5.523,0-10,4.477-10,10    s4.477,10,10,10h50v100H46V86h120V106z M363.473,20l-10.455,46h-34.035l-10.454-46H363.473z M244.131,214.833    C226.537,208.972,208.217,206,189.68,206H186V105.534c24.69-2.282,47.601-12.993,65.352-30.743    c7.015-7.015,15.069-12.821,23.94-17.257l19.087-9.543L298.472,66H296c-5.522,0-10,4.477-10,10s4.478,10,10,10    c21.954,0,78.309,0,100,0c5.514,0,10,4.486,10,10c0,2.668-1.041,5.179-2.931,7.068c-1.89,1.891-4.401,2.932-7.069,2.932h-40    c-5.522,0-10,4.477-10,10s4.478,10,10,10h40c5.521,0,10,4.479,10,10c0,5.514-4.486,10-10,10h-40c-5.522,0-10,4.477-10,10    s4.478,10,10,10h40c5.521,0,10,4.479,10,10c0,5.514-4.486,10-10,10c-13.99,0-26.01,0-40,0c-5.522,0-10,4.477-10,10s4.478,10,10,10    h20c5.514,0,10,4.486,10,10c0,5.522-4.479,10-10,10h-63.08c-3.141,0-6.402-0.074-9.697-0.22    C283.115,224.89,263.236,221.208,244.131,214.833z M432.572,466.993C409.67,483.353,376.275,492,336,492    c-40.275,0-73.67-8.647-96.573-25.007C217.559,451.372,206,428.898,206,402c0-26.642,10.636-60.443,28.45-90.42    c19.44-32.71,44.446-55.995,70.53-65.731c2.687,0.09,5.354,0.151,7.939,0.151h54.503c25.94,9.825,50.788,33.038,70.128,65.58    C455.364,341.556,466,375.358,466,402C466,428.898,454.441,451.372,432.572,466.993z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">g</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">&quot;M341.178,353.875c-14.907-7.879-24.678-13.609-24.678-21.165c0-11.028,8.972-20,20-20s20,8.972,20,20    c0,5.523,4.478,10,10,10c5.522,0,10-4.477,10-10c0-18.604-12.767-34.282-30-38.734V282.71c0-5.523-4.478-10-10-10    c-5.522,0-10,4.477-10,10v11.266c-17.233,4.452-30,20.13-30,38.734c0,20.171,18.771,30.093,35.331,38.847    c14.901,7.877,24.669,13.604,24.669,21.153c0,11.028-8.972,20-20,20s-20-8.972-20-20c0-5.523-4.478-10-10-10    c-5.522,0-10,4.477-10,10c0,18.604,12.767,34.282,30,38.734v11.266c0,5.523,4.478,10,10,10c5.522,0,10-4.477,10-10v-11.266    c17.233-4.452,30-20.13,30-38.734C376.5,372.546,357.734,362.627,341.178,353.875z&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;checkbox&quot;</span>&gt;</span>Click Me<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @import &quot;compass&quot;;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$d</span>: <span class="number">9em</span>;</span><br><span class="line"></span><br><span class="line">*,</span><br><span class="line">*<span class="selector-pseudo">::before</span>,</span><br><span class="line">*::aftre &#123;</span><br><span class="line">  padding: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">justify-content</span>: center;</span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100vh</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.popping-menu</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">10em</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">10em</span>;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">justify-content</span>: center;</span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">  <span class="selector-tag">button</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">4em</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">4em</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">1em</span>;</span><br><span class="line">    appearance: none;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#FFB66F</span>;</span><br><span class="line">    <span class="attribute">border</span>: none;</span><br><span class="line">    <span class="attribute">transition</span>: all <span class="number">0.3s</span> ease-in-out;</span><br><span class="line">    <span class="attribute">transform</span>: translate(<span class="number">0</span>, <span class="number">0</span>) rotate(<span class="number">360deg</span>);</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">color</span>: white;</span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.popping-menu</span> &#123;</span><br><span class="line">  <span class="selector-class">.checkbox</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: none;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.checkbox</span><span class="selector-pseudo">:checked</span> &#123;</span><br><span class="line">    ~ <span class="selector-tag">button</span> &#123;</span><br><span class="line">      <span class="keyword">@import</span> <span class="string">&quot;compass&quot;</span>;</span><br><span class="line"></span><br><span class="line">      <span class="variable">$per</span>: <span class="number">180</span> / <span class="number">4</span>;</span><br><span class="line">      <span class="keyword">@for</span> <span class="variable">$i</span> from <span class="number">1</span> through <span class="number">6</span> &#123;</span><br><span class="line">        &amp;<span class="selector-pseudo">:nth-of-type</span>(#&#123;$i&#125;) &#123;</span><br><span class="line">          <span class="variable">$angle</span>: <span class="variable">$per</span> * (<span class="variable">$i</span> - <span class="number">1</span>) * <span class="number">1deg</span> + <span class="number">180deg</span>;</span><br><span class="line">          <span class="variable">$x</span>: cos(<span class="variable">$angle</span>) * <span class="variable">$d</span>;</span><br><span class="line">          <span class="variable">$y</span>: sin(<span class="variable">$angle</span>) * <span class="variable">$d</span>;</span><br><span class="line">          <span class="attribute">opacity</span>: <span class="number">1</span>;</span><br><span class="line">          <span class="attribute">transition-delay</span>: <span class="number">0.1s</span> * <span class="variable">$i</span>;</span><br><span class="line">          <span class="attribute">transform</span>: translate(<span class="variable">$x</span>, <span class="variable">$y</span>) rotate(<span class="number">0deg</span>) ;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.popping-menu</span> &#123;</span><br><span class="line">  <span class="selector-class">.label</span> &#123;</span><br><span class="line">    <span class="attribute">z-index</span>: <span class="number">10</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#4791FF</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">6em</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">6em</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">6em</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">color</span>: white;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">    user-select: none;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://jszss.github.io/2019/10/09/dan-chu-shi-huan-xing-cai-dan/>https://jszss.github.io/2019/10/09/dan-chu-shi-huan-xing-cai-dan/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-09T12:04:20+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Jul 9, 2021</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/CSS3/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>CSS3</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/css-%E7%89%B9%E6%95%88/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>css 特效</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jszss.github.io/2019/10/09/dan-chu-shi-huan-xing-cai-dan/&title=弹出式环形菜单 - 朱松松的Blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://jszss.github.io/2019/10/09/dan-chu-shi-huan-xing-cai-dan/&title=弹出式环形菜单 - 朱松松的Blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://jszss.github.io/2019/10/09/dan-chu-shi-huan-xing-cai-dan/&title=弹出式环形菜单 - 朱松松的Blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2019/10/09/huo-de-nian-du-de-di-ji-zhou/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>获得年度的第几周</p>
+          <p class='content'>123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051var ...</p>
+        </a>
+      
+      
+        <a class='next' href='/2019/10/09/cai-hong-loading/'>
+          <p class='title'>🌈彩虹 Loading<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>codepen
+https://cdpn.io/boomboom/v2/index.html?key=iFrameKey-5647e640-e7d1-ee18-99d4-c8d3837275bd...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="弹出式环形菜单";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+  
+    // cover
+    var cover_wrapper=document.querySelector('.cover-wrapper');
+    
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
+    
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        Use
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        as theme
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2017-2020 XXX</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('/js/search/hexo.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://jszss.github.io' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://jszss.github.io' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://jszss.github.io' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+ 
+	   
+	    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  </body>
+</html>
