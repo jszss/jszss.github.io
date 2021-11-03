@@ -2,11 +2,11 @@ navbar:
   logo: # choose [img] or [icon + title]
     img: 
     icon:
-    title: zss Blog
+    title: ZSS Blog
 cover:
   background: /images/BingWallpaper.jpg
   title: 'Blog'
-  subtitle: '我的博客'
+  subtitle: 'ZSS的博客'
 comments: true
 plugins:
   ################# required plugins ################
