@@ -1887,6 +1887,11 @@
     "open" "^7.0.0"
     "serve-static" "^1.14.1"
 
+"hexo-theme-ayer@^1.9.5":
+  "integrity" "sha1-cP3eSs3QRawaXXgZiv6oOgpJWIc="
+  "resolved" "https://registry.npmmirror.com/hexo-theme-ayer/download/hexo-theme-ayer-1.9.5.tgz"
+  "version" "1.9.5"
+
 "hexo-theme-butterfly@^3.8.4":
   "integrity" "sha512-d7S3LVVxmpWhL0YEYhMUejLMHbbTTosB8yLDkAnbe04HA4IoYiZTlE5zYdmLEcxIiNzyjW5Va4tnn4CNggR0Vg=="
   "resolved" "https://registry.npmjs.org/hexo-theme-butterfly/-/hexo-theme-butterfly-3.8.4.tgz"
