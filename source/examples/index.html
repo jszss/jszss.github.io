@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>examples</title>
+  </head>
+  <body>
+    <ul>
+      <li>
+        <a href="/demo/flex-last-line.html"
+          >flex布局 justify-content:space-between 最后一行左对齐</a
+        >
+      </li>
+      <li>
+        <a href="/demo/Collection-animation.html">收藏动画</a>
+      </li>
+    </ul>
+    <script>
+      "use strict";
+      class Person {
+        constructor() {}
+        render() {
+          console.log("Person.this", this);
+          console.log("Person.render");
+        }
+        jj() {}
+      }
+      class Stu extends Person {
+        constructor() {
+          super();
+        }
+        render() {
+          console.log("Stu.this", this);
+          console.log("Stu.render");
+        }
+      }
+      var stu = new Stu();
+      stu.render();
+      stu.render.call({ name: "z" });
+    </script>
+  </body>
+</html>

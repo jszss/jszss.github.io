@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>简单的收藏动画</title>
+  <style>
+    @keyframes banuce {
+      0% {
+        transform: scale(0.8);
+      }
+      100% {
+        transform: scale(1.35);
+      }
+    }
+    @keyframes circle {
+      0% {
+        transform: scale(0.2);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(1.5);
+        opacity: 1;
+      }
+    }
+    @keyframes show {
+      0% {
+        opacity: 1;
+      }
+    }
+    .wrap {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #star {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background-image: url(/images/star.png);
+      background-repeat: no-repeat;
+      background-size: 100%;
+      background-position: center;
+    }
+    .fill {
+      position: relative;
+      animation: banuce 0.2s ease 0s 2 alternate;
+      background-image: url(/images/star_fill.png) !important;
+    }
+    .fill::before {
+      opacity: 0;
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 10%;
+      height: 10%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: transparent;
+      box-shadow: 15px -15px 0 #fed001, 15px 15px 0 #fed001,
+        -15px -15px 0 #fed001, -15px 15px 0 #fed001;
+      animation: show 0.2s steps(1, end) 0s 1;
+    }
+    .fill::after {
+      opacity: 0;
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      animation: circle 0.3s ease 0.02s 1 alternate;
+      border-radius: 50%;
+      background: rgba(254, 208, 1, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div id="star"></div>
+  </div>
+  <script>
+    window.onload = ()=> {
+      const starEl = document.getElementById('star');
+      starEl.addEventListener('click', (e)=>{
+        starEl.className = 'fill';
+        setTimeout(()=>{
+          starEl.className = '';
+        }, 1000)
+      })
+    }
+  </script>
+</body>
+</html>
