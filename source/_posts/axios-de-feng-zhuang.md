@@ -1,7 +1,7 @@
 ---
 title: "axios的封装"
 date: 2019-09-25 11:48:01
-tags: [axios]
+tags: [axios, utils]
 published: true
 hideInList: false
 feature:

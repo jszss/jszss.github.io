@@ -1,7 +1,7 @@
 ---
 title: '移动端触摸事件'
 date: 2020-10-16 09:04:59
-tags: []
+tags: [touch]
 published: false
 hideInList: false
 feature: 

@@ -1,10 +1,10 @@
 ---
-title: 'getCurrentInstance ts类型错误'
+title: "getCurrentInstance ts类型错误"
 date: 2021-05-31 10:34:00
-tags: []
+tags: [vue3, ts]
 published: true
 hideInList: false
-feature: 
+feature:
 isTop: false
 ---
 

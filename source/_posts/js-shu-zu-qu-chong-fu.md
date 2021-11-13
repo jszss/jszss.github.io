@@ -1,19 +1,23 @@
 ---
-title: 'JS 数组去重复'
+title: "JS 数组去重复"
 date: 2019-09-09 10:36:38
 tags: []
 published: true
 hideInList: false
-feature: 
+feature:
 ---
-1. 使用 set 
+
+1. 使用 set
+
 ```
-function uniquearray(array) { 
-    let unique_array= Array.from(set(array)) 
-		return unique_array; 
+function uniquearray(array) {
+    let unique_array= Array.from(set(array))
+		return unique_array;
 }
 ```
+
 2. 使用 filter
+
 ```
 function unque_array (arr) {
   let unique_array = arr.filter(function(elem, index, self) {
@@ -23,7 +27,9 @@ function unque_array (arr) {
 }
  console.log(unique_array(array_with_duplicates));
 ```
+
 3. 使用 for 循环
+
 ```
 Array dups_names = ['Ron', 'Pal', 'Fred', 'Rongo', 'Ron'];
 function dups_array(dups_names) {

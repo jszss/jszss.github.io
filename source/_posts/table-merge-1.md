@@ -1,12 +1,13 @@
 ---
-title: 'Vue+Element-UI 中 el-table 动态合并单元格 :span-method 方法'
+title: "Vue+Element-UI 中 el-table 动态合并单元格 :span-method 方法"
 date: 2021-01-18 17:26:02
-tags: []
+tags: [表格合并]
 published: true
 hideInList: false
-feature: 
+feature:
 isTop: false
 ---
+
 ```js
 <template>
           <el-table
@@ -75,7 +76,7 @@ export default {
 
       // arr 处理
       this.groupBy(data, params).map(v => (arr = arr.concat(v)))
-      
+
       // this.tableData = arr
       arr.map(res => {
         data.shift()

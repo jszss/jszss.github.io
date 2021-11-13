@@ -1,18 +1,20 @@
 ---
-title: 'Nginx 解决跨域的原理'
+title: "Nginx 解决跨域的原理"
 date: 2019-09-16 14:58:43
-tags: []
+tags: [跨域]
 published: true
 hideInList: false
-feature: 
+feature:
 ---
->前端server域名为：`http://xx_domain`
->后端server域名为：`https://github.com`
+
+> 前端 server 域名为：`http://xx_domain`
+> 后端 server 域名为：`https://github.com`
 
 `http://xx_domain` 对 `https://github.com` 发起请求一定会出现跨域
 
-不过只需要启动一个nginx服务器，将server_name设置为`xx_domain`,然后设置相应的location以拦截前端需要跨域的请求，最后将请求代理回`github.com`。如下面的配置：
-```
+不过只需要启动一个 nginx 服务器，将 server_name 设置为`xx_domain`,然后设置相应的 location 以拦截前端需要跨域的请求，最后将请求代理回`github.com`。如下面的配置：
+
+```bash
 ## 配置反向代理的参数
 server {
     listen    8080;
@@ -29,8 +31,10 @@ server {
     }
 }
 ```
-这样可以完美绕过浏览器的同源策略：github.com访问nginx的github.com属于同源访问，而nginx对服务端转发的请求不会触发浏览器的同源策略。
-```
+
+这样可以完美绕过浏览器的同源策略：github.com 访问 nginx 的 github.com 属于同源访问，而 nginx 对服务端转发的请求不会触发浏览器的同源策略。
+
+```bash
 http {
     include mime.types;
     server_tokens off;

@@ -1,12 +1,13 @@
 ---
-title: 'node path'
+title: "node path"
 date: 2021-01-27 10:06:19
-tags: []
+tags: [path]
 published: true
 hideInList: false
-feature: 
+feature:
 isTop: false
 ---
+
 ```js
 console.log('*** app start ***');
 console.log('***      module.filename = ' + module.filename + ' ***');

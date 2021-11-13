@@ -1,12 +1,13 @@
 ---
-title: 'js将list转化为tree格式的 4 种写法'
+title: "js将list转化为tree格式的 4 种写法"
 date: 2020-11-27 10:18:11
-tags: []
+tags: [tree]
 published: true
 hideInList: false
-feature: 
+feature:
 isTop: false
 ---
+
 ```js
 const list = [{ "menuId" : "5f50c5fb8f0d74536bbfb7a4", "menuName" : "菜单管理", "parentMenuId" : null },
 { "menuId" : "5f524416ff216c2cbc554907", "menuName" : "频道管理", "parentMenuId" : "5f50c5fb8f0d74536bbfb7a4" },
@@ -17,8 +18,11 @@ const list = [{ "menuId" : "5f50c5fb8f0d74536bbfb7a4", "menuName" : "菜单管�
 ...
 ]
 ```
+
 ## list2tree1
-递归遍历children
+
+递归遍历 children
+
 ```js
 const list = [...]
 // 递归 161202 次 5ms左右时间
@@ -33,9 +37,12 @@ const list2tree1 = (list, parentMenuId) => {
 }
 list2tree1(list, null)
 ```
+
 ## list2tree2
-因为方法1是查询的children，所以每次必须全部遍历。
-我们换个思路，查询每个节点的parent，查到paret之后，内部循环就可以截止了。（使用find方法）
+
+因为方法 1 是查询的 children，所以每次必须全部遍历。
+我们换个思路，查询每个节点的 parent，查到 paret 之后，内部循环就可以截止了。（使用 find 方法）
+
 ```js
 const list = [...]
 // 68976 次 3.6ms左右
@@ -54,7 +61,8 @@ list2tree2(list, null)
 ```
 
 ## list2tree3
-在方法2的基础上，将每次find的parentNode缓存起来，减少相同parent的查询次数
+
+在方法 2 的基础上，将每次 find 的 parentNode 缓存起来，减少相同 parent 的查询次数
 
 ```js
 const list = [...]
@@ -75,10 +83,12 @@ const list2tree3 = (list, parentMenuId) => {
 }
 list2tree3(list, null)
 ```
-##list2tree4
-遍历tree之前，先遍历一遍数组，将数据缓存到object中。
 
-二次遍历，直接使用object中的缓存
+##list2tree4
+遍历 tree 之前，先遍历一遍数组，将数据缓存到 object 中。
+
+二次遍历，直接使用 object 中的缓存
+
 ```js
 const list = [...]
 // 802 次 0.2ms左右

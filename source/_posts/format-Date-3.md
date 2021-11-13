@@ -1,7 +1,7 @@
 ---
 title: "JavaScript：如何获取某一天所在的星期"
 date: 2019-09-17 08:28:34
-tags: [ECMAScript, Date]
+tags: [utils, Date]
 published: true
 hideInList: false
 feature:

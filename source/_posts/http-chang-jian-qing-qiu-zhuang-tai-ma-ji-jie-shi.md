@@ -1,12 +1,13 @@
 ---
-title: 'HTTP常见请求状态码及解释'
+title: "HTTP常见请求状态码及解释"
 date: 2020-07-16 14:14:14
 tags: []
 published: true
 hideInList: false
-feature: 
+feature:
 isTop: false
 ---
+
 ```js
 export default {  
     200: '请求被正确处理并返回了结果',  
