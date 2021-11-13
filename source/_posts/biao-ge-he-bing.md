@@ -1,12 +1,15 @@
 ---
-title: '表格合并'
+title: "表格合并"
 date: 2021-06-16 17:26:54
 tags: [表格合并]
 published: true
 hideInList: false
-feature: 
+feature:
 isTop: false
+top: true
+categories: 表格
 ---
+
 ```js
 <template>
   <div class="tableBox">

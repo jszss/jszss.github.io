@@ -1,30 +1,36 @@
 ---
-title: 'filter Object'
+title: "filter Object"
 date: 2019-09-19 18:16:00
 tags: [js utils]
 published: true
 hideInList: false
-feature: 
+feature:
 ---
+
 # 过滤目标对象 / 过滤掉两个对象相等的值
+
 ## 过滤目标对象 getTargetObject
-/**
- *
- * @param {Object} targetObject
- * @param {Array} propsArray
- */
-export function getTargetObject(targetObject, propsArray) {
+
+/\*\*
+
+-
+- @param {Object} targetObject
+- @param {Array} propsArray
+  \*/
+  export function getTargetObject(targetObject, propsArray) {
   if (typeof (targetObject) !== 'object' || !Array.isArray(propsArray)) {
-    throw new Error('参数格式不正确')
+  throw new Error('参数格式不正确')
   }
   const result = {}
   Object.keys(targetObject).filter(key => propsArray.includes(key)).forEach(key => {
-    result[key] = targetObject[key]
+  result[key] = targetObject[key]
   })
   return result
-}
+  }
+
 ## 过滤掉两个对象相等的值
-```
+
+```js
 /**
  * 比较两个对象是否相等
  * 相等返回obj2

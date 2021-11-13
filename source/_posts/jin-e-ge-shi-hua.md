@@ -1,12 +1,13 @@
 ---
-title: '金额格式化'
+title: "金额格式化"
 date: 2020-07-17 09:39:17
 tags: []
 published: true
 hideInList: false
-feature: 
+feature:
 isTop: false
 ---
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -62,5 +63,4 @@ isTop: false
     </script>
   </body>
 </html>
-
 ```

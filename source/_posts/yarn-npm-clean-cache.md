@@ -1,13 +1,15 @@
 ---
-title: 'npm 常用命令行'
+title: "npm 缓存设置/清理"
 date: 2021-03-15 09:41:36
-tags: []
+tags: [npm]
 published: true
 hideInList: false
-feature: 
+feature:
 isTop: false
 ---
+
 ## 清理缓存
+
 ```bat
 :: 查看缓存地址
 :: yarn cache dir
@@ -25,7 +27,9 @@ yarn cache clean
 :: 验证清理的有效性
 @REM npm cache verify
 ```
+
 ## 查看全局包
+
 ```bat
 npm list -g --depth 0
 ```

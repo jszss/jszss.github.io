@@ -1,12 +1,13 @@
 ---
-title: '打包编译时间 buildTime'
+title: "打包编译时间 buildTime"
 date: 2020-08-20 08:42:45
-tags: []
+tags: [webpack]
 published: true
 hideInList: false
-feature: 
+feature:
 isTop: false
 ---
+
 ```html
-<html lang="zh-CN" buildTime="<%= (new Date()).toLocaleString() %>">
+<html lang="zh-CN" buildTime="<%= (new Date()).toLocaleString() %>"></html>
 ```

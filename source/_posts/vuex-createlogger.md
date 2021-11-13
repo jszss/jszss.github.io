@@ -1,17 +1,18 @@
 ---
-title: 'vuex createLogger'
+title: "vuex createLogger"
 date: 2021-06-30 14:02:26
-tags: []
+tags: [vuex]
 published: true
 hideInList: false
-feature: 
+feature:
 isTop: false
 ---
+
 ```js
-import Vuex, { createLogger } from 'vuex'
-const debug = process.env.NODE_ENV !== 'production'
+import Vuex, { createLogger } from "vuex";
+const debug = process.env.NODE_ENV !== "production";
 export default new Vuex.Store({
-    // ...
-    plugins: debug ? [createLogger()] : []
-})
+  // ...
+  plugins: debug ? [createLogger()] : [],
+});
 ```

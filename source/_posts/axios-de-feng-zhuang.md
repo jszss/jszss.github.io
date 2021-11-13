@@ -1,14 +1,17 @@
 ---
-title: 'axios的封装'
+title: "axios的封装"
 date: 2019-09-25 11:48:01
 tags: [axios]
 published: true
 hideInList: false
-feature: 
+feature:
 ---
-# axios的封装
+
+# axios 的封装
+
 ## ajax.js
-``` js
+
+```js
 import axios from "axios";
 import store from "@/store";
 import { Message } from "element-ui";
@@ -23,77 +26,77 @@ axios.defaults.headers["pragma"] = "no-cache";
 let source = axios.CancelToken.source();
 
 //请求添加token
-axios.interceptors.request.use(request => {
-    request.headers["demo-auth"] = store.state.loginInfo ? store.state.loginInfo.userId : ""; // 已将userId保存在store中
-    return request;
-})
+axios.interceptors.request.use((request) => {
+  request.headers["demo-auth"] = store.state.loginInfo
+    ? store.state.loginInfo.userId
+    : ""; // 已将userId保存在store中
+  return request;
+});
 
 //切换页面取消请求
-axios.interceptors.request.use(request => {
-    request.cancelToken = source.token;
-    return request;
+axios.interceptors.request.use((request) => {
+  request.cancelToken = source.token;
+  return request;
 });
-router.then(lib => {
-    lib.default.beforeEach((to, from, next) => {
-        source.cancel()
-        source = axios.CancelToken.source();
-        next()
-    })
-})
+router.then((lib) => {
+  lib.default.beforeEach((to, from, next) => {
+    source.cancel();
+    source = axios.CancelToken.source();
+    next();
+  });
+});
 
 //登录过期跳转
-axios.interceptors.response.use(response => {
-    let data = response.data;
-    if (
-        [10002].includes(data.ret)
-    ) {
-        router.then(lib => lib.default.push({ name: "login" })); // 跳转到登录页面
-        Message.warning(data.msg);
-    }
-    return response;
-})
+axios.interceptors.response.use((response) => {
+  let data = response.data;
+  if ([10002].includes(data.ret)) {
+    router.then((lib) => lib.default.push({ name: "login" })); // 跳转到登录页面
+    Message.warning(data.msg);
+  }
+  return response;
+});
 
 //返回值解构
-axios.interceptors.response.use(response => {
+axios.interceptors.response.use(
+  (response) => {
     let data = response.data;
     let isJson = (response.headers["content-type"] || "").includes("json");
     if (isJson) {
-        if (data.code === 200) {
-            return Promise.resolve({
-                data: data.data,
-                msg: data.msg,
-                code: data.code,
-            });
-        }
-        return Promise.reject(
-            data.msg ||
-            "网络错误"
-        );
+      if (data.code === 200) {
+        return Promise.resolve({
+          data: data.data,
+          msg: data.msg,
+          code: data.code,
+        });
+      }
+      return Promise.reject(data.msg || "网络错误");
     } else {
-        return data;
+      return data;
     }
-}, err => {
+  },
+  (err) => {
     let isCancel = axios.isCancel(err);
     if (isCancel) {
-        return new Promise(() => { });
+      return new Promise(() => {});
     }
     return Promise.reject(
-        err.response.data &&
-        err.response.data.msg ||
-        "网络错误"
+      (err.response.data && err.response.data.msg) || "网络错误"
     );
-})
+  }
+);
 
 export function post(url, data, otherConfig) {
-    return axios.post(url, data, otherConfig);
+  return axios.post(url, data, otherConfig);
 }
 
 export function get(url, data, otherConfig) {
-    return axios.get(url, { params: data, ...otherConfig });
+  return axios.get(url, { params: data, ...otherConfig });
 }
 ```
+
 ## api.js
-``` js
+
+```js
 import { get, post } from "./ajax";
 
 //获取程序配置
