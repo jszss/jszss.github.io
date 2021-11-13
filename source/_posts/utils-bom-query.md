@@ -10,6 +10,18 @@ top: true
 
 replace 正则获取 url 请求参数
 
+```js
+function query(url) {
+  let reg = /([^=?&]+)=([^=?&#]+)/g,
+    obj = {};
+  if (!url) return obj;
+  url.replace(reg, function () {
+    obj[arguments[1]] = arguments[2];
+  });
+  return obj;
+}
+```
+
 <!-- more -->
 
 ```js

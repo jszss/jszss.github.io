@@ -1,7 +1,7 @@
 ---
 title: "走进安卓的重灾区----video"
 date: 2019-09-17 12:01:42
-tags: [video, app]
+tags: [video, APP]
 published: true
 hideInList: false
 feature:

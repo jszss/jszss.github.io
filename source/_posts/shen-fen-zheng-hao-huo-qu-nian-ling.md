@@ -1,12 +1,14 @@
 ---
-title: '身份证号获取年龄'
+title: "身份证号获取年龄"
 date: 2019-09-19 10:22:02
-tags: [JS,js utils]
+tags: [JS, utils]
 published: true
 hideInList: false
-feature: 
+feature:
 ---
+
 ## 扫描数据回填（比如使用扫描枪，高拍仪）
+
 ```
 // 扫描之后返回数据arr
 function scanBackfill(arr){
@@ -29,7 +31,9 @@ function scanBackfill(arr){
     }
 }
 ```
+
 ## 身份证号获取年龄
+
 ```
 function getAge(identityCard) {
     var len = (identityCard + "").length;
@@ -60,4 +64,5 @@ function getAge(identityCard) {
     return age;
 }
 ```
-[qui表单相关操作方法](https://juejin.im/post/5d822d516fb9a06b297582f0)
+
+[qui 表单相关操作方法](https://juejin.im/post/5d822d516fb9a06b297582f0)
