@@ -24,6 +24,8 @@
   
   <title>iframe - 朱松松的Blog</title>
   
+    <meta name="keywords" content="iframe">
+  
 
   
 
@@ -494,11 +496,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
   
-  <h2 id="iframe常用属性"><a href="#iframe常用属性" class="headerlink" title="iframe常用属性:"></a>iframe常用属性:</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1. frameborder:是否显示边框，1(yes),0(no)</span><br><span class="line">2. height:框架作为一个普通元素的高度，建议在使用css设置。</span><br><span class="line">3. width:框架作为一个普通元素的宽度，建议使用css设置。</span><br><span class="line">4. name:框架的名称，window.frames[name]时专用的属性。</span><br><span class="line">5. scrolling:框架的是否滚动。yes,no,auto。</span><br><span class="line">6. src：内框架的地址，可以使页面地址，也可以是图片的地址。</span><br><span class="line">7. srcdoc , 用来替代原来HTML body里面的内容。但是IE不支持, 不过也没什么卵用</span><br><span class="line">8. sandbox: 对iframe进行一些列限制，IE10+支持</span><br></pre></td></tr></table></figure>
+  <h2 id="iframe-常用属性"><a href="#iframe-常用属性" class="headerlink" title="iframe 常用属性:"></a>iframe 常用属性:</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> frameborder:是否显示边框，<span class="number">1</span>(yes),<span class="number">0</span>(no)</span><br><span class="line"><span class="number">2.</span> height:框架作为一个普通元素的高度，建议在使用css设置。</span><br><span class="line"><span class="number">3.</span> width:框架作为一个普通元素的宽度，建议使用css设置。</span><br><span class="line"><span class="number">4.</span> name:框架的名称，<span class="built_in">window</span>.frames[name]时专用的属性。</span><br><span class="line"><span class="number">5.</span> scrolling:框架的是否滚动。yes,no,auto。</span><br><span class="line"><span class="number">6.</span> src：内框架的地址，可以使页面地址，也可以是图片的地址。</span><br><span class="line"><span class="number">7.</span> srcdoc , 用来替代原来HTML body里面的内容。但是IE不支持, 不过也没什么卵用</span><br><span class="line"><span class="number">8.</span> sandbox: 对iframe进行一些列限制，IE10+支持</span><br></pre></td></tr></table></figure>
+
 <hr>
-<h2 id="获取iframe里的内容"><a href="#获取iframe里的内容" class="headerlink" title="获取iframe里的内容"></a>获取iframe里的内容</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var iframe = document.getElementById(&quot;iframe1&quot;);</span><br><span class="line">var iwindow = iframe.contentWindow;</span><br><span class="line">var idoc = iwindow.document;</span><br><span class="line">       console.log(&quot;window&quot;,iwindow);//获取iframe的window对象</span><br><span class="line">       console.log(&quot;document&quot;,idoc);  //获取iframe的document</span><br><span class="line">       console.log(&quot;html&quot;,idoc.documentElement);//获取iframe的html</span><br><span class="line">       console.log(&quot;head&quot;,idoc.head);  //获取head</span><br><span class="line">       console.log(&quot;body&quot;,idoc.body);  //获取body</span><br></pre></td></tr></table></figure>
+<h2 id="获取-iframe-里的内容"><a href="#获取-iframe-里的内容" class="headerlink" title="获取 iframe 里的内容"></a>获取 iframe 里的内容</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> iframe = <span class="built_in">document</span>.getElementById(<span class="string">&quot;iframe1&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> iwindow = iframe.contentWindow;</span><br><span class="line"><span class="keyword">var</span> idoc = iwindow.document;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;window&quot;</span>, iwindow); <span class="comment">//获取iframe的window对象</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;document&quot;</span>, idoc); <span class="comment">//获取iframe的document</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;html&quot;</span>, idoc.documentElement); <span class="comment">//获取iframe的html</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;head&quot;</span>, idoc.head); <span class="comment">//获取head</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;body&quot;</span>, idoc.body); <span class="comment">//获取body</span></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe src =&quot;/index.html&quot; id=&quot;ifr1&quot; name=&quot;ifr1&quot; scrolling=&quot;yes&quot;&gt;</span><br><span class="line">  &lt;p&gt;Your browser does not support iframes.&lt;/p&gt;</span><br><span class="line">&lt;/iframe&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">	console.log(window.frames[&#x27;ifr1&#x27;].window);</span><br><span class="line">console.dir(document.getElementById(&quot;ifr1&quot;).contentWindow);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="在iframe中获取父级内容"><a href="#在iframe中获取父级内容" class="headerlink" title="在iframe中获取父级内容"></a>在iframe中获取父级内容</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">window.parent 获取上一级的window对象，如果还是iframe则是该iframe的window对象</span><br><span class="line">window.top 获取最顶级容器的window对象，即，就是你打开页面的文档</span><br><span class="line">window.self 返回自身window的引用。可以理解 window===window.self(脑残)</span><br></pre></td></tr></table></figure>
+
+<h2 id="在-iframe-中获取父级内容"><a href="#在-iframe-中获取父级内容" class="headerlink" title="在 iframe 中获取父级内容"></a>在 iframe 中获取父级内容</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.parent 获取上一级的<span class="built_in">window</span>对象，如果还是iframe则是该iframe的<span class="built_in">window</span>对象</span><br><span class="line"><span class="built_in">window</span>.top 获取最顶级容器的<span class="built_in">window</span>对象，即，就是你打开页面的文档</span><br><span class="line"><span class="built_in">window</span>.self 返回自身<span class="built_in">window</span>的引用。可以理解 <span class="built_in">window</span>===<span class="built_in">window</span>.self(脑残)</span><br></pre></td></tr></table></figure>
+
   
   
     
@@ -532,10 +538,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-09T12:04:20+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-11-13T23:24:13+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Jul 9, 2021</p>
+    <p>更新于：Nov 13, 2021</p>
   </a>
 </div>
 
@@ -543,6 +549,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         
           
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/iframe/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>iframe</p></a></div>
+
 
         
       
@@ -608,12 +617,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
-        <a class='prev' href='/2020/01/07/css-shi-xian-nei-ao-yuan-jiao/'>
+        <a class='prev' href='/2020/01/07/css3%E5%86%85%E5%87%B9%E5%9C%86%E8%A7%92/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>css 实现内凹圆角</p>
-          <p class='content'>     我们经常会去实现那种圆角的按钮，图片等等，但是想要实现这种内凹的圆角形状的块状还是比较复杂，我先讲讲思路：
+          <p class='content'>我们经常会去实现那种圆角的按钮，图片等等，但是想要实现这种内凹的圆角形状的块状还是比较复杂，我先讲讲思路：
 
- 第一，需要一个大块进行包裹，需要设置宽度和高度等；
- 第二，需要四个小块...</p>
+第一，需要一个大块进行包裹，需要设置宽度和高度等；
+第二，需要四个小块，来使用圆角的...</p>
         </a>
       
       
@@ -655,7 +664,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#iframe%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7"><span class="toc-text">iframe常用属性:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96iframe%E9%87%8C%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-text">获取iframe里的内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8iframe%E4%B8%AD%E8%8E%B7%E5%8F%96%E7%88%B6%E7%BA%A7%E5%86%85%E5%AE%B9"><span class="toc-text">在iframe中获取父级内容</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#iframe-%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7"><span class="toc-text">iframe 常用属性:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96-iframe-%E9%87%8C%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-text">获取 iframe 里的内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8-iframe-%E4%B8%AD%E8%8E%B7%E5%8F%96%E7%88%B6%E7%BA%A7%E5%86%85%E5%AE%B9"><span class="toc-text">在 iframe 中获取父级内容</span></a></li></ol>
     </div>
   </section>
 
@@ -720,7 +729,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
     
       
-        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>Blog content follows the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
 </div>
       
     
@@ -732,9 +741,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
     
       
-        本站使用
+        Use
         <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
-        作为主题
+        as theme
       
     
       

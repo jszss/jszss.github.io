@@ -24,6 +24,8 @@
   
   <title>自定义指令directive - 朱松松的Blog</title>
   
+    <meta name="keywords" content="vue,directive">
+  
 
   
 
@@ -495,9 +497,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
   
   <p><a target="_blank" rel="noopener" href="https://juejin.im/post/5eb7fc626fb9a0436a7c6af1">https://juejin.im/post/5eb7fc626fb9a0436a7c6af1</a></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> preventReClick = Vue.directive(<span class="string">&#x27;preventReClick&#x27;</span>, &#123;</span><br><span class="line">  <span class="attr">inserted</span>: <span class="function"><span class="keyword">function</span>(<span class="params">el, binding</span>) </span>&#123;</span><br><span class="line">    el.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (!el.disabled) &#123;</span><br><span class="line">        el.disabled = <span class="literal">true</span></span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">          el.disabled = <span class="literal">false</span></span><br><span class="line">        &#125;, binding.value || <span class="number">3000</span>) <span class="comment">// 传入绑定值就使用，默认3000毫秒内不可重复触发</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123; preventReClick &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> preventReClick <span class="keyword">from</span> <span class="string">&#x27;./plugins/directives.js&#x27;</span> <span class="comment">//防多次点击，重复提交</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> preventReClick = Vue.directive(<span class="string">&quot;preventReClick&quot;</span>, &#123;</span><br><span class="line">  <span class="attr">inserted</span>: <span class="function"><span class="keyword">function</span> (<span class="params">el, binding</span>) </span>&#123;</span><br><span class="line">    el.addEventListener(<span class="string">&quot;click&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (!el.disabled) &#123;</span><br><span class="line">        el.disabled = <span class="literal">true</span>;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">          el.disabled = <span class="literal">false</span>;</span><br><span class="line">        &#125;, binding.value || <span class="number">3000</span>); <span class="comment">// 传入绑定值就使用，默认3000毫秒内不可重复触发</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123; preventReClick &#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> preventReClick <span class="keyword">from</span> <span class="string">&quot;./plugins/directives.js&quot;</span>; <span class="comment">//防多次点击，重复提交</span></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 指定延迟1000ms</span></span><br><span class="line">&lt;el-button  size=<span class="string">&quot;small&quot;</span> type=<span class="string">&quot;primary&quot;</span> @click=<span class="string">&quot;handleSave()&quot;</span> v-preventReClick=<span class="string">&quot;1000&quot;</span>&gt;保 存&lt;/el-button&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 默认延迟时间3000</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">el-button</span>  <span class="attr">size</span>=<span class="string">&quot;small&quot;</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;handleSave()&quot;</span> <span class="attr">v-preventReClick</span>&gt;</span>保 存<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
   
   
     
@@ -531,10 +536,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-09T12:04:20+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-11-13T22:42:13+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Jul 9, 2021</p>
+    <p>更新于：Nov 13, 2021</p>
   </a>
 </div>
 
@@ -542,6 +547,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         
           
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/vue/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>vue</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/directive/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>directive</p></a></div>
+
 
         
       
@@ -610,7 +618,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <a class='prev' href='/2020/05/12/zi-ding-yi-zhi-ling-directive-biao-dan-an-niu-chong-fu-ti-jiao/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>自定义指令directive 表单按钮重复提交</p>
           <p class='content'>https://juejin.im/post/5eb7fc626fb9a0436a7c6af1
-1234567891011121314151617import Vue from &#x27;vu...</p>
+12345678910111213141516import Vue from &quot;vue&...</p>
         </a>
       
       
@@ -704,7 +712,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
     
       
-        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>Blog content follows the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
 </div>
       
     
@@ -716,9 +724,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
     
       
-        本站使用
+        Use
         <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
-        作为主题
+        as theme
       
     
       

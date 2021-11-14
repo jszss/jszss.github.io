@@ -24,6 +24,8 @@
   
   <title>Nginx 解决跨域的原理 - 朱松松的Blog</title>
   
+    <meta name="keywords" content="跨域">
+  
 
   
 
@@ -495,13 +497,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
   
   <blockquote>
-<p>前端server域名为：<code>http://xx_domain</code><br>后端server域名为：<code>https://github.com</code></p>
+<p>前端 server 域名为：<code>http://xx_domain</code><br>后端 server 域名为：<code>https://github.com</code></p>
 </blockquote>
 <p><code>http://xx_domain</code> 对 <code>https://github.com</code> 发起请求一定会出现跨域</p>
-<p>不过只需要启动一个nginx服务器，将server_name设置为<code>xx_domain</code>,然后设置相应的location以拦截前端需要跨域的请求，最后将请求代理回<code>github.com</code>。如下面的配置：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">## 配置反向代理的参数</span><br><span class="line">server &#123;</span><br><span class="line">    listen    8080;</span><br><span class="line">    server_name xx_domain</span><br><span class="line"></span><br><span class="line">    ## 1. 用户访问 http://xx_domain，则反向代理到 https://github.com</span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass  https://github.com;</span><br><span class="line">        proxy_redirect     off;</span><br><span class="line">        proxy_set_header   Host             $host;        # 传递域名</span><br><span class="line">        proxy_set_header   X-Real-IP        $remote_addr; # 传递ip</span><br><span class="line">        proxy_set_header   X-Scheme         $scheme;      # 传递协议</span><br><span class="line">        proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这样可以完美绕过浏览器的同源策略：github.com访问nginx的github.com属于同源访问，而nginx对服务端转发的请求不会触发浏览器的同源策略。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    include mime.types;</span><br><span class="line">    server_tokens off;</span><br><span class="line"></span><br><span class="line">    ## 配置反向代理的参数</span><br><span class="line">    server &#123;</span><br><span class="line">        listen    8080;</span><br><span class="line"></span><br><span class="line">        ## 1. 用户访问 http://ip:port，则反向代理到 https://github.com</span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass  https://github.com;</span><br><span class="line">            proxy_redirect     off;</span><br><span class="line">            proxy_set_header   Host             $host;</span><br><span class="line">            proxy_set_header   X-Real-IP        $remote_addr;</span><br><span class="line">            proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ## 2.用户访问 http://ip:port/README.md，则反向代理到</span><br><span class="line">        ##   https://github.com/zibinli/blog/blob/master/README.md</span><br><span class="line">        location /README.md &#123;</span><br><span class="line">            proxy_set_header  X-Real-IP  $remote_addr;</span><br><span class="line">            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">            proxy_pass https://github.com/zibinli/blog/blob/master/README.md;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不过只需要启动一个 nginx 服务器，将 server_name 设置为<code>xx_domain</code>,然后设置相应的 location 以拦截前端需要跨域的请求，最后将请求代理回<code>github.com</code>。如下面的配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 配置反向代理的参数</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen    8080;</span><br><span class="line">    server_name xx_domain</span><br><span class="line"></span><br><span class="line">    <span class="comment">## 1. 用户访问 http://xx_domain，则反向代理到 https://github.com</span></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass  https://github.com;</span><br><span class="line">        proxy_redirect     off;</span><br><span class="line">        proxy_set_header   Host             <span class="variable">$host</span>;        <span class="comment"># 传递域名</span></span><br><span class="line">        proxy_set_header   X-Real-IP        <span class="variable">$remote_addr</span>; <span class="comment"># 传递ip</span></span><br><span class="line">        proxy_set_header   X-Scheme         <span class="variable">$scheme</span>;      <span class="comment"># 传递协议</span></span><br><span class="line">        proxy_set_header   X-Forwarded-For  <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样可以完美绕过浏览器的同源策略：github.com 访问 nginx 的 github.com 属于同源访问，而 nginx 对服务端转发的请求不会触发浏览器的同源策略。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    include mime.types;</span><br><span class="line">    server_tokens off;</span><br><span class="line"></span><br><span class="line">    <span class="comment">## 配置反向代理的参数</span></span><br><span class="line">    server &#123;</span><br><span class="line">        listen    8080;</span><br><span class="line"></span><br><span class="line">        <span class="comment">## 1. 用户访问 http://ip:port，则反向代理到 https://github.com</span></span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass  https://github.com;</span><br><span class="line">            proxy_redirect     off;</span><br><span class="line">            proxy_set_header   Host             <span class="variable">$host</span>;</span><br><span class="line">            proxy_set_header   X-Real-IP        <span class="variable">$remote_addr</span>;</span><br><span class="line">            proxy_set_header   X-Forwarded-For  <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">## 2.用户访问 http://ip:port/README.md，则反向代理到</span></span><br><span class="line">        <span class="comment">##   https://github.com/zibinli/blog/blob/master/README.md</span></span><br><span class="line">        location /README.md &#123;</span><br><span class="line">            proxy_set_header  X-Real-IP  <span class="variable">$remote_addr</span>;</span><br><span class="line">            proxy_set_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">            proxy_pass https://github.com/zibinli/blog/blob/master/README.md;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
   
   
     
@@ -535,10 +539,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-09T12:04:20+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-11-13T23:12:08+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Jul 9, 2021</p>
+    <p>更新于：Nov 13, 2021</p>
   </a>
 </div>
 
@@ -546,6 +550,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         
           
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E8%B7%A8%E5%9F%9F/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>跨域</p></a></div>
+
 
         
       
@@ -611,16 +618,16 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
-        <a class='prev' href='/2019/09/17/javascriptru-he-huo-qu-mou-yi-tian-suo-zai-de-xing-qi/'>
+        <a class='prev' href='/2019/09/17/format-Date-3/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>JavaScript：如何获取某一天所在的星期</p>
           <p class='content'>如何获取某一天所在的星期
-1234567891011function getWeekStartAndEnd(timestamp) &#123;    const oneDayTime = 100...</p>
+123456789function getWeekStartAndEnd(timestamp) &#123;  const oneDayTime = 1000 * 60...</p>
         </a>
       
       
-        <a class='next' href='/2019/09/16/javascript-shi-xian-flatten-duo-chong-fang-fa/'>
+        <a class='next' href='/2019/09/16/es6-flatten/'>
           <p class='title'>JavaScript实现flatten多种方法<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>Js数组扁平化 https://juejin.im/post/5d79a9d7f265da03d55e843a</p>
+          <p class='content'>Js 数组扁平化 https://juejin.im/post/5d79a9d7f265da03d55e843a</p>
         </a>
       
     </div>
@@ -707,7 +714,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
     
       
-        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>Blog content follows the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
 </div>
       
     
@@ -719,9 +726,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
     
       
-        本站使用
+        Use
         <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
-        作为主题
+        as theme
       
     
       

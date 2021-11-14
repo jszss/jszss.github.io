@@ -496,12 +496,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
   
-  <p>/**<br> *</p>
-<ul>
-<li>@param {Object} targetObject</li>
-<li>@param {Array} propsArray</li>
-<li>/<br>export function getTargetObject(targetObject, propsArray) {<br>if (typeof (targetObject) !== ‘object’ || !Array.isArray(propsArray)) {<br>  throw new Error(‘参数格式不正确’)<br>}<br>const result = {}<br>Object.keys(targetObject).filter(key =&gt; propsArray.includes(key)).forEach(key =&gt; {<br>  result[key] = targetObject[key]<br>})<br>return result<br>}</li>
-</ul>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;Object&#125;</span> <span class="variable">targetObject</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;Array&#125;</span> <span class="variable">propsArray</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">getTargetObject</span>(<span class="params">targetObject, propsArray</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> targetObject !== <span class="string">&quot;object&quot;</span> || !<span class="built_in">Array</span>.isArray(propsArray)) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;参数格式不正确&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> result = &#123;&#125;;</span><br><span class="line">  <span class="built_in">Object</span>.keys(targetObject)</span><br><span class="line">    .filter(<span class="function">(<span class="params">key</span>) =&gt;</span> propsArray.includes(key))</span><br><span class="line">    .forEach(<span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</span><br><span class="line">      result[key] = targetObject[key];</span><br><span class="line">    &#125;);</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
   
   
@@ -536,10 +531,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-09T12:04:20+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-11-13T23:19:31+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Jul 9, 2021</p>
+    <p>更新于：Nov 13, 2021</p>
   </a>
 </div>
 
@@ -617,14 +612,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class='prev' href='/2019/09/19/filter-object/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>filter Object</p>
-          <p class='content'>过滤目标对象 / 过滤掉两个对象相等的值过滤目标对象 getTargetObject/** *
+          <p class='content'>过滤目标对象 / 过滤掉两个对象相等的值过滤目标对象 getTargetObject/**
+-
 
 @param {Object} targetObject
 @param {Array} prop...</p>
         </a>
       
       
-        <a class='next' href='/2019/09/19/shu-xing-shu-ju-zhuan-huan/'>
+        <a class='next' href='/2019/09/19/tree-1/'>
           <p class='title'>🌴树形数据转换<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
           <p class='content'>12345678910111213141516171819202122232425262728/** * 树形数据转换 * @param &#123;*&#125; data * @param ...</p>
         </a>
@@ -713,7 +709,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
     
       
-        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>Blog content follows the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
 </div>
       
     
@@ -725,9 +721,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
     
       
-        本站使用
+        Use
         <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
-        作为主题
+        as theme
       
     
       

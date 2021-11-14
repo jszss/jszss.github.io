@@ -24,7 +24,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>标签：Vue - 朱松松的Blog</title>
+  <title>Tag: vue - 朱松松的Blog</title>
   
 
   
@@ -445,14 +445,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
         
-          
-        
-          
-        
-          
-        
-          
-        
       
     
     
@@ -466,15 +458,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2019/09/16/vue-zi-ding-yi-an-xu-yin-ru/">
-        Vue 自定义 按需引入
+      <a href="/2021/06/22/vue-reset-$data/">
+        $options.data 重置data
       </a>
     </h2>
   
   <div class='md'>
     
       
-        开发一个简单的 Vue UI 组件库（二）——按需引入部分https://github.com/NicholasCui/TestMyComponent
+        123console.log(&quot;🚀  this&quot;, this);Object.assign(this.$data, this.$options.data.call(this));console.log(&quot;🚀  this&quot;, this);
 
       
     
@@ -483,13 +475,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='meta-v3' line_style='solid'>
       <div>
         
-        <time>2019-09-16</time>
+        <time>2021-06-22</time>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2019/09/16/vue-zi-ding-yi-an-xu-yin-ru/'>
-            阅读全文
+          <a class='readmore' href='/2021/06/22/vue-reset-$data/'>
+            Read More
           </a>
         </div>
       
@@ -510,18 +502,16 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2019/09/16/lazy-load-img/">
-        Lazy-Load-img
+      <a href="/2020/05/12/zi-ding-yi-zhi-ling-directive/">
+        自定义指令directive
       </a>
     </h2>
   
   <div class='md'>
     
       
-        在懒加载的实现中，有两个关键的数值：一个是当前可视区域的高度，另一个是元素距离可视区域顶部的高度。当前可视区域的高度
-现代浏览器及 IE9 以上的浏览器中，可以用 window.innerHeight 属性获取。在低版本 IE 的标准模式中，可以用 document.documentElement.clientHeight 获取，这里我们兼容两种情况
-
-1const viewHeight =...
+        https://juejin.im/post/5eb7fc626fb9a0436a7c6af1
+12345678910111213141516import Vue from &quot;vue&quot;;const preventReClick = Vue.directive(&quot;preventReClick&quot;, &#123;  inserted: function (e...
       
     
   </div>
@@ -529,191 +519,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='meta-v3' line_style='solid'>
       <div>
         
-        <time>2019-09-16</time>
+        <time>2020-05-12</time>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2019/09/16/lazy-load-img/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/09/16/vuedirective/">
-        Vue.directive()
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        v-copy.js12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849import &#123; Message &#125; from &#x27;ant-design-vue&#x27;;const vCopy = &#123; // 名字爱取啥取啥  /*   ...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-09-16</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/09/16/vuedirective/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/09/16/vue-shi-yong-kai-fa-ji-qiao/">
-        Vue 生疏知识&实用开发技巧
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        一些 Vue 生疏知识Vue 实用开发技巧
-
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-09-16</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/09/16/vue-shi-yong-kai-fa-ji-qiao/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/09/16/vue.observable/">
-        Vue.observable
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        不使用Vuex创建Store(Vue.observable)Vue.observable(&#123;&#125;)返回的对象可以直接用于渲染函数和计算属性内，并且会在发生改变时触发相应的更新。也可以作为最小化的跨组件状态存储器，用于简单的场景：
-123456789const state = Vue.observable(&#123; count: 0 &#125;)const Demo =...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-09-16</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/09/16/vue.observable/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/06/03/vue-han-shu-shi-zu-jian/">
-        Vue 函数式组件
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-         tip 函数式组件, 无状态，无法实例化，内部没有任何生命周期处理方法，非常轻量，因而渲染性能高，特别适合用来只依赖外部数据传递而变化的组件。
-
-在template标签里面标明functional只接受props值不需要script标签
-
-1234567891011121314151617181920212223&lt;!-- App.vue --&gt;&lt;template&gt; ...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-06-03</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/06/03/vue-han-shu-shi-zu-jian/'>
-            阅读全文
+          <a class='readmore' href='/2020/05/12/zi-ding-yi-zhi-ling-directive/'>
+            Read More
           </a>
         </div>
       
@@ -809,6 +621,29 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     
+  
+
+  <section class="widget category shadow desktop">
+    
+  <header>
+    
+      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      <ul class="entry navigation">
+        
+          <li><a class="flat-box"
+            title="/categories/%E8%A1%A8%E6%A0%BC/" href="/categories/%E8%A1%A8%E6%A0%BC/"
+            id="categoriesE8A1A8E6A0BC"
+            ><div class='name'>表格</div><div class='badge'>(1)</div></a></li>
+        
+      </ul>
+    </div>
+  </section>
+
 
   
 
@@ -827,7 +662,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-      <a href="/tags/APP/" style="font-size: 14px; color: #999">APP</a> <a href="/tags/BFF/" style="font-size: 14px; color: #999">BFF</a> <a href="/tags/BOM/" style="font-size: 16px; color: #8b8b8b">BOM</a> <a href="/tags/CSS/" style="font-size: 14px; color: #999">CSS</a> <a href="/tags/CSS3/" style="font-size: 24px; color: #555">CSS3</a> <a href="/tags/DOM/" style="font-size: 16px; color: #8b8b8b">DOM</a> <a href="/tags/Date/" style="font-size: 16px; color: #8b8b8b">Date</a> <a href="/tags/ECMAScript/" style="font-size: 18px; color: #7e7e7e">ECMAScript</a> <a href="/tags/Express/" style="font-size: 14px; color: #999">Express</a> <a href="/tags/Gridea/" style="font-size: 14px; color: #999">Gridea</a> <a href="/tags/JS/" style="font-size: 16px; color: #8b8b8b">JS</a> <a href="/tags/MongoDB/" style="font-size: 14px; color: #999">MongoDB</a> <a href="/tags/Node/" style="font-size: 16px; color: #8b8b8b">Node</a> <a href="/tags/Object-seal/" style="font-size: 14px; color: #999">Object.seal</a> <a href="/tags/PDF-%E5%B7%A5%E5%85%B7/" style="font-size: 14px; color: #999">PDF 工具</a> <a href="/tags/React/" style="font-size: 14px; color: #999">React</a> <a href="/tags/Vue/" style="font-size: 22px; color: #636363">Vue</a> <a href="/tags/Vue-cli-%E9%85%8D%E7%BD%AE/" style="font-size: 14px; color: #999">Vue cli 配置</a> <a href="/tags/Webpack/" style="font-size: 16px; color: #8b8b8b">Webpack</a> <a href="/tags/axios/" style="font-size: 18px; color: #7e7e7e">axios</a> <a href="/tags/babel/" style="font-size: 16px; color: #8b8b8b">babel</a> <a href="/tags/canvas/" style="font-size: 18px; color: #7e7e7e">canvas</a> <a href="/tags/css-%E7%89%B9%E6%95%88/" style="font-size: 20px; color: #707070">css 特效</a> <a href="/tags/editor/" style="font-size: 14px; color: #999">editor</a> <a href="/tags/file-saver/" style="font-size: 14px; color: #999">file-saver</a> <a href="/tags/js-utils/" style="font-size: 20px; color: #707070">js utils</a> <a href="/tags/jszip/" style="font-size: 14px; color: #999">jszip</a> <a href="/tags/linux/" style="font-size: 14px; color: #999">linux</a> <a href="/tags/pdf/" style="font-size: 14px; color: #999">pdf</a> <a href="/tags/scroll/" style="font-size: 16px; color: #8b8b8b">scroll</a> <a href="/tags/scss/" style="font-size: 14px; color: #999">scss</a> <a href="/tags/ssr/" style="font-size: 14px; color: #999">ssr</a> <a href="/tags/tree/" style="font-size: 18px; color: #7e7e7e">tree</a> <a href="/tags/tree-data/" style="font-size: 14px; color: #999">tree-data</a> <a href="/tags/ts/" style="font-size: 14px; color: #999">ts</a> <a href="/tags/uniapp/" style="font-size: 14px; color: #999">uniapp</a> <a href="/tags/util/" style="font-size: 20px; color: #707070">util</a> <a href="/tags/video/" style="font-size: 14px; color: #999">video</a> <a href="/tags/vue-router/" style="font-size: 18px; color: #7e7e7e">vue-router</a> <a href="/tags/websocket/" style="font-size: 14px; color: #999">websocket</a> <a href="/tags/%E5%AF%8C%E6%96%87%E6%9C%AC/" style="font-size: 14px; color: #999">富文本</a> <a href="/tags/%E5%AF%BC%E8%88%AA/" style="font-size: 14px; color: #999">导航</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 14px; color: #999">小程序</a> <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7/" style="font-size: 14px; color: #999">微信公众号</a> <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/" style="font-size: 18px; color: #7e7e7e">微信开发</a> <a href="/tags/%E6%94%AF%E4%BB%98/" style="font-size: 14px; color: #999">支付</a> <a href="/tags/%E6%9D%83%E9%99%90%E7%BB%84%E4%BB%B6/" style="font-size: 14px; color: #999">权限组件</a> <a href="/tags/%E6%AD%A3%E5%88%99/" style="font-size: 14px; color: #999">正则</a> <a href="/tags/%E6%B0%B4%E5%8D%B0/" style="font-size: 14px; color: #999">水印</a> <a href="/tags/%E6%B3%A8%E9%87%8A/" style="font-size: 14px; color: #999">注释</a> <a href="/tags/%E7%89%88%E6%9C%AC/" style="font-size: 14px; color: #999">版本</a> <a href="/tags/%E8%A1%A8%E5%8D%95/" style="font-size: 14px; color: #999">表单</a> <a href="/tags/%E8%A1%A8%E6%A0%BC%E5%90%88%E5%B9%B6/" style="font-size: 14px; color: #999">表格合并</a> <a href="/tags/%E8%BD%AC%E8%BD%BD/" style="font-size: 24px; color: #555">转载</a> <a href="/tags/%E9%80%92%E5%BD%92/" style="font-size: 14px; color: #999">递归</a> <a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 14px; color: #999">面试</a> <a href="/tags/%E9%A2%84%E6%B8%B2%E6%9F%93/" style="font-size: 14px; color: #999">预渲染</a> <a href="/tags/%E9%AA%A8%E6%9E%B6%E5%B1%8F/" style="font-size: 14px; color: #999">骨架屏</a>
+      <a href="/tags/APP/" style="font-size: 15.67px; color: #8e8e8e">APP</a> <a href="/tags/BFF/" style="font-size: 14px; color: #999">BFF</a> <a href="/tags/BOM/" style="font-size: 15.67px; color: #8e8e8e">BOM</a> <a href="/tags/CSS/" style="font-size: 14px; color: #999">CSS</a> <a href="/tags/CSS3/" style="font-size: 24px; color: #555">CSS3</a> <a href="/tags/DOM/" style="font-size: 15.67px; color: #8e8e8e">DOM</a> <a href="/tags/Date/" style="font-size: 17.33px; color: #828282">Date</a> <a href="/tags/ECMAScript/" style="font-size: 15.67px; color: #8e8e8e">ECMAScript</a> <a href="/tags/Exif/" style="font-size: 14px; color: #999">Exif</a> <a href="/tags/Express/" style="font-size: 14px; color: #999">Express</a> <a href="/tags/File/" style="font-size: 14px; color: #999">File</a> <a href="/tags/Gridea/" style="font-size: 14px; color: #999">Gridea</a> <a href="/tags/HarmonyOS/" style="font-size: 14px; color: #999">HarmonyOS</a> <a href="/tags/JS/" style="font-size: 15.67px; color: #8e8e8e">JS</a> <a href="/tags/MongoDB/" style="font-size: 14px; color: #999">MongoDB</a> <a href="/tags/Node/" style="font-size: 15.67px; color: #8e8e8e">Node</a> <a href="/tags/Object-seal/" style="font-size: 14px; color: #999">Object.seal</a> <a href="/tags/PDF/" style="font-size: 14px; color: #999">PDF</a> <a href="/tags/React/" style="font-size: 14px; color: #999">React</a> <a href="/tags/Vue/" style="font-size: 20.67px; color: #6c6c6c">Vue</a> <a href="/tags/Vue-cli-%E9%85%8D%E7%BD%AE/" style="font-size: 14px; color: #999">Vue cli 配置</a> <a href="/tags/Webpack/" style="font-size: 15.67px; color: #8e8e8e">Webpack</a> <a href="/tags/axios/" style="font-size: 17.33px; color: #828282">axios</a> <a href="/tags/babel/" style="font-size: 15.67px; color: #8e8e8e">babel</a> <a href="/tags/canvas/" style="font-size: 17.33px; color: #828282">canvas</a> <a href="/tags/css-%E7%89%B9%E6%95%88/" style="font-size: 19px; color: #777">css 特效</a> <a href="/tags/css3/" style="font-size: 14px; color: #999">css3</a> <a href="/tags/directive/" style="font-size: 15.67px; color: #8e8e8e">directive</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/echarts/" style="font-size: 14px; color: #999">echarts</a> <a href="/tags/editor/" style="font-size: 14px; color: #999">editor</a> <a href="/tags/es6/" style="font-size: 14px; color: #999">es6</a> <a href="/tags/fetch/" style="font-size: 14px; color: #999">fetch</a> <a href="/tags/file-saver/" style="font-size: 14px; color: #999">file-saver</a> <a href="/tags/flatten/" style="font-size: 14px; color: #999">flatten</a> <a href="/tags/format/" style="font-size: 14px; color: #999">format</a> <a href="/tags/freeze/" style="font-size: 14px; color: #999">freeze</a> <a href="/tags/ie/" style="font-size: 15.67px; color: #8e8e8e">ie</a> <a href="/tags/iframe/" style="font-size: 14px; color: #999">iframe</a> <a href="/tags/js-utils/" style="font-size: 17.33px; color: #828282">js utils</a> <a href="/tags/jszip/" style="font-size: 14px; color: #999">jszip</a> <a href="/tags/linux/" style="font-size: 14px; color: #999">linux</a> <a href="/tags/npm/" style="font-size: 14px; color: #999">npm</a> <a href="/tags/path/" style="font-size: 14px; color: #999">path</a> <a href="/tags/pdf/" style="font-size: 15.67px; color: #8e8e8e">pdf</a> <a href="/tags/scroll/" style="font-size: 17.33px; color: #828282">scroll</a> <a href="/tags/scss/" style="font-size: 14px; color: #999">scss</a> <a href="/tags/split/" style="font-size: 14px; color: #999">split</a> <a href="/tags/sql/" style="font-size: 14px; color: #999">sql</a> <a href="/tags/ssr/" style="font-size: 14px; color: #999">ssr</a> <a href="/tags/tree/" style="font-size: 19px; color: #777">tree</a> <a href="/tags/tree-data/" style="font-size: 14px; color: #999">tree-data</a> <a href="/tags/ts/" style="font-size: 15.67px; color: #8e8e8e">ts</a> <a href="/tags/uniapp/" style="font-size: 14px; color: #999">uniapp</a> <a href="/tags/util/" style="font-size: 19px; color: #777">util</a> <a href="/tags/utils/" style="font-size: 20.67px; color: #6c6c6c">utils</a> <a href="/tags/video/" style="font-size: 15.67px; color: #8e8e8e">video</a> <a href="/tags/vue/" style="font-size: 15.67px; color: #8e8e8e">vue</a> <a href="/tags/vue-router/" style="font-size: 17.33px; color: #828282">vue-router</a> <a href="/tags/vue3/" style="font-size: 14px; color: #999">vue3</a> <a href="/tags/vuex/" style="font-size: 14px; color: #999">vuex</a> <a href="/tags/vw/" style="font-size: 15.67px; color: #8e8e8e">vw</a> <a href="/tags/webpack/" style="font-size: 14px; color: #999">webpack</a> <a href="/tags/websocket/" style="font-size: 14px; color: #999">websocket</a> <a href="/tags/%E5%AF%8C%E6%96%87%E6%9C%AC/" style="font-size: 14px; color: #999">富文本</a> <a href="/tags/%E5%AF%BC%E8%88%AA/" style="font-size: 14px; color: #999">导航</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 14px; color: #999">小程序</a> <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7/" style="font-size: 14px; color: #999">微信公众号</a> <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/" style="font-size: 17.33px; color: #828282">微信开发</a> <a href="/tags/%E6%94%AF%E4%BB%98/" style="font-size: 14px; color: #999">支付</a> <a href="/tags/%E6%9D%83%E9%99%90%E7%BB%84%E4%BB%B6/" style="font-size: 14px; color: #999">权限组件</a> <a href="/tags/%E6%A0%B7%E6%9C%BA/" style="font-size: 14px; color: #999">样机</a> <a href="/tags/%E6%AD%A3%E5%88%99/" style="font-size: 15.67px; color: #8e8e8e">正则</a> <a href="/tags/%E6%B0%B4%E5%8D%B0/" style="font-size: 14px; color: #999">水印</a> <a href="/tags/%E6%B3%A8%E9%87%8A/" style="font-size: 14px; color: #999">注释</a> <a href="/tags/%E7%89%88%E6%9C%AC/" style="font-size: 14px; color: #999">版本</a> <a href="/tags/%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B/" style="font-size: 14px; color: #999">碰撞检测</a> <a href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%80%82%E9%85%8D/" style="font-size: 15.67px; color: #8e8e8e">移动端适配</a> <a href="/tags/%E8%A1%A8%E5%8D%95/" style="font-size: 14px; color: #999">表单</a> <a href="/tags/%E8%A1%A8%E6%A0%BC%E5%90%88%E5%B9%B6/" style="font-size: 15.67px; color: #8e8e8e">表格合并</a> <a href="/tags/%E8%B7%A8%E5%9F%9F/" style="font-size: 15.67px; color: #8e8e8e">跨域</a> <a href="/tags/%E8%BD%AC%E8%BD%BD/" style="font-size: 22.33px; color: #606060">转载</a> <a href="/tags/%E9%80%92%E5%BD%92/" style="font-size: 14px; color: #999">递归</a> <a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 14px; color: #999">面试</a> <a href="/tags/%E9%A2%84%E6%B8%B2%E6%9F%93/" style="font-size: 14px; color: #999">预渲染</a> <a href="/tags/%E9%AA%A8%E6%9E%B6%E5%B1%8F/" style="font-size: 14px; color: #999">骨架屏</a>
     </div>
   </section>
 
@@ -893,7 +728,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
     
       
-        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>Blog content follows the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
 </div>
       
     
@@ -905,9 +740,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
     
       
-        本站使用
+        Use
         <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
-        作为主题
+        as theme
       
     
       
@@ -1491,6 +1326,127 @@ function listennSidebarTOC() {
       if (entries[index].boundingClientRect.top <= 0) {
         entry = entries[index];
       } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+ 
+	   
+	    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  </body>
+</html>
+     } else {
         return sections.indexOf(entry.target);
       }
     }

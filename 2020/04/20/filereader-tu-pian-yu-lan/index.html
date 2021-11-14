@@ -24,6 +24,8 @@
   
   <title>fileReader 图片预览 - 朱松松的Blog</title>
   
+    <meta name="keywords" content="File">
+  
 
   
 
@@ -494,8 +496,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
   
-  <p>File API使得我们在浏览器端可以访问文件的数据,比如预览文件,获取文件信息(比如文件名,文件内容,文件大小等), 并且可以在前端实现文件下载(可以借助canvas和 window.URL.revokeObjectURL的一些能力).当然我们还可以实现拖拽上传文件这样高用户体验的操作.接下来我们来看看几个实际例子.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">previewFiles</span>(<span class="params">files, previewBox</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; files.length; i++) &#123;</span><br><span class="line">      <span class="keyword">var</span> file = files[i];</span><br><span class="line">      <span class="keyword">var</span> imageType = <span class="regexp">/^image\//</span>;</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">if</span> (!imageType.test(file.type)) &#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">var</span> img = <span class="built_in">document</span>.createElement(<span class="string">&quot;img&quot;</span>);</span><br><span class="line">      previewBox.appendChild(img); <span class="comment">// 假设&quot;preview&quot;就是用来显示内容的div</span></span><br><span class="line">      </span><br><span class="line">      <span class="keyword">var</span> reader = <span class="keyword">new</span> FileReader();</span><br><span class="line">      reader.onload = (<span class="function"><span class="keyword">function</span>(<span class="params">imgEl</span>) </span>&#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123; imgEl.src = e.target.result; &#125;; </span><br><span class="line">      &#125;)(img);</span><br><span class="line">      reader.readAsDataURL(file);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+  <p>File API 使得我们在浏览器端可以访问文件的数据,比如预览文件,获取文件信息(比如文件名,文件内容,文件大小等), 并且可以在前端实现文件下载(可以借助 canvas 和 window.URL.revokeObjectURL 的一些能力).当然我们还可以实现拖拽上传文件这样高用户体验的操作.接下来我们来看看几个实际例子.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">previewFiles</span>(<span class="params">files, previewBox</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; files.length; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> file = files[i];</span><br><span class="line">    <span class="keyword">var</span> imageType = <span class="regexp">/^image\//</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!imageType.test(file.type)) &#123;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> img = <span class="built_in">document</span>.createElement(<span class="string">&quot;img&quot;</span>);</span><br><span class="line">    previewBox.appendChild(img); <span class="comment">// 假设&quot;preview&quot;就是用来显示内容的div</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> reader = <span class="keyword">new</span> FileReader();</span><br><span class="line">    reader.onload = (<span class="function"><span class="keyword">function</span> (<span class="params">imgEl</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">        imgEl.src = e.target.result;</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;)(img);</span><br><span class="line">    reader.readAsDataURL(file);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
   
   
     
@@ -529,10 +532,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-09T12:04:20+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-11-13T22:13:42+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Jul 9, 2021</p>
+    <p>更新于：Nov 13, 2021</p>
   </a>
 </div>
 
@@ -540,6 +543,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         
           
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/File/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>File</p></a></div>
+
 
         
       
@@ -612,7 +618,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         </a>
       
       
-        <a class='next' href='/2020/04/13/axios-jie-kou-xiang-ying-lan-jie-chu-li/'>
+        <a class='next' href='/2020/04/13/axios-interceptors/'>
           <p class='title'>Axios 接口响应拦截处理<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
           <p class='content'>接口响应的拦截主要是对接口返回的数据进行提取、封装使用，以及对请求异常进行统一配置处理。
 
@@ -704,7 +710,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
     
       
-        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>Blog content follows the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
 </div>
       
     
@@ -716,9 +722,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
     
       
-        本站使用
+        Use
         <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
-        作为主题
+        as theme
       
     
       
