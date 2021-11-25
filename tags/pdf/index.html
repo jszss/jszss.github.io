@@ -24,7 +24,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>Tag: pdf - 朱松松的Blog</title>
+  <title>Tag: PDF - 朱松松的Blog</title>
   
 
   
@@ -443,8 +443,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
         
-          
-        
       
     
     
@@ -458,16 +456,19 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2021/01/21/html-zhuan-pdf-wen-jian/">
-        html转PDF文件
+      <a href="/2019/09/17/httpwwwxundupdfcom/">
+        迅读PDF
       </a>
     </h2>
   
   <div class='md'>
     
       
-        https://juejin.cn/post/6844903612993241101
-防止内容被切分
+        迅读 PDF
+
+可免删除保留电子签名
+
+
       
     
   </div>
@@ -475,57 +476,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='meta-v3' line_style='solid'>
       <div>
         
-        <time>2021-01-21</time>
+        <time>2019-09-17</time>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2021/01/21/html-zhuan-pdf-wen-jian/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/01/20/ru-he-shi-pdf-wen-jian-zai-liu-lan-qi-li-mian-zhi-jie-xia-zai-er-bu-shi-da-kai/">
-        如何使 pdf 文件在浏览器里面直接下载而不是打开
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        1window.open(&#x27;url&#x27;)
-1&lt;a href=&#x27;url&#x27; download=&#x27;文件名&#x27;&gt;点击下载PDF&lt;/a&gt;
-额外这种需求的解决方式就是将PDF文件的 MIME type 改为 application/octet-stream 并加入 Content-Disposition:attachment...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-01-20</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/01/20/ru-he-shi-pdf-wen-jian-zai-liu-lan-qi-li-mian-zhi-jie-xia-zai-er-bu-shi-da-kai/'>
+          <a class='readmore' href='/2019/09/17/httpwwwxundupdfcom/'>
             Read More
           </a>
         </div>
@@ -1416,6 +1372,38 @@ document.addEventListener("pjax:success", listennSidebarTOC);
       $(window).unbind('resize');
       $(window).unbind('scroll');
       $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  </body>
+</html>
+l');
       $(document).unbind('click');
       $('body').unbind('click');
 	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
