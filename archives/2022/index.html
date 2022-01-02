@@ -5,9 +5,7 @@
   <!-- SEO相关 -->
   
     
-      
-        <meta name="robots" content="noindex,follow">
-      
+      <meta name="robots" content="noindex,follow">
     
   
   <!-- 渲染优化 -->
@@ -26,7 +24,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>朱松松的Blog</title>
+  <title>Archive: 2022 - 朱松松的Blog</title>
   
 
   
@@ -106,7 +104,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <body>
     
 
-<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
+<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -357,7 +355,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  dock' style="display: none;">
+        <div id="half" class='cover-wrapper  dock' style="display: ;">
           
             <div class='cover-bg lazyload placeholder' data-bg="/images/BingWallpaper.jpg"></div>
           
@@ -435,9 +433,16 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
 
 <div class='l_main'>
-  
+	
+		
   <section class="post-list">
     
+      
+        
+          
+        
+      
+    
     
       
         
@@ -449,104 +454,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/2019/09/29/vue-zi-ding-yi-zu-jian-quan-ju-yin-yong/">
-        Vue 自定义组件全局引用
+      <a href="/2022/01/02/es5%E5%8F%AF%E9%80%89%E9%93%BE/">
+        es5可选链
       </a>
     </h2>
   
   <div class='md'>
     
       
-        局部组件引用方式12345import A from &#x27;@/component/A&#x27;export default &#123;    data () &#123;&#125;,    components: &#123; A &#125;&#125;
-全局组件引用方式1123456789101112// index.js 文件import A from &#x27;@/c...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-09-29</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/09/29/vue-zi-ding-yi-zu-jian-quan-ju-yin-yong/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/09/29/axios-jian-rong-promise-liu-lan-qi/">
-        axios 兼容 promise 浏览器
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        引入 babel-polyfill1npm install --save babel-polyfill
-
-12345678910// vue.config.jsmodule.exports = &#123;  configureWebpack: (config) =&gt; &#123;    return &#123;      entry: &#123;        app: [&qu...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-09-29</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/09/29/axios-jian-rong-promise-liu-lan-qi/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/09/28/qian-duan-de-wei-xin-zhi-fu-jsapi-zhi-fu/">
-        前端的微信支付（JSAPI支付）
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        前端的微信支付（JSAPI支付）
+        123456789function safeGet(obj, path) &#123;  var keys = path.split(&quot;,&quot;);  for (key of keys) &#123;    if (obj) &#123;      obj = obj[key];    &#125;  &#125;  return obj;&#125;
 
       
     
@@ -555,320 +471,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='meta-v3' line_style='solid'>
       <div>
         
-        <time>2019-09-28</time>
+        <time>2022-01-02</time>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2019/09/28/qian-duan-de-wei-xin-zhi-fu-jsapi-zhi-fu/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/09/27/yuan-su-shui-ping-chui-zhi-ju-shi-yong-biao-ge-ju-zhong/">
-        元素水平垂直居 -- 使用表格居中
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        使用 display：table（作为 flexbox 的替代）使子元素在其父元素中水平垂直居。123&lt;div class=&quot;container&quot;&gt;  &lt;div class=&quot;center&quot;&gt;&lt;span&gt;Centered content&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
-
-12...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-09-27</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/09/27/yuan-su-shui-ping-chui-zhi-ju-shi-yong-biao-ge-ju-zhong/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/09/25/axios-de-feng-zhuang/">
-        axios的封装
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        axios 的封装ajax.js1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980import axios from &quot;axios&...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-09-25</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/09/25/axios-de-feng-zhuang/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/09/25/nodejsjiu-mongodb-de-ji-ben-shi-yong/">
-        nodejs（九）MongoDB的基本使用
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        nodejs（九）MongoDB的基本使用
-
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-09-25</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/09/25/nodejsjiu-mongodb-de-ji-ben-shi-yong/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/09/25/nodejsba-express-shi-yong-xiang-jie/">
-        nodejs（八）express使用详解
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        nodejs（八）express使用详解
-
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-09-25</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/09/25/nodejsba-express-shi-yong-xiang-jie/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/09/23/clip-path-ying-yong-zhi-zuo-di-tu/">
-        clip-path应用–制作地图
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        clip-path应用–制作地图
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-09-23</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/09/23/clip-path-ying-yong-zhi-zuo-di-tu/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/09/23/yong-css3-shi-xian-liang-yan-mian-shi-guan-de-bei-jing-ji-bei-jing-dong-hua-gao-ji-fu-yuan-ma/">
-        用css3实现惊艳面试官的背景即背景动画（高级附源码）
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        用css3实现惊艳面试官的背景即背景动画（高级附源码）
-
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-09-23</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/09/23/yong-css3-shi-xian-liang-yan-mian-shi-guan-de-bei-jing-ji-bei-jing-dong-hua-gao-ji-fu-yuan-ma/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/09/23/3-fen-zhong-dai-ni-zou-wan-jian-li-nei-tui-mian-shi-san-jie-duan/">
-        3分钟带你走完“简历+内推+面试”三阶段
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        3 分钟带你走完“简历+内推+面试”三阶段
-
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-09-23</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/09/23/3-fen-zhong-dai-ni-zou-wan-jian-li-nei-tui-mian-shi-san-jie-duan/'>
+          <a class='readmore' href='/2022/01/02/es5%E5%8F%AF%E9%80%89%E9%93%BE/'>
             Read More
           </a>
         </div>
@@ -885,30 +493,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   </section>
   
     
-      <br>
-      <div class="prev-next">
-        
-          <a class="prev" rel="prev" href="/page/14/">
-            <section class="post prev white-box shadow" >
-              <i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;Previous&nbsp;
-            </section>
-          </a>
-        
-        <p class="current">
-          15 / 21
-        </p>
-        
-          <a class="next" rel="next" href="/page/16/">
-            <section class="post next white-box shadow">
-              &nbsp;Next&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i>
-            </section>
-          </a>
-        
-      </div>
-    
   
 
 
+	
 </div>
 <aside class='l_side'>
   
@@ -1038,7 +626,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </aside>
 
 
-
 		  
 		  <!--此文件用来存放一些不方便取值的变量-->
 <!--思路大概是将值藏到重加载的区域内-->
@@ -1052,14 +639,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   // header 这里无论是否开启pjax都需要
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.add("show");
+  l_header.classList.remove("show");
   
   
     // cover
     var cover_wrapper=document.querySelector('.cover-wrapper');
     
-    cover_wrapper.id="none";
-    cover_wrapper.style.display="none";
+    cover_wrapper.id="half";
+    cover_wrapper.style.display="";
     
   
 </script>
