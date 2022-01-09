@@ -449,6 +449,51 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
+      <a href="/2020/10/09/quan-xian-zu-jian-authority/">
+        权限组件 authority
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        这里将使用渲染函数实现上面介绍过的的权限按钮。使用方式如下，把需要控制权限的按钮包在权限组件 authority 里面，如果有该权限就显示，没有就不显示。
+123&lt;authority :auth=&quot;[&#x27;admin&#x27;]&quot;&gt;    &lt;button&gt;提交&lt;/button&gt;&lt;/authority&gt;
+然后我们用渲染...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time>2020-10-09</time>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2020/10/09/quan-xian-zu-jian-authority/'>
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
       <a href="/2020/09/29/yi-mu-liao-ran-de-zhu-shi/">
         一目了然的注释
       </a>
@@ -818,49 +863,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div>
           <a class='readmore' href='/2020/07/31/echarts-vue/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/07/31/objectfreeze/">
-        Object.freeze
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        提高Vue渲染性能，了解一下Object.freeze当一个 Vue 实例被创建时，它将 data 对象中的所有的 property 加入到 Vue 的响应式系统中。当这些 property 的值发生改变时，视图将会产生“响应”，即匹配更新为新的值。但是这个过程实际上是比较消耗性能的，所以对于一些有大量数据但只是展示的界面来说，并不需要将property加入到响应式系统中，这样可以提高渲染性...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-07-31</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/07/31/objectfreeze/'>
             Read More
           </a>
         </div>
